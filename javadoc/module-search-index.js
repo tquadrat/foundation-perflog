@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"org.tquadrat.foundation.library.org.tquadrat.foundation.perflog"}];updateSearchResults();

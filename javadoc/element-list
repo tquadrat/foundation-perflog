@@ -1,0 +1,4 @@
+module:org.tquadrat.foundation.library.org.tquadrat.foundation.perflog
+org.tquadrat.foundation.perflog
+org.tquadrat.foundation.perflog.client
+org.tquadrat.foundation.perflog.internal

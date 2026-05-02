@@ -1,0 +1,341 @@
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:svg="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version='1.1'
+     baseProfile='full'
+     width='1302.000'
+     height='792.000'>
+    <defs>
+        <style><![CDATA[
+            line
+            {
+              stroke: black;
+            }
+            line.separator
+            {
+              stroke:       black;
+              stroke-width: 1;
+            }
+            marker
+            {
+              fill: white;
+            }
+            path
+            {
+              fill:   white;
+              stroke: black;
+            }
+            path.implementation
+            {
+              fill:             none;
+              stroke-dasharray: 5,5;
+              stroke-width:     3;
+            }
+            path.inheritance
+            {
+              fill:         none;
+              stroke-width: 3;
+            }
+            rect
+            {
+              fill:         none;
+              stroke:       black;
+              stroke-width: 2;
+            }
+            rect.externalClass
+            {
+              fill:         #D0D0D0;
+              fill-opacity: 0.8;
+            }
+            rect.focusClass
+            {
+              fill:         #FFFFF9;
+              fill-opacity: 0.8;
+            }
+            rect.otherClass
+            {
+              fill:         #F0E68C;
+              fill-opacity: 0.8;
+            }
+            rect.template
+            {
+              fill:             #FFFFFF;
+              fill-opacity:     1.0;
+              stroke-dasharray: 3,3;
+            }
+            text
+            {
+              font-family: monospace;
+              font-size:   10px;
+              font-weight: bold;
+            }
+            text.abstract
+            {
+              font-style: italic;
+            }
+            text.final
+            {
+              text-decoration: underline;
+            }
+            text.static
+            {
+              font-weight: normal;
+            }
+            text.stereotype
+            {
+              font-size:   8px;
+              font-weight: normal;
+            }
+            ]]></style>
+        <marker id='inheritance'
+                viewBox='0,0,40,40'
+                markerUnits='strokeWidth'
+                refX='40'
+                refY='20'
+                markerWidth='6'
+                markerHeight='6'
+                orient='auto'>
+            <path d='M40,20 l-40,-20 v40 Z'
+                  fill='#ffffff'
+                  stroke='#000000'
+                  stroke-width='3'/>
+        </marker>
+        <marker id='implementation'
+                viewBox='0,0,40,40'
+                markerUnits='strokeWidth'
+                refX='40'
+                refY='20'
+                markerWidth='6'
+                markerHeight='6'
+                orient='auto'>
+            <path d='M40,20 l-40,-20 v40 Z'
+                  fill='#ffffff'
+                  stroke='#000000'
+                  stroke-width='3'/>
+        </marker>
+        <clipPath id='ID000001'>
+            <rect class='focusClass'
+                  height='370.000'
+                  width='958.000'
+                  x='0.000'
+                  y='0.000'/>
+        </clipPath>
+        <symbol id='org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl'>
+            <g>
+                <g class='focusClass'
+                   clip-path='url(#ID000001)'>
+                    <rect x='0.000'
+                          y='0.000'
+                          width='958.000'
+                          height='370.000'
+                          class='focusClass'/>
+                    <line x1='0.000'
+                          y1='17.000'
+                          x2='958.000'
+                          y2='17.000'
+                          class='separator'/>
+                    <text x='413.000'
+                          y='13.000'>PerformanceTrackerImpl</text>
+                    <line x1='0.000'
+                          y1='144.000'
+                          x2='958.000'
+                          y2='144.000'
+                          class='separator'/>
+                    <text y='30.000'>- m_Aborted:boolean</text>
+                    <text y='41.000'
+                          class='final'>- m_Context:java.util.Map&lt;java.lang.String,java.lang.String&gt;</text>
+                    <text y='52.000'>- m_EndTime:long</text>
+                    <text y='63.000'
+                          class='final'>- m_PerfLogManager:org.tquadrat.foundation.perflog.internal.PerfLogManagerImpl</text>
+                    <text y='74.000'
+                          class='final'>- m_PerformanceSection:org.tquadrat.foundation.perflog.PerformanceSection</text>
+                    <text y='85.000'>- m_Started:boolean</text>
+                    <text y='96.000'>- m_StartTime:long</text>
+                    <text y='107.000'>- m_Stopped:boolean</text>
+                    <text y='118.000'>- m_TimedOut:boolean</text>
+                    <text y='129.000'>- m_TimeOutFuture:java.util.concurrent.ScheduledFuture&lt;?&gt;</text>
+                    <text y='140.000'>- m_Timestamp:java.time.Instant</text>
+                    <text x='5.000'
+                          y='157.000'>+ PerformanceTrackerImpl(perfLogManager:org.tquadrat.foundation.perflog.PerfLogManager,performanceSection:org.tquadrat.foundation.perflog.PerformanceSection)</text>
+                    <text x='5.000'
+                          y='168.000'>+ abort():void</text>
+                    <text x='5.000'
+                          y='179.000'>+ abort(message:java.lang.String):void</text>
+                    <text x='5.000'
+                          y='190.000'>+ abort(message:java.lang.String,cause:java.lang.Throwable):void</text>
+                    <text x='5.000'
+                          y='201.000'>+ abort(flag:boolean):void</text>
+                    <text x='5.000'
+                          y='212.000'>- abort(message:java.lang.String,cause:java.lang.Throwable,flag:boolean):void</text>
+                    <text x='5.000'
+                          y='223.000'>+ addContext(name:java.lang.String,value:java.lang.String):org.tquadrat.foundation.perflog.PerformanceTracker</text>
+                    <text x='5.000'
+                          y='234.000'>+ addContext(name:java.lang.String,value:T,stringConverter:org.tquadrat.foundation.lang.StringConverter&lt;T&gt;):org.tquadrat.foundation.perflog.PerformanceTracker</text>
+                    <text x='5.000'
+                          y='245.000'>+ getContext():java.util.Map&lt;java.lang.String,java.lang.String&gt;</text>
+                    <text x='5.000'
+                          y='256.000'>+ getElapsedTime():java.util.Optional&lt;org.tquadrat.foundation.value.TimeValue&gt;</text>
+                    <text x='5.000'
+                          y='267.000'>+ getPerformanceSection():org.tquadrat.foundation.perflog.PerformanceSection</text>
+                    <text x='5.000'
+                          y='278.000'>+ getStatus():org.tquadrat.foundation.perflog.PerformanceTracker.TrackerStatus</text>
+                    <text x='5.000'
+                          y='289.000'>+ getTimestamp():java.time.Instant</text>
+                    <text x='5.000'
+                          y='300.000'>+ isThresholdExceeded():boolean</text>
+                    <text x='5.000'
+                          y='311.000'>+ isTimedOut():boolean</text>
+                    <text x='5.000'
+                          y='322.000'>- registerTimeoutMonitor():void</text>
+                    <text x='5.000'
+                          y='333.000'>+ reset(resetContext:boolean):org.tquadrat.foundation.perflog.PerformanceTracker</text>
+                    <text x='5.000'
+                          y='344.000'>+ start():void</text>
+                    <text x='5.000'
+                          y='355.000'>+ stop():void</text>
+                    <text x='5.000'
+                          y='366.000'>- terminateTimeoutMonitoring():void</text>
+                </g>
+            </g>
+        </symbol>
+        <clipPath id='ID000002'>
+            <rect class='externalClass'
+                  height='172.000'
+                  width='244.000'
+                  x='0.000'
+                  y='0.000'/>
+        </clipPath>
+        <symbol id='java.lang.Object'>
+            <g>
+                <g clip-path='url(#ID000002)'>
+                    <rect x='0.000'
+                          y='0.000'
+                          width='244.000'
+                          height='172.000'
+                          class='externalClass'/>
+                    <line x1='0.000'
+                          y1='17.000'
+                          x2='244.000'
+                          y2='17.000'
+                          class='separator'/>
+                    <text x='104.000'
+                          y='13.000'>Object</text>
+                    <line x1='0.000'
+                          y1='34.000'
+                          x2='244.000'
+                          y2='34.000'
+                          class='separator'/>
+                    <text x='5.000'
+                          y='30.000'/>
+                    <text x='5.000'
+                          y='47.000'>+ Object()</text>
+                    <text x='5.000'
+                          y='58.000'>+ getClass():java.lang.Class&lt;?&gt;</text>
+                    <text x='5.000'
+                          y='69.000'>+ hashCode():int</text>
+                    <text x='5.000'
+                          y='80.000'>+ equals(arg0:java.lang.Object):boolean</text>
+                    <text x='5.000'
+                          y='91.000'># clone():java.lang.Object</text>
+                    <text x='5.000'
+                          y='102.000'>+ toString():java.lang.String</text>
+                    <text x='5.000'
+                          y='113.000'>+ notify():void</text>
+                    <text x='5.000'
+                          y='124.000'>+ notifyAll():void</text>
+                    <text x='5.000'
+                          y='135.000'>+ wait():void</text>
+                    <text x='5.000'
+                          y='146.000'>+ wait(arg0:long):void</text>
+                    <text x='5.000'
+                          y='157.000'>+ wait(arg0:long,arg1:int):void</text>
+                    <text x='5.000'
+                          y='168.000'># finalize():void</text>
+                </g>
+            </g>
+        </symbol>
+        <clipPath id='ID000003'>
+            <rect class='otherClass'
+                  height='161.000'
+                  width='958.000'
+                  x='0.000'
+                  y='0.000'/>
+        </clipPath>
+        <symbol id='org.tquadrat.foundation.perflog.PerformanceTracker'>
+            <g>
+                <g clip-path='url(#ID000003)'>
+                    <rect x='0.000'
+                          y='0.000'
+                          width='958.000'
+                          height='161.000'
+                          class='otherClass'/>
+                    <line x1='0.000'
+                          y1='28.000'
+                          x2='958.000'
+                          y2='28.000'
+                          class='separator'/>
+                    <text x='452.600'
+                          y='13.000'
+                          class='stereotype'>&#xAB;Interface&#xBB;</text>
+                    <text x='425.000'
+                          y='24.000'
+                          class='abstract'>PerformanceTracker</text>
+                    <line x1='0.000'
+                          y1='45.000'
+                          x2='958.000'
+                          y2='45.000'
+                          class='separator'/>
+                    <text x='5.000'
+                          y='41.000'/>
+                    <text x='5.000'
+                          y='58.000'
+                          class='abstract'>+ abort():void</text>
+                    <text x='5.000'
+                          y='69.000'
+                          class='abstract'>+ abort(message:java.lang.String):void</text>
+                    <text x='5.000'
+                          y='80.000'
+                          class='abstract'>+ abort(message:java.lang.String,cause:java.lang.Throwable):void</text>
+                    <text x='5.000'
+                          y='91.000'
+                          class='abstract'>+ addContext(name:java.lang.String,value:java.lang.String):org.tquadrat.foundation.perflog.PerformanceTracker</text>
+                    <text x='5.000'
+                          y='102.000'
+                          class='abstract'>+ addContext(name:java.lang.String,value:T,stringConverter:org.tquadrat.foundation.lang.StringConverter&lt;T&gt;):org.tquadrat.foundation.perflog.PerformanceTracker</text>
+                    <text x='5.000'
+                          y='113.000'
+                          class='abstract'>+ getStatus():org.tquadrat.foundation.perflog.PerformanceTracker.TrackerStatus</text>
+                    <text x='5.000'
+                          y='124.000'>&#x2A22; isActive():boolean</text>
+                    <text x='5.000'
+                          y='135.000'
+                          class='abstract'>+ reset(resetContext:boolean):org.tquadrat.foundation.perflog.PerformanceTracker</text>
+                    <text x='5.000'
+                          y='146.000'
+                          class='abstract'>+ start():void</text>
+                    <text x='5.000'
+                          y='157.000'
+                          class='abstract'>+ stop():void</text>
+                </g>
+            </g>
+        </symbol>
+    </defs>
+    <path class='inheritance'
+          d='M626.000,297.000 c0.000,-85.000,-479.000,0.000,-479.000,-85.000 v-15'
+          marker-end='url(#inheritance)'/>
+    <path class='implementation'
+          d='M676.000,297.000 c0.000,-96.000,122.000,0.000,122.000,-96.000 v-15'
+          marker-end='url(#implementation)'/>
+    <use x='25.000'
+         y='25.000'
+         xlink:href='#java.lang.Object'/>
+    <use x='319.000'
+         y='25.000'
+         xlink:href='#org.tquadrat.foundation.perflog.PerformanceTracker'/>
+    <use x='172.000'
+         y='297.000'
+         xlink:href='#org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl'/>
+</svg>

@@ -1,0 +1,386 @@
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:svg="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version='1.1'
+     baseProfile='full'
+     width='1002.000'
+     height='1138.000'>
+    <defs>
+        <style><![CDATA[
+            line
+            {
+              stroke: black;
+            }
+            line.separator
+            {
+              stroke:       black;
+              stroke-width: 1;
+            }
+            marker
+            {
+              fill: white;
+            }
+            path
+            {
+              fill:   white;
+              stroke: black;
+            }
+            path.implementation
+            {
+              fill:             none;
+              stroke-dasharray: 5,5;
+              stroke-width:     3;
+            }
+            path.inheritance
+            {
+              fill:         none;
+              stroke-width: 3;
+            }
+            rect
+            {
+              fill:         none;
+              stroke:       black;
+              stroke-width: 2;
+            }
+            rect.externalClass
+            {
+              fill:         #D0D0D0;
+              fill-opacity: 0.8;
+            }
+            rect.focusClass
+            {
+              fill:         #FFFFF9;
+              fill-opacity: 0.8;
+            }
+            rect.otherClass
+            {
+              fill:         #F0E68C;
+              fill-opacity: 0.8;
+            }
+            rect.template
+            {
+              fill:             #FFFFFF;
+              fill-opacity:     1.0;
+              stroke-dasharray: 3,3;
+            }
+            text
+            {
+              font-family: monospace;
+              font-size:   10px;
+              font-weight: bold;
+            }
+            text.abstract
+            {
+              font-style: italic;
+            }
+            text.final
+            {
+              text-decoration: underline;
+            }
+            text.static
+            {
+              font-weight: normal;
+            }
+            text.stereotype
+            {
+              font-size:   8px;
+              font-weight: normal;
+            }
+            ]]></style>
+        <marker id='inheritance'
+                viewBox='0,0,40,40'
+                markerUnits='strokeWidth'
+                refX='40'
+                refY='20'
+                markerWidth='6'
+                markerHeight='6'
+                orient='auto'>
+            <path d='M40,20 l-40,-20 v40 Z'
+                  fill='#ffffff'
+                  stroke='#000000'
+                  stroke-width='3'/>
+        </marker>
+        <marker id='implementation'
+                viewBox='0,0,40,40'
+                markerUnits='strokeWidth'
+                refX='40'
+                refY='20'
+                markerWidth='6'
+                markerHeight='6'
+                orient='auto'>
+            <path d='M40,20 l-40,-20 v40 Z'
+                  fill='#ffffff'
+                  stroke='#000000'
+                  stroke-width='3'/>
+        </marker>
+        <clipPath id='ID000001'>
+            <rect class='focusClass'
+                  height='172.000'
+                  width='940.000'
+                  x='0.000'
+                  y='0.000'/>
+        </clipPath>
+        <symbol id='org.tquadrat.foundation.perflog.PerfLogMBean'>
+            <g>
+                <g class='focusClass'
+                   clip-path='url(#ID000001)'>
+                    <rect x='0.000'
+                          y='0.000'
+                          width='940.000'
+                          height='172.000'
+                          class='focusClass'/>
+                    <line x1='0.000'
+                          y1='28.000'
+                          x2='940.000'
+                          y2='28.000'
+                          class='separator'/>
+                    <text x='443.600'
+                          y='13.000'
+                          class='stereotype'>&#xAB;Interface&#xBB;</text>
+                    <text x='434.000'
+                          y='24.000'
+                          class='abstract'>PerfLogMBean</text>
+                    <line x1='0.000'
+                          y1='56.000'
+                          x2='940.000'
+                          y2='56.000'
+                          class='separator'/>
+                    <text y='41.000'
+                          class='static final'>+ DESCRIPTION:java.lang.String</text>
+                    <text y='52.000'
+                          class='static final'>+ NOTIFICATION_Description:java.lang.String</text>
+                    <text x='5.000'
+                          y='69.000'
+                          class='abstract'>+ addPerformanceSection(definition:org.tquadrat.foundation.perflog.PerformanceSection):void</text>
+                    <text x='5.000'
+                          y='80.000'
+                          class='abstract'>+ disablePerformanceSection(name:java.lang.String):java.lang.String</text>
+                    <text x='5.000'
+                          y='91.000'
+                          class='abstract'>+ enablePerformanceSection(name:java.lang.String):java.lang.String</text>
+                    <text x='5.000'
+                          y='102.000'
+                          class='abstract'>+ getNotificationExceptions():java.lang.String[]</text>
+                    <text x='5.000'
+                          y='113.000'
+                          class='abstract'>+ getNotificationSequenceNumber():long</text>
+                    <text x='5.000'
+                          y='124.000'
+                          class='abstract'>+ getPerformanceSection(name:org.tquadrat.foundation.perflog.PerformanceSectionName):java.util.Optional&lt;org.tquadrat.foundation.perflog.PerformanceSection&gt;</text>
+                    <text x='5.000'
+                          y='135.000'
+                          class='abstract'>+ getPerformanceSections():java.lang.String[]</text>
+                    <text x='5.000'
+                          y='146.000'
+                          class='abstract'>+ retrievePerformanceSection(name:org.tquadrat.foundation.perflog.PerformanceSectionName):org.tquadrat.foundation.perflog.PerformanceSection</text>
+                    <text x='5.000'
+                          y='157.000'
+                          class='abstract'>+ receivePerformanceReport(report:org.tquadrat.foundation.perflog.PerformanceReport):void</text>
+                    <text x='5.000'
+                          y='168.000'
+                          class='abstract'>+ showPerformanceSection(name:java.lang.String):java.lang.String</text>
+                </g>
+            </g>
+        </symbol>
+        <clipPath id='ID000002'>
+            <rect class='otherClass'
+                  height='370.000'
+                  width='952.000'
+                  x='0.000'
+                  y='0.000'/>
+        </clipPath>
+        <symbol id='org.tquadrat.foundation.perflog.internal.PerfLogMBeanImpl'>
+            <g>
+                <g clip-path='url(#ID000002)'>
+                    <rect x='0.000'
+                          y='0.000'
+                          width='952.000'
+                          height='370.000'
+                          class='otherClass'/>
+                    <line x1='0.000'
+                          y1='17.000'
+                          x2='952.000'
+                          y2='17.000'
+                          class='separator'/>
+                    <text x='428.000'
+                          y='13.000'>PerfLogMBeanImpl</text>
+                    <line x1='0.000'
+                          y1='111.000'
+                          x2='952.000'
+                          y2='111.000'
+                          class='separator'/>
+                    <text y='30.000'
+                          class='final'>- m_Exceptions:java.util.List&lt;java.lang.String&gt;</text>
+                    <text y='41.000'
+                          class='final'>- m_JSONBuilder:org.tquadrat.foundation.jsonbuilder.JSONBuilder</text>
+                    <text y='52.000'
+                          class='final'>- m_NotificationSequenceNumber:java.util.concurrent.atomic.AtomicLong</text>
+                    <text y='63.000'
+                          class='final'>- m_NotificationBroadcasterSupport:javax.management.NotificationBroadcasterSupport</text>
+                    <text y='74.000'
+                          class='final'>- m_PerfSectionRegistry:java.util.Map&lt;org.tquadrat.foundation.perflog.PerformanceSectionName,org.tquadrat.foundation.perflog.internal.PerformanceSectionInfo&gt;</text>
+                    <text y='85.000'
+                          class='final'>- m_PerfRegistryReadGuard:org.tquadrat.foundation.lang.AutoLock</text>
+                    <text y='96.000'
+                          class='final'>- m_PerfRegistryWriteGuard:org.tquadrat.foundation.lang.AutoLock</text>
+                    <text y='107.000'
+                          class='final'>- m_ThreadPool:java.util.concurrent.ExecutorService</text>
+                    <text x='5.000'
+                          y='124.000'>+ PerfLogMBeanImpl()</text>
+                    <text x='5.000'
+                          y='135.000'>- addErrorToJSON(object:org.tquadrat.foundation.jsonbuilder.JSONObject,message:java.lang.String):void</text>
+                    <text x='5.000'
+                          y='146.000'>- addSuccessToJSON(object:org.tquadrat.foundation.jsonbuilder.JSONObject,message:java.lang.String):void</text>
+                    <text x='5.000'
+                          y='157.000'>+ addNotificationListener(listener:javax.management.NotificationListener,filter:javax.management.NotificationFilter,handback:java.lang.Object):void</text>
+                    <text x='5.000'
+                          y='168.000'>+ addPerformanceSection(definition:org.tquadrat.foundation.perflog.PerformanceSection):void</text>
+                    <text x='5.000'
+                          y='179.000'>- buildAttributeInfoList():javax.management.openmbean.OpenMBeanAttributeInfo[]</text>
+                    <text x='5.000'
+                          y='190.000'>- buildNotificationInfoList():javax.management.MBeanNotificationInfo[]</text>
+                    <text x='5.000'
+                          y='201.000'>- buildOperationInfoList():javax.management.openmbean.OpenMBeanOperationInfo[]</text>
+                    <text x='5.000'
+                          y='212.000'>+ disablePerformanceSection(name:java.lang.String):java.lang.String</text>
+                    <text x='5.000'
+                          y='223.000'>+ enablePerformanceSection(name:java.lang.String):java.lang.String</text>
+                    <text x='5.000'
+                          y='234.000'>+ getNotificationExceptions():java.lang.String[]</text>
+                    <text x='5.000'
+                          y='245.000'>+ getMBeanInfo():javax.management.MBeanInfo</text>
+                    <text x='5.000'
+                          y='256.000'>+ getNotificationInfo():javax.management.MBeanNotificationInfo[]</text>
+                    <text x='5.000'
+                          y='267.000'>+ getNotificationSequenceNumber():long</text>
+                    <text x='5.000'
+                          y='278.000'>+ getPerformanceSection(name:org.tquadrat.foundation.perflog.PerformanceSectionName):java.util.Optional&lt;org.tquadrat.foundation.perflog.PerformanceSection&gt;</text>
+                    <text x='5.000'
+                          y='289.000'>+ getPerformanceSections():java.lang.String[]</text>
+                    <text x='5.000'
+                          y='300.000'>+ postDeregister():void</text>
+                    <text x='5.000'
+                          y='311.000'>+ receivePerformanceReport(report:org.tquadrat.foundation.perflog.PerformanceReport):void</text>
+                    <text x='5.000'
+                          y='322.000'>+ removeNotificationListener(listener:javax.management.NotificationListener):void</text>
+                    <text x='5.000'
+                          y='333.000'>+ removeNotificationListener(listener:javax.management.NotificationListener,filter:javax.management.NotificationFilter,handback:java.lang.Object):void</text>
+                    <text x='5.000'
+                          y='344.000'>+ retrievePerformanceSection(name:org.tquadrat.foundation.perflog.PerformanceSectionName):org.tquadrat.foundation.perflog.PerformanceSection</text>
+                    <text x='5.000'
+                          y='355.000'>+ showPerformanceSection(name:java.lang.String):java.lang.String</text>
+                    <text x='5.000'
+                          y='366.000'>- uncaughtExceptionHandler(t:java.lang.Thread,e:java.lang.Throwable):void</text>
+                </g>
+            </g>
+        </symbol>
+        <clipPath id='ID000003'>
+            <rect class='externalClass'
+                  height='62.000'
+                  width='850.000'
+                  x='0.000'
+                  y='0.000'/>
+        </clipPath>
+        <symbol id='javax.management.NotificationEmitter'>
+            <g>
+                <g clip-path='url(#ID000003)'>
+                    <rect x='0.000'
+                          y='0.000'
+                          width='850.000'
+                          height='62.000'
+                          class='externalClass'/>
+                    <line x1='0.000'
+                          y1='28.000'
+                          x2='850.000'
+                          y2='28.000'
+                          class='separator'/>
+                    <text x='398.600'
+                          y='13.000'
+                          class='stereotype'>&#xAB;Interface&#xBB;</text>
+                    <text x='368.000'
+                          y='24.000'
+                          class='abstract'>NotificationEmitter</text>
+                    <line x1='0.000'
+                          y1='45.000'
+                          x2='850.000'
+                          y2='45.000'
+                          class='separator'/>
+                    <text x='5.000'
+                          y='41.000'/>
+                    <text x='5.000'
+                          y='58.000'
+                          class='abstract'>+ removeNotificationListener(arg0:javax.management.NotificationListener,arg1:javax.management.NotificationFilter,arg2:java.lang.Object):void</text>
+                </g>
+            </g>
+        </symbol>
+        <clipPath id='ID000004'>
+            <rect class='externalClass'
+                  height='84.000'
+                  width='832.000'
+                  x='0.000'
+                  y='0.000'/>
+        </clipPath>
+        <symbol id='javax.management.NotificationBroadcaster'>
+            <g>
+                <g clip-path='url(#ID000004)'>
+                    <rect x='0.000'
+                          y='0.000'
+                          width='832.000'
+                          height='84.000'
+                          class='externalClass'/>
+                    <line x1='0.000'
+                          y1='28.000'
+                          x2='832.000'
+                          y2='28.000'
+                          class='separator'/>
+                    <text x='389.600'
+                          y='13.000'
+                          class='stereotype'>&#xAB;Interface&#xBB;</text>
+                    <text x='347.000'
+                          y='24.000'
+                          class='abstract'>NotificationBroadcaster</text>
+                    <line x1='0.000'
+                          y1='45.000'
+                          x2='832.000'
+                          y2='45.000'
+                          class='separator'/>
+                    <text x='5.000'
+                          y='41.000'/>
+                    <text x='5.000'
+                          y='58.000'
+                          class='abstract'>+ addNotificationListener(arg0:javax.management.NotificationListener,arg1:javax.management.NotificationFilter,arg2:java.lang.Object):void</text>
+                    <text x='5.000'
+                          y='69.000'
+                          class='abstract'>+ removeNotificationListener(arg0:javax.management.NotificationListener):void</text>
+                    <text x='5.000'
+                          y='80.000'
+                          class='abstract'>+ getNotificationInfo():javax.management.MBeanNotificationInfo[]</text>
+                </g>
+            </g>
+        </symbol>
+    </defs>
+    <path class='implementation'
+          d='M501.000,643.000 L501.000,543.000'
+          marker-end='url(#implementation)'/>
+    <path class='inheritance'
+          d='M501.000,371.000 L501.000,271.000'
+          marker-end='url(#inheritance)'/>
+    <path class='inheritance'
+          d='M501.000,209.000 L501.000,109.000'
+          marker-end='url(#inheritance)'/>
+    <use x='85.000'
+         y='25.000'
+         xlink:href='#javax.management.NotificationBroadcaster'/>
+    <use x='76.000'
+         y='209.000'
+         xlink:href='#javax.management.NotificationEmitter'/>
+    <use x='31.000'
+         y='371.000'
+         xlink:href='#org.tquadrat.foundation.perflog.PerfLogMBean'/>
+    <use x='25.000'
+         y='643.000'
+         xlink:href='#org.tquadrat.foundation.perflog.internal.PerfLogMBeanImpl'/>
+</svg>
