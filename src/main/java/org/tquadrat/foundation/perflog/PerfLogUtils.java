@@ -48,12 +48,12 @@ import org.tquadrat.foundation.perflog.remote.PerfLogRemote;
  *  Monitoring.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogUtils.java 1216 2026-05-02 11:16:24Z tquadrat $
+ *  @version $Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1216 2026-05-02 11:16:24Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 @UtilityClass
 public final class PerfLogUtils
@@ -67,13 +67,13 @@ public final class PerfLogUtils
      *  that allows to use it with try-with-resources.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerfLogUtils.java 1216 2026-05-02 11:16:24Z tquadrat $
+     *  @version $Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $
      *  @since 0.25.0
      *
      *  @UMLGraph.link
      */
     @SuppressWarnings( "NewClassNamingConvention" )
-    @ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1216 2026-05-02 11:16:24Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $" )
     @API( status = STABLE, since = "0.25.0" )
     public static final class Holder implements AutoCloseable, PerformanceTracker
     {

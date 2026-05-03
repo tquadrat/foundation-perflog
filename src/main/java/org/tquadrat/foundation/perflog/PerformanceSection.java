@@ -48,12 +48,12 @@ import org.tquadrat.foundation.value.TimeValue;
  *  <p>{@summary This class describes a &quot;Performance Section&quot;.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerformanceSection.java 1216 2026-05-02 11:16:24Z tquadrat $
+ *  @version $Id: PerformanceSection.java 1218 2026-05-02 15:17:24Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerformanceSection.java 1216 2026-05-02 11:16:24Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerformanceSection.java 1218 2026-05-02 15:17:24Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 public final class PerformanceSection
 {
@@ -64,12 +64,12 @@ public final class PerformanceSection
      *  <p>{@summary The ignore status for a performance section.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerformanceSection.java 1216 2026-05-02 11:16:24Z tquadrat $
+     *  @version $Id: PerformanceSection.java 1218 2026-05-02 15:17:24Z tquadrat $
      *  @since 0.25.0
      *
      *  @UMLGraph.link
      */
-    @ClassVersion( sourceVersion = "$Id: PerformanceSection.java 1216 2026-05-02 11:16:24Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerformanceSection.java 1218 2026-05-02 15:17:24Z tquadrat $" )
     @API( status = STABLE, since = "0.25.0" )
     public static enum PerformanceSectionFlags
     {

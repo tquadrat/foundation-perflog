@@ -49,12 +49,12 @@ import org.tquadrat.foundation.value.TimeValue;
  *  {@link PerformanceTracker}}.</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerformanceTrackerImpl.java 1211 2026-05-01 15:24:10Z tquadrat $
+ *  @version $Id: PerformanceTrackerImpl.java 1218 2026-05-02 15:17:24Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerformanceTrackerImpl.java 1211 2026-05-01 15:24:10Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerformanceTrackerImpl.java 1218 2026-05-02 15:17:24Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 @SuppressWarnings( "ClassWithTooManyFields" )
 public final class PerformanceTrackerImpl implements PerformanceTracker
