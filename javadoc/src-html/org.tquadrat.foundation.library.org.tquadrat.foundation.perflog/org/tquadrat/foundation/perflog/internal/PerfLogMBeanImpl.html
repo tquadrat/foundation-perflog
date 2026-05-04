@@ -114,12 +114,12 @@
 <span class="source-line-no">101</span><span id="line-101"> *  {@link PerfLogMBean}.}&lt;/p&gt;</span>
 <span class="source-line-no">102</span><span id="line-102"> *</span>
 <span class="source-line-no">103</span><span id="line-103"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">104</span><span id="line-104"> *  @version $Id: PerfLogMBeanImpl.java 1216 2026-05-02 11:16:24Z tquadrat $</span>
+<span class="source-line-no">104</span><span id="line-104"> *  @version $Id: PerfLogMBeanImpl.java 1229 2026-05-04 19:11:41Z tquadrat $</span>
 <span class="source-line-no">105</span><span id="line-105"> *  @since 0.25.0</span>
 <span class="source-line-no">106</span><span id="line-106"> *</span>
 <span class="source-line-no">107</span><span id="line-107"> *  @UMLGraph.link</span>
 <span class="source-line-no">108</span><span id="line-108"> */</span>
-<span class="source-line-no">109</span><span id="line-109">@ClassVersion( sourceVersion = "$Id: PerfLogMBeanImpl.java 1216 2026-05-02 11:16:24Z tquadrat $" )</span>
+<span class="source-line-no">109</span><span id="line-109">@ClassVersion( sourceVersion = "$Id: PerfLogMBeanImpl.java 1229 2026-05-04 19:11:41Z tquadrat $" )</span>
 <span class="source-line-no">110</span><span id="line-110">@API( status = INTERNAL, since = "0.25.0" )</span>
 <span class="source-line-no">111</span><span id="line-111">public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean</span>
 <span class="source-line-no">112</span><span id="line-112">{</span>
@@ -371,7 +371,7 @@
 <span class="source-line-no">358</span><span id="line-358">            params = new OpenMBeanParameterInfo[]</span>
 <span class="source-line-no">359</span><span id="line-359">                { new OpenMBeanParameterInfoSupport( "name", "The Name of the Performance Section to disable", SimpleType.STRING ) };</span>
 <span class="source-line-no">360</span><span id="line-360">            buffer.add( new OpenMBeanOperationInfoSupport(</span>
-<span class="source-line-no">361</span><span id="line-361">                "enablePerformanceSection",</span>
+<span class="source-line-no">361</span><span id="line-361">                "disablePerformanceSection",</span>
 <span class="source-line-no">362</span><span id="line-362">                "Disable the given Performance Section",</span>
 <span class="source-line-no">363</span><span id="line-363">                params,</span>
 <span class="source-line-no">364</span><span id="line-364">                SimpleType.STRING,</span>
@@ -400,398 +400,394 @@
 <span class="source-line-no">387</span><span id="line-387">        {</span>
 <span class="source-line-no">388</span><span id="line-388">            try</span>
 <span class="source-line-no">389</span><span id="line-389">            {</span>
-<span class="source-line-no">390</span><span id="line-390">                @SuppressWarnings( "LocalVariableNamingConvention" )</span>
-<span class="source-line-no">391</span><span id="line-391">                final var performanceSectionName = createPerformanceSectionName( name );</span>
-<span class="source-line-no">392</span><span id="line-392">                final var performanceSection = getPerformanceSection( performanceSectionName );</span>
-<span class="source-line-no">393</span><span id="line-393">                if( performanceSection.isPresent() )</span>
-<span class="source-line-no">394</span><span id="line-394">                {</span>
-<span class="source-line-no">395</span><span id="line-395">                    final var ps = performanceSection.get();</span>
-<span class="source-line-no">396</span><span id="line-396">                    if( ps.isIgnored() )</span>
-<span class="source-line-no">397</span><span id="line-397">                    {</span>
-<span class="source-line-no">398</span><span id="line-398">                        addSuccessToJSON( json, "Performance Section '%s' is already disabled".formatted( name ) );</span>
-<span class="source-line-no">399</span><span id="line-399">                    }</span>
-<span class="source-line-no">400</span><span id="line-400">                    else</span>
-<span class="source-line-no">401</span><span id="line-401">                    {</span>
-<span class="source-line-no">402</span><span id="line-402">                        ps.setIgnoreFlag( true );</span>
-<span class="source-line-no">403</span><span id="line-403">                        addSuccessToJSON( json, "Performance Section '%s' successfully disabled".formatted( name ) );</span>
-<span class="source-line-no">404</span><span id="line-404">                    }</span>
-<span class="source-line-no">405</span><span id="line-405">                }</span>
-<span class="source-line-no">406</span><span id="line-406">                else</span>
-<span class="source-line-no">407</span><span id="line-407">                {</span>
-<span class="source-line-no">408</span><span id="line-408">                    addErrorToJSON( json, "No entry for this name: %s".formatted( name ) );</span>
-<span class="source-line-no">409</span><span id="line-409">                }</span>
-<span class="source-line-no">410</span><span id="line-410">            }</span>
-<span class="source-line-no">411</span><span id="line-411">            catch( final IllegalArgumentException e )</span>
-<span class="source-line-no">412</span><span id="line-412">            {</span>
-<span class="source-line-no">413</span><span id="line-413">                addErrorToJSON( json, "The given name '%s' is invalid: %s".formatted( name, e.getMessage() ) );</span>
-<span class="source-line-no">414</span><span id="line-414">            }</span>
-<span class="source-line-no">415</span><span id="line-415">        }</span>
-<span class="source-line-no">416</span><span id="line-416">        else</span>
-<span class="source-line-no">417</span><span id="line-417">        {</span>
-<span class="source-line-no">418</span><span id="line-418">            addErrorToJSON( json, "The given name is null, empty or blank" );</span>
-<span class="source-line-no">419</span><span id="line-419">        }</span>
-<span class="source-line-no">420</span><span id="line-420"></span>
-<span class="source-line-no">421</span><span id="line-421">        final var retValue = json.toString();</span>
-<span class="source-line-no">422</span><span id="line-422"></span>
-<span class="source-line-no">423</span><span id="line-423">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">424</span><span id="line-424">        return retValue;</span>
-<span class="source-line-no">425</span><span id="line-425">    }   //  disablePerformanceSection()</span>
-<span class="source-line-no">426</span><span id="line-426"></span>
-<span class="source-line-no">427</span><span id="line-427">    /**</span>
-<span class="source-line-no">428</span><span id="line-428">     *  {@inheritDoc}</span>
-<span class="source-line-no">429</span><span id="line-429">     */</span>
-<span class="source-line-no">430</span><span id="line-430">    @Override</span>
-<span class="source-line-no">431</span><span id="line-431">    public String enablePerformanceSection( final String name )</span>
-<span class="source-line-no">432</span><span id="line-432">    {</span>
-<span class="source-line-no">433</span><span id="line-433">        final var json = m_JSONBuilder.createObject();</span>
-<span class="source-line-no">434</span><span id="line-434">        if( isNotEmptyOrBlank( name ) )</span>
-<span class="source-line-no">435</span><span id="line-435">        {</span>
-<span class="source-line-no">436</span><span id="line-436">            try</span>
-<span class="source-line-no">437</span><span id="line-437">            {</span>
-<span class="source-line-no">438</span><span id="line-438">                @SuppressWarnings( "LocalVariableNamingConvention" )</span>
-<span class="source-line-no">439</span><span id="line-439">                final var performanceSectionName = createPerformanceSectionName( name );</span>
-<span class="source-line-no">440</span><span id="line-440">                final var performanceSection = getPerformanceSection( performanceSectionName );</span>
-<span class="source-line-no">441</span><span id="line-441">                if( performanceSection.isPresent() )</span>
-<span class="source-line-no">442</span><span id="line-442">                {</span>
-<span class="source-line-no">443</span><span id="line-443">                    final var ps = performanceSection.get();</span>
-<span class="source-line-no">444</span><span id="line-444">                    if( !ps.isIgnored() )</span>
-<span class="source-line-no">445</span><span id="line-445">                    {</span>
-<span class="source-line-no">446</span><span id="line-446">                        addSuccessToJSON( json, "Performance Section '%s' is already enabled".formatted( name ) );</span>
-<span class="source-line-no">447</span><span id="line-447">                    }</span>
-<span class="source-line-no">448</span><span id="line-448">                    else</span>
-<span class="source-line-no">449</span><span id="line-449">                    {</span>
-<span class="source-line-no">450</span><span id="line-450">                        ps.setIgnoreFlag( false );</span>
-<span class="source-line-no">451</span><span id="line-451">                        addSuccessToJSON( json, "Performance Section '%s' successfully enabled".formatted( name ) );</span>
-<span class="source-line-no">452</span><span id="line-452">                    }</span>
-<span class="source-line-no">453</span><span id="line-453">                }</span>
-<span class="source-line-no">454</span><span id="line-454">                else</span>
-<span class="source-line-no">455</span><span id="line-455">                {</span>
-<span class="source-line-no">456</span><span id="line-456">                    addErrorToJSON( json, "No entry for this name: %s".formatted( name ) );</span>
-<span class="source-line-no">457</span><span id="line-457">                }</span>
-<span class="source-line-no">458</span><span id="line-458">            }</span>
-<span class="source-line-no">459</span><span id="line-459">            catch( final IllegalArgumentException e )</span>
-<span class="source-line-no">460</span><span id="line-460">            {</span>
-<span class="source-line-no">461</span><span id="line-461">                addErrorToJSON( json, "The given name '%s' is invalid: %s".formatted( name, e.getMessage() ) );</span>
-<span class="source-line-no">462</span><span id="line-462">            }</span>
-<span class="source-line-no">463</span><span id="line-463">        }</span>
-<span class="source-line-no">464</span><span id="line-464">        else</span>
-<span class="source-line-no">465</span><span id="line-465">        {</span>
-<span class="source-line-no">466</span><span id="line-466">            addErrorToJSON( json, "The given name is null, empty or blank" );</span>
-<span class="source-line-no">467</span><span id="line-467">        }</span>
+<span class="source-line-no">390</span><span id="line-390">                final var performanceSectionName = createPerformanceSectionName( name );</span>
+<span class="source-line-no">391</span><span id="line-391">                final var performanceSection = getPerformanceSection( performanceSectionName );</span>
+<span class="source-line-no">392</span><span id="line-392">                if( performanceSection.isPresent() )</span>
+<span class="source-line-no">393</span><span id="line-393">                {</span>
+<span class="source-line-no">394</span><span id="line-394">                    final var ps = performanceSection.get();</span>
+<span class="source-line-no">395</span><span id="line-395">                    if( ps.isIgnored() )</span>
+<span class="source-line-no">396</span><span id="line-396">                    {</span>
+<span class="source-line-no">397</span><span id="line-397">                        addSuccessToJSON( json, "Performance Section '%s' is already disabled".formatted( name ) );</span>
+<span class="source-line-no">398</span><span id="line-398">                    }</span>
+<span class="source-line-no">399</span><span id="line-399">                    else</span>
+<span class="source-line-no">400</span><span id="line-400">                    {</span>
+<span class="source-line-no">401</span><span id="line-401">                        ps.setIgnoreFlag( true );</span>
+<span class="source-line-no">402</span><span id="line-402">                        addSuccessToJSON( json, "Performance Section '%s' successfully disabled".formatted( name ) );</span>
+<span class="source-line-no">403</span><span id="line-403">                    }</span>
+<span class="source-line-no">404</span><span id="line-404">                }</span>
+<span class="source-line-no">405</span><span id="line-405">                else</span>
+<span class="source-line-no">406</span><span id="line-406">                {</span>
+<span class="source-line-no">407</span><span id="line-407">                    addErrorToJSON( json, "No entry for this name: %s".formatted( name ) );</span>
+<span class="source-line-no">408</span><span id="line-408">                }</span>
+<span class="source-line-no">409</span><span id="line-409">            }</span>
+<span class="source-line-no">410</span><span id="line-410">            catch( final IllegalArgumentException e )</span>
+<span class="source-line-no">411</span><span id="line-411">            {</span>
+<span class="source-line-no">412</span><span id="line-412">                addErrorToJSON( json, "The given name '%s' is invalid: %s".formatted( name, e.getMessage() ) );</span>
+<span class="source-line-no">413</span><span id="line-413">            }</span>
+<span class="source-line-no">414</span><span id="line-414">        }</span>
+<span class="source-line-no">415</span><span id="line-415">        else</span>
+<span class="source-line-no">416</span><span id="line-416">        {</span>
+<span class="source-line-no">417</span><span id="line-417">            addErrorToJSON( json, "The given name is null, empty or blank" );</span>
+<span class="source-line-no">418</span><span id="line-418">        }</span>
+<span class="source-line-no">419</span><span id="line-419"></span>
+<span class="source-line-no">420</span><span id="line-420">        final var retValue = json.toString();</span>
+<span class="source-line-no">421</span><span id="line-421"></span>
+<span class="source-line-no">422</span><span id="line-422">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">423</span><span id="line-423">        return retValue;</span>
+<span class="source-line-no">424</span><span id="line-424">    }   //  disablePerformanceSection()</span>
+<span class="source-line-no">425</span><span id="line-425"></span>
+<span class="source-line-no">426</span><span id="line-426">    /**</span>
+<span class="source-line-no">427</span><span id="line-427">     *  {@inheritDoc}</span>
+<span class="source-line-no">428</span><span id="line-428">     */</span>
+<span class="source-line-no">429</span><span id="line-429">    @Override</span>
+<span class="source-line-no">430</span><span id="line-430">    public String enablePerformanceSection( final String name )</span>
+<span class="source-line-no">431</span><span id="line-431">    {</span>
+<span class="source-line-no">432</span><span id="line-432">        final var json = m_JSONBuilder.createObject();</span>
+<span class="source-line-no">433</span><span id="line-433">        if( isNotEmptyOrBlank( name ) )</span>
+<span class="source-line-no">434</span><span id="line-434">        {</span>
+<span class="source-line-no">435</span><span id="line-435">            try</span>
+<span class="source-line-no">436</span><span id="line-436">            {</span>
+<span class="source-line-no">437</span><span id="line-437">                final var performanceSectionName = createPerformanceSectionName( name );</span>
+<span class="source-line-no">438</span><span id="line-438">                final var performanceSection = getPerformanceSection( performanceSectionName );</span>
+<span class="source-line-no">439</span><span id="line-439">                if( performanceSection.isPresent() )</span>
+<span class="source-line-no">440</span><span id="line-440">                {</span>
+<span class="source-line-no">441</span><span id="line-441">                    final var ps = performanceSection.get();</span>
+<span class="source-line-no">442</span><span id="line-442">                    if( !ps.isIgnored() )</span>
+<span class="source-line-no">443</span><span id="line-443">                    {</span>
+<span class="source-line-no">444</span><span id="line-444">                        addSuccessToJSON( json, "Performance Section '%s' is already enabled".formatted( name ) );</span>
+<span class="source-line-no">445</span><span id="line-445">                    }</span>
+<span class="source-line-no">446</span><span id="line-446">                    else</span>
+<span class="source-line-no">447</span><span id="line-447">                    {</span>
+<span class="source-line-no">448</span><span id="line-448">                        ps.setIgnoreFlag( false );</span>
+<span class="source-line-no">449</span><span id="line-449">                        addSuccessToJSON( json, "Performance Section '%s' successfully enabled".formatted( name ) );</span>
+<span class="source-line-no">450</span><span id="line-450">                    }</span>
+<span class="source-line-no">451</span><span id="line-451">                }</span>
+<span class="source-line-no">452</span><span id="line-452">                else</span>
+<span class="source-line-no">453</span><span id="line-453">                {</span>
+<span class="source-line-no">454</span><span id="line-454">                    addErrorToJSON( json, "No entry for this name: %s".formatted( name ) );</span>
+<span class="source-line-no">455</span><span id="line-455">                }</span>
+<span class="source-line-no">456</span><span id="line-456">            }</span>
+<span class="source-line-no">457</span><span id="line-457">            catch( final IllegalArgumentException e )</span>
+<span class="source-line-no">458</span><span id="line-458">            {</span>
+<span class="source-line-no">459</span><span id="line-459">                addErrorToJSON( json, "The given name '%s' is invalid: %s".formatted( name, e.getMessage() ) );</span>
+<span class="source-line-no">460</span><span id="line-460">            }</span>
+<span class="source-line-no">461</span><span id="line-461">        }</span>
+<span class="source-line-no">462</span><span id="line-462">        else</span>
+<span class="source-line-no">463</span><span id="line-463">        {</span>
+<span class="source-line-no">464</span><span id="line-464">            addErrorToJSON( json, "The given name is null, empty or blank" );</span>
+<span class="source-line-no">465</span><span id="line-465">        }</span>
+<span class="source-line-no">466</span><span id="line-466"></span>
+<span class="source-line-no">467</span><span id="line-467">        final var retValue = json.toString();</span>
 <span class="source-line-no">468</span><span id="line-468"></span>
-<span class="source-line-no">469</span><span id="line-469">        final var retValue = json.toString();</span>
-<span class="source-line-no">470</span><span id="line-470"></span>
-<span class="source-line-no">471</span><span id="line-471">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">472</span><span id="line-472">        return retValue;</span>
-<span class="source-line-no">473</span><span id="line-473">    }   //  enablePerformanceSection()</span>
-<span class="source-line-no">474</span><span id="line-474"></span>
-<span class="source-line-no">475</span><span id="line-475">    /**</span>
-<span class="source-line-no">476</span><span id="line-476">     *  {@inheritDoc}</span>
-<span class="source-line-no">477</span><span id="line-477">     */</span>
-<span class="source-line-no">478</span><span id="line-478">    @Override</span>
-<span class="source-line-no">479</span><span id="line-479">    public final String[] getNotificationExceptions()</span>
-<span class="source-line-no">480</span><span id="line-480">    {</span>
-<span class="source-line-no">481</span><span id="line-481">        final var retValue = m_Exceptions.toArray( String []::new );</span>
-<span class="source-line-no">482</span><span id="line-482"></span>
-<span class="source-line-no">483</span><span id="line-483">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">484</span><span id="line-484">        return retValue;</span>
-<span class="source-line-no">485</span><span id="line-485">    }   //  getNotificationExceptions()</span>
-<span class="source-line-no">486</span><span id="line-486"></span>
-<span class="source-line-no">487</span><span id="line-487">    /**</span>
-<span class="source-line-no">488</span><span id="line-488">     *  &lt;p&gt;{@summary Get the</span>
-<span class="source-line-no">489</span><span id="line-489">     *  {@link MBeanInfo}</span>
-<span class="source-line-no">490</span><span id="line-490">     *  for this MBean.} That is in fact an instance of</span>
-<span class="source-line-no">491</span><span id="line-491">     *  {@link OpenMBeanInfoSupport}</span>
-<span class="source-line-no">492</span><span id="line-492">     *  as an implementation of</span>
-<span class="source-line-no">493</span><span id="line-493">     *  {@link javax.management.openmbean.OpenMBeanInfo}.</span>
-<span class="source-line-no">494</span><span id="line-494">     *  This identifies this MBean as an Open MBean.&lt;/p&gt;</span>
-<span class="source-line-no">495</span><span id="line-495">     *  &lt;p&gt;This method implements</span>
-<span class="source-line-no">496</span><span id="line-496">     *  {@link javax.management.DynamicMBean#getMBeanInfo() DynamicMBean.getMBeanInfo()}</span>
-<span class="source-line-no">497</span><span id="line-497">     *  and overwrites the</span>
-<span class="source-line-no">498</span><span id="line-498">     *  {@linkplain StandardMBean#getMBeanInfo() implementation}</span>
-<span class="source-line-no">499</span><span id="line-499">     *  from</span>
-<span class="source-line-no">500</span><span id="line-500">     *  {@link StandardMBean}.&lt;/p&gt;</span>
-<span class="source-line-no">501</span><span id="line-501">     *  &lt;p&gt;This method first calls</span>
-<span class="source-line-no">502</span><span id="line-502">     *  {@link #getCachedMBeanInfo()}</span>
-<span class="source-line-no">503</span><span id="line-503">     *  in order to retrieve the cached {@code MBeanInfo} for this MBean, if</span>
-<span class="source-line-no">504</span><span id="line-504">     *  any. If the result from this call is not {@code null}, it will be</span>
-<span class="source-line-no">505</span><span id="line-505">     *  returned.&lt;/p&gt;</span>
-<span class="source-line-no">506</span><span id="line-506">     *  &lt;p&gt;Otherwise, this method builds a {@code MBeanInfo} for this MBean</span>
-<span class="source-line-no">507</span><span id="line-507">     *  from scratch.&lt;/p&gt;</span>
-<span class="source-line-no">508</span><span id="line-508">     *  &lt;p&gt;Finally, it calls</span>
-<span class="source-line-no">509</span><span id="line-509">     *  {@link #cacheMBeanInfo(javax.management.MBeanInfo) cacheMBeanInfo()}</span>
-<span class="source-line-no">510</span><span id="line-510">     *  in order to cache the new MBeanInfo for subsequent calls.</span>
-<span class="source-line-no">511</span><span id="line-511">     *</span>
-<span class="source-line-no">512</span><span id="line-512">     *  @return The cached {@code MBeanInfo} for this MBean, if not</span>
-<span class="source-line-no">513</span><span id="line-513">     *      {@code null}, or a newly built {@code MBeanInfo} if none was</span>
-<span class="source-line-no">514</span><span id="line-514">     *      cached.</span>
-<span class="source-line-no">515</span><span id="line-515">     */</span>
-<span class="source-line-no">516</span><span id="line-516">    @SuppressWarnings( "UnnecessaryJavaDocLink" )</span>
-<span class="source-line-no">517</span><span id="line-517">    @Override</span>
-<span class="source-line-no">518</span><span id="line-518">    public final MBeanInfo getMBeanInfo()</span>
-<span class="source-line-no">519</span><span id="line-519">    {</span>
-<span class="source-line-no">520</span><span id="line-520">        var retValue = getCachedMBeanInfo();</span>
-<span class="source-line-no">521</span><span id="line-521">        if( isNull( retValue ) )</span>
-<span class="source-line-no">522</span><span id="line-522">        {</span>
-<span class="source-line-no">523</span><span id="line-523">            final var className = getClass().getName();</span>
-<span class="source-line-no">524</span><span id="line-524"></span>
-<span class="source-line-no">525</span><span id="line-525">            //---* Set the attributes *----------------------------------------</span>
-<span class="source-line-no">526</span><span id="line-526">            final var attributes = buildAttributeInfoList();</span>
-<span class="source-line-no">527</span><span id="line-527"></span>
-<span class="source-line-no">528</span><span id="line-528">            //---* Set the constructors *--------------------------------------</span>
-<span class="source-line-no">529</span><span id="line-529">            /*</span>
-<span class="source-line-no">530</span><span id="line-530">             * We do not publish the constructors for this MBean.</span>
-<span class="source-line-no">531</span><span id="line-531">             */</span>
-<span class="source-line-no">532</span><span id="line-532">            final OpenMBeanConstructorInfo[] constructors = null;</span>
-<span class="source-line-no">533</span><span id="line-533"></span>
-<span class="source-line-no">534</span><span id="line-534">            //---* Set the operations *----------------------------------------</span>
-<span class="source-line-no">535</span><span id="line-535">            final var operations = buildOperationInfoList();</span>
-<span class="source-line-no">536</span><span id="line-536"></span>
-<span class="source-line-no">537</span><span id="line-537">            //---* Set the notification infos *--------------------------------</span>
-<span class="source-line-no">538</span><span id="line-538">            final var notificationInfos = buildNotificationInfoList();</span>
-<span class="source-line-no">539</span><span id="line-539"></span>
-<span class="source-line-no">540</span><span id="line-540">            //---* Set the descriptor *----------------------------------------</span>
-<span class="source-line-no">541</span><span id="line-541">            final Map&lt;String,?&gt; descriptorFields = Map.of( "immutableInfo", TRUE.toString() );</span>
-<span class="source-line-no">542</span><span id="line-542">            final Descriptor descriptor = new ImmutableDescriptor( descriptorFields );</span>
-<span class="source-line-no">543</span><span id="line-543"></span>
-<span class="source-line-no">544</span><span id="line-544">            //---* Create the return value *-----------------------------------</span>
-<span class="source-line-no">545</span><span id="line-545">            //noinspection ConstantValue</span>
-<span class="source-line-no">546</span><span id="line-546">            retValue = new OpenMBeanInfoSupport( className, DESCRIPTION, attributes, constructors, operations, notificationInfos, descriptor );</span>
-<span class="source-line-no">547</span><span id="line-547"></span>
-<span class="source-line-no">548</span><span id="line-548">            //---* Keep the new MBeanInfo *------------------------------------</span>
-<span class="source-line-no">549</span><span id="line-549">            cacheMBeanInfo( retValue );</span>
-<span class="source-line-no">550</span><span id="line-550">        }</span>
-<span class="source-line-no">551</span><span id="line-551"></span>
-<span class="source-line-no">552</span><span id="line-552">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">553</span><span id="line-553">        return retValue;</span>
-<span class="source-line-no">554</span><span id="line-554">    }   //  getMBeanInfo()</span>
-<span class="source-line-no">555</span><span id="line-555"></span>
-<span class="source-line-no">556</span><span id="line-556">    /**</span>
-<span class="source-line-no">557</span><span id="line-557">     *  {@inheritDoc}</span>
-<span class="source-line-no">558</span><span id="line-558">     */</span>
-<span class="source-line-no">559</span><span id="line-559">    @Override</span>
-<span class="source-line-no">560</span><span id="line-560">    public final MBeanNotificationInfo[] getNotificationInfo()</span>
-<span class="source-line-no">561</span><span id="line-561">    {</span>
-<span class="source-line-no">562</span><span id="line-562">        return getMBeanInfo().getNotifications();</span>
-<span class="source-line-no">563</span><span id="line-563">    }   //  getNotificationInfo()</span>
-<span class="source-line-no">564</span><span id="line-564"></span>
-<span class="source-line-no">565</span><span id="line-565">    /**</span>
-<span class="source-line-no">566</span><span id="line-566">     *  {@inheritDoc}</span>
-<span class="source-line-no">567</span><span id="line-567">     */</span>
-<span class="source-line-no">568</span><span id="line-568">    @Override</span>
-<span class="source-line-no">569</span><span id="line-569">    public final long getNotificationSequenceNumber() { return m_NotificationSequenceNumber.get(); }</span>
-<span class="source-line-no">570</span><span id="line-570"></span>
-<span class="source-line-no">571</span><span id="line-571">    /**</span>
-<span class="source-line-no">572</span><span id="line-572">     *  {@inheritDoc}</span>
-<span class="source-line-no">573</span><span id="line-573">     */</span>
-<span class="source-line-no">574</span><span id="line-574">    @Override</span>
-<span class="source-line-no">575</span><span id="line-575">    public final Optional&lt;PerformanceSection&gt; getPerformanceSection( final PerformanceSectionName name )</span>
-<span class="source-line-no">576</span><span id="line-576">    {</span>
-<span class="source-line-no">577</span><span id="line-577">        final Optional&lt;PerformanceSection&gt; retValue;</span>
-<span class="source-line-no">578</span><span id="line-578">        try</span>
-<span class="source-line-no">579</span><span id="line-579">        {</span>
-<span class="source-line-no">580</span><span id="line-580">            retValue = m_PerfRegistryReadGuard.execute( () -&gt; m_PerfSectionRegistry.get( requireNonNullArgument( name, "name" ) ) )</span>
-<span class="source-line-no">581</span><span id="line-581">                .map( PerformanceSectionInfo::getPerformanceSection );</span>
-<span class="source-line-no">582</span><span id="line-582">        }</span>
-<span class="source-line-no">583</span><span id="line-583">        catch( final ExecutionFailedException e )</span>
-<span class="source-line-no">584</span><span id="line-584">        {</span>
-<span class="source-line-no">585</span><span id="line-585">            final var cause = e.getCause();</span>
-<span class="source-line-no">586</span><span id="line-586">            if( cause instanceof final IllegalArgumentException iae ) throw iae;</span>
-<span class="source-line-no">587</span><span id="line-587">            throw e;</span>
-<span class="source-line-no">588</span><span id="line-588">        }</span>
-<span class="source-line-no">589</span><span id="line-589"></span>
-<span class="source-line-no">590</span><span id="line-590">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">591</span><span id="line-591">        return retValue;</span>
-<span class="source-line-no">592</span><span id="line-592">    }   //  getPerformanceSection()</span>
-<span class="source-line-no">593</span><span id="line-593"></span>
-<span class="source-line-no">594</span><span id="line-594">    /**</span>
-<span class="source-line-no">595</span><span id="line-595">     *  {@inheritDoc}</span>
-<span class="source-line-no">596</span><span id="line-596">     */</span>
-<span class="source-line-no">597</span><span id="line-597">    @Override</span>
-<span class="source-line-no">598</span><span id="line-598">    public final String [] getPerformanceSections()</span>
-<span class="source-line-no">599</span><span id="line-599">    {</span>
-<span class="source-line-no">600</span><span id="line-600">        final String [] retValue;</span>
-<span class="source-line-no">601</span><span id="line-601">        try( final var _ = m_PerfRegistryReadGuard.lock() )</span>
-<span class="source-line-no">602</span><span id="line-602">        {</span>
-<span class="source-line-no">603</span><span id="line-603">            retValue = m_PerfSectionRegistry.keySet()</span>
-<span class="source-line-no">604</span><span id="line-604">                .stream()</span>
-<span class="source-line-no">605</span><span id="line-605">                .sorted()</span>
-<span class="source-line-no">606</span><span id="line-606">                .map( PerformanceSectionName::toString )</span>
-<span class="source-line-no">607</span><span id="line-607">                .toArray( String []::new );</span>
-<span class="source-line-no">608</span><span id="line-608">        }</span>
-<span class="source-line-no">609</span><span id="line-609"></span>
-<span class="source-line-no">610</span><span id="line-610">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">611</span><span id="line-611">        return retValue;</span>
-<span class="source-line-no">612</span><span id="line-612">    }   //  getPerformanceSections()</span>
-<span class="source-line-no">613</span><span id="line-613"></span>
-<span class="source-line-no">614</span><span id="line-614">    /**</span>
-<span class="source-line-no">615</span><span id="line-615">     *  {@inheritDoc}</span>
-<span class="source-line-no">616</span><span id="line-616">     */</span>
-<span class="source-line-no">617</span><span id="line-617">    @Override</span>
-<span class="source-line-no">618</span><span id="line-618">    public final void postDeregister()</span>
-<span class="source-line-no">619</span><span id="line-619">    {</span>
-<span class="source-line-no">620</span><span id="line-620">        super.postDeregister();</span>
-<span class="source-line-no">621</span><span id="line-621"></span>
-<span class="source-line-no">622</span><span id="line-622">        //---* Shutdown the thread pool *--------------------------------------</span>
-<span class="source-line-no">623</span><span id="line-623">        try</span>
-<span class="source-line-no">624</span><span id="line-624">        {</span>
-<span class="source-line-no">625</span><span id="line-625">            m_ThreadPool.shutdown();</span>
-<span class="source-line-no">626</span><span id="line-626">            //noinspection ResultOfMethodCallIgnored</span>
-<span class="source-line-no">627</span><span id="line-627">            m_ThreadPool.awaitTermination( 1L, MINUTES );</span>
-<span class="source-line-no">628</span><span id="line-628">        }</span>
-<span class="source-line-no">629</span><span id="line-629">        catch( final InterruptedException _ )</span>
-<span class="source-line-no">630</span><span id="line-630">        {</span>
-<span class="source-line-no">631</span><span id="line-631">            /*</span>
-<span class="source-line-no">632</span><span id="line-632">             * Deliberately ignored!</span>
-<span class="source-line-no">633</span><span id="line-633">             */</span>
-<span class="source-line-no">634</span><span id="line-634">        }</span>
-<span class="source-line-no">635</span><span id="line-635">    }   //  postDeregister()</span>
-<span class="source-line-no">636</span><span id="line-636"></span>
-<span class="source-line-no">637</span><span id="line-637">    /**</span>
-<span class="source-line-no">638</span><span id="line-638">     *  {@inheritDoc}</span>
-<span class="source-line-no">639</span><span id="line-639">     *  &lt;p&gt;Finally, this method sends a notification.&lt;/p&gt;</span>
-<span class="source-line-no">640</span><span id="line-640">     *  &lt;p&gt;If an</span>
-<span class="source-line-no">641</span><span id="line-641">     *  {@link java.util.concurrent.Executor}</span>
-<span class="source-line-no">642</span><span id="line-642">     *  was specified in the constructor for the</span>
-<span class="source-line-no">643</span><span id="line-643">     *  {@link NotificationBroadcasterSupport}</span>
-<span class="source-line-no">644</span><span id="line-644">     *  instance, it will be given one task per selected listener to deliver</span>
-<span class="source-line-no">645</span><span id="line-645">     *  the notification to that listener.&lt;/p&gt;</span>
-<span class="source-line-no">646</span><span id="line-646">     */</span>
-<span class="source-line-no">647</span><span id="line-647">    @Override</span>
-<span class="source-line-no">648</span><span id="line-648">    public final void receivePerformanceReport( final PerformanceReport report )</span>
-<span class="source-line-no">649</span><span id="line-649">    {</span>
-<span class="source-line-no">650</span><span id="line-650">        //---* Update info *---------------------------------------------------</span>
-<span class="source-line-no">651</span><span id="line-651">        final var sectionName = requireNonNullArgument( report, "report" ).getPerformanceSection().getName();</span>
-<span class="source-line-no">652</span><span id="line-652">        final var sectionInfo = m_PerfRegistryReadGuard.execute( () -&gt; m_PerfSectionRegistry.get( sectionName ) );</span>
-<span class="source-line-no">653</span><span id="line-653">        sectionInfo.ifPresent( perfSectionInfo -&gt; perfSectionInfo.processTracker( (PerformanceTrackerImpl) report.getPerformanceTracker() ) );</span>
-<span class="source-line-no">654</span><span id="line-654"></span>
-<span class="source-line-no">655</span><span id="line-655">        //---* Compose the notification and send it *--------------------------</span>
-<span class="source-line-no">656</span><span id="line-656">        final var notification = new Notification( NOTIFICATION_Type, getPerfLogMBeanObjectName(), m_NotificationSequenceNumber.getAndIncrement(), currentTimeMillis(), ((PerformanceReportImpl) report).toJSON() );</span>
-<span class="source-line-no">657</span><span id="line-657"></span>
-<span class="source-line-no">658</span><span id="line-658">        m_NotificationBroadcasterSupport.sendNotification( notification );</span>
-<span class="source-line-no">659</span><span id="line-659">    }   //  receivePerformanceReport()</span>
-<span class="source-line-no">660</span><span id="line-660"></span>
-<span class="source-line-no">661</span><span id="line-661">    /**</span>
-<span class="source-line-no">662</span><span id="line-662">     *  {@inheritDoc}</span>
-<span class="source-line-no">663</span><span id="line-663">     */</span>
-<span class="source-line-no">664</span><span id="line-664">    @Override</span>
-<span class="source-line-no">665</span><span id="line-665">    public final void removeNotificationListener( final NotificationListener listener ) throws ListenerNotFoundException</span>
-<span class="source-line-no">666</span><span id="line-666">    {</span>
-<span class="source-line-no">667</span><span id="line-667">        m_NotificationBroadcasterSupport.removeNotificationListener( listener );</span>
-<span class="source-line-no">668</span><span id="line-668">    }   //  removeNotificationListener()</span>
-<span class="source-line-no">669</span><span id="line-669"></span>
-<span class="source-line-no">670</span><span id="line-670">    /**</span>
-<span class="source-line-no">671</span><span id="line-671">     *  {@inheritDoc}</span>
-<span class="source-line-no">672</span><span id="line-672">     */</span>
-<span class="source-line-no">673</span><span id="line-673">    @Override</span>
-<span class="source-line-no">674</span><span id="line-674">    public final void removeNotificationListener( final NotificationListener listener, final NotificationFilter filter, final Object handback ) throws ListenerNotFoundException</span>
-<span class="source-line-no">675</span><span id="line-675">    {</span>
-<span class="source-line-no">676</span><span id="line-676">        m_NotificationBroadcasterSupport.removeNotificationListener( listener, filter, handback );</span>
-<span class="source-line-no">677</span><span id="line-677">    }   //  removeNotificationListener()</span>
-<span class="source-line-no">678</span><span id="line-678"></span>
-<span class="source-line-no">679</span><span id="line-679">    /**</span>
-<span class="source-line-no">680</span><span id="line-680">     *  {@inheritDoc}</span>
-<span class="source-line-no">681</span><span id="line-681">     */</span>
-<span class="source-line-no">682</span><span id="line-682">    @Override</span>
-<span class="source-line-no">683</span><span id="line-683">    public final PerformanceSection retrievePerformanceSection( final PerformanceSectionName name )</span>
-<span class="source-line-no">684</span><span id="line-684">    {</span>
-<span class="source-line-no">685</span><span id="line-685">        final PerformanceSection retValue;</span>
-<span class="source-line-no">686</span><span id="line-686">        try( final var _ = m_PerfRegistryWriteGuard.lock() )</span>
-<span class="source-line-no">687</span><span id="line-687">        {</span>
-<span class="source-line-no">688</span><span id="line-688">            final var sectionInfo = m_PerfSectionRegistry.computeIfAbsent( requireNonNullArgument( name, "name" ), PerformanceSectionInfo::new );</span>
-<span class="source-line-no">689</span><span id="line-689">            retValue = sectionInfo.getPerformanceSection();</span>
-<span class="source-line-no">690</span><span id="line-690">        }</span>
-<span class="source-line-no">691</span><span id="line-691"></span>
-<span class="source-line-no">692</span><span id="line-692">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">693</span><span id="line-693">        return retValue;</span>
-<span class="source-line-no">694</span><span id="line-694">    }   //  retrievePerformanceSection()</span>
-<span class="source-line-no">695</span><span id="line-695"></span>
-<span class="source-line-no">696</span><span id="line-696">    /**</span>
-<span class="source-line-no">697</span><span id="line-697">     *  {@inheritDoc}</span>
-<span class="source-line-no">698</span><span id="line-698">     */</span>
-<span class="source-line-no">699</span><span id="line-699">    @Override</span>
-<span class="source-line-no">700</span><span id="line-700">    public final String showPerformanceSection( final String name )</span>
-<span class="source-line-no">701</span><span id="line-701">    {</span>
-<span class="source-line-no">702</span><span id="line-702">        final var json = m_JSONBuilder.createObject();</span>
-<span class="source-line-no">703</span><span id="line-703">        if( isNotEmptyOrBlank( name ) )</span>
-<span class="source-line-no">704</span><span id="line-704">        {</span>
-<span class="source-line-no">705</span><span id="line-705">            try</span>
-<span class="source-line-no">706</span><span id="line-706">            {</span>
-<span class="source-line-no">707</span><span id="line-707">                @SuppressWarnings( "LocalVariableNamingConvention" )</span>
-<span class="source-line-no">708</span><span id="line-708">                final var performanceSectionName = createPerformanceSectionName( name );</span>
-<span class="source-line-no">709</span><span id="line-709">                @SuppressWarnings( "LocalVariableNamingConvention" )</span>
-<span class="source-line-no">710</span><span id="line-710">                final var performanceSectionInfo = m_PerfRegistryReadGuard.execute( () -&gt; m_PerfSectionRegistry.get( performanceSectionName ) );</span>
-<span class="source-line-no">711</span><span id="line-711">                if( performanceSectionInfo.isPresent() )</span>
-<span class="source-line-no">712</span><span id="line-712">                {</span>
-<span class="source-line-no">713</span><span id="line-713">                    final var sectionInfo = performanceSectionInfo.get();</span>
-<span class="source-line-no">714</span><span id="line-714">                    final var section = json.setObject( JSONField_Section );</span>
-<span class="source-line-no">715</span><span id="line-715">                    section.set( JSONField_SectionName, name )</span>
-<span class="source-line-no">716</span><span id="line-716">                        .set( JSONField_SectionDescription, sectionInfo.getDescription() )</span>
-<span class="source-line-no">717</span><span id="line-717">                        .set( JSONField_SectionIgnored, sectionInfo.isIgnored() )</span>
-<span class="source-line-no">718</span><span id="line-718">                        .set( JSONField_SectionThresholdOnlyReport, sectionInfo.isSendingReportOnlyForExceededThreshold() );</span>
-<span class="source-line-no">719</span><span id="line-719">                    sectionInfo.getThreshold().ifPresentOrElse( v -&gt; section.set( JSONField_SectionThreshold, v, MILLISECOND ), () -&gt; section.set( JSONField_SectionThreshold, "disabled" ) );</span>
-<span class="source-line-no">720</span><span id="line-720">                    sectionInfo.getTimeout().ifPresentOrElse( v -&gt; section.set( JSONField_SectionTimeout, v, MILLISECOND ), () -&gt; section.set( JSONField_SectionTimeout, "disabled" ) );</span>
-<span class="source-line-no">721</span><span id="line-721">                    final var statistics = m_JSONBuilder.createObject();</span>
-<span class="source-line-no">722</span><span id="line-722">                    sectionInfo.getFirstStart().ifPresent( v -&gt; statistics.set( JSONField_FirstStart, v.format( ISO_ZONED_DATE_TIME ) ) );</span>
-<span class="source-line-no">723</span><span id="line-723">                    sectionInfo.getLastUpdated().ifPresent( v -&gt; statistics.set( JSONField_LastUpdated, v.format( ISO_ZONED_DATE_TIME ) ) );</span>
-<span class="source-line-no">724</span><span id="line-724">                    sectionInfo.getNumberOfCompletedRuns().ifPresent( v -&gt; statistics.set( JSONField_CompletedRuns, v ) );</span>
-<span class="source-line-no">725</span><span id="line-725">                    sectionInfo.getNumberOfRunsThatExceededThreshold().ifPresent( v -&gt; json.set( JSONField_ThresholdExceededRuns, v ) );</span>
-<span class="source-line-no">726</span><span id="line-726">                    sectionInfo.getNumberOfAbortedRuns().ifPresent( v -&gt; statistics.set( JSONField_AbortedRuns, v ) );</span>
-<span class="source-line-no">727</span><span id="line-727">                    sectionInfo.getNumberOfTimedOutRuns().ifPresent( v -&gt; statistics.set( JSONField_TimedOutRuns, v ) );</span>
-<span class="source-line-no">728</span><span id="line-728">                    if( !statistics.isEmpty() ) section.set( JSONField_SectionStatistics, statistics );</span>
+<span class="source-line-no">469</span><span id="line-469">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">470</span><span id="line-470">        return retValue;</span>
+<span class="source-line-no">471</span><span id="line-471">    }   //  enablePerformanceSection()</span>
+<span class="source-line-no">472</span><span id="line-472"></span>
+<span class="source-line-no">473</span><span id="line-473">    /**</span>
+<span class="source-line-no">474</span><span id="line-474">     *  {@inheritDoc}</span>
+<span class="source-line-no">475</span><span id="line-475">     */</span>
+<span class="source-line-no">476</span><span id="line-476">    @Override</span>
+<span class="source-line-no">477</span><span id="line-477">    public final String[] getNotificationExceptions()</span>
+<span class="source-line-no">478</span><span id="line-478">    {</span>
+<span class="source-line-no">479</span><span id="line-479">        final var retValue = m_Exceptions.toArray( String []::new );</span>
+<span class="source-line-no">480</span><span id="line-480"></span>
+<span class="source-line-no">481</span><span id="line-481">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">482</span><span id="line-482">        return retValue;</span>
+<span class="source-line-no">483</span><span id="line-483">    }   //  getNotificationExceptions()</span>
+<span class="source-line-no">484</span><span id="line-484"></span>
+<span class="source-line-no">485</span><span id="line-485">    /**</span>
+<span class="source-line-no">486</span><span id="line-486">     *  &lt;p&gt;{@summary Get the</span>
+<span class="source-line-no">487</span><span id="line-487">     *  {@link MBeanInfo}</span>
+<span class="source-line-no">488</span><span id="line-488">     *  for this MBean.} That is in fact an instance of</span>
+<span class="source-line-no">489</span><span id="line-489">     *  {@link OpenMBeanInfoSupport}</span>
+<span class="source-line-no">490</span><span id="line-490">     *  as an implementation of</span>
+<span class="source-line-no">491</span><span id="line-491">     *  {@link javax.management.openmbean.OpenMBeanInfo}.</span>
+<span class="source-line-no">492</span><span id="line-492">     *  This identifies this MBean as an Open MBean.&lt;/p&gt;</span>
+<span class="source-line-no">493</span><span id="line-493">     *  &lt;p&gt;This method implements</span>
+<span class="source-line-no">494</span><span id="line-494">     *  {@link javax.management.DynamicMBean#getMBeanInfo() DynamicMBean.getMBeanInfo()}</span>
+<span class="source-line-no">495</span><span id="line-495">     *  and overwrites the</span>
+<span class="source-line-no">496</span><span id="line-496">     *  {@linkplain StandardMBean#getMBeanInfo() implementation}</span>
+<span class="source-line-no">497</span><span id="line-497">     *  from</span>
+<span class="source-line-no">498</span><span id="line-498">     *  {@link StandardMBean}.&lt;/p&gt;</span>
+<span class="source-line-no">499</span><span id="line-499">     *  &lt;p&gt;This method first calls</span>
+<span class="source-line-no">500</span><span id="line-500">     *  {@link #getCachedMBeanInfo()}</span>
+<span class="source-line-no">501</span><span id="line-501">     *  in order to retrieve the cached {@code MBeanInfo} for this MBean, if</span>
+<span class="source-line-no">502</span><span id="line-502">     *  any. If the result from this call is not {@code null}, it will be</span>
+<span class="source-line-no">503</span><span id="line-503">     *  returned.&lt;/p&gt;</span>
+<span class="source-line-no">504</span><span id="line-504">     *  &lt;p&gt;Otherwise, this method builds a {@code MBeanInfo} for this MBean</span>
+<span class="source-line-no">505</span><span id="line-505">     *  from scratch.&lt;/p&gt;</span>
+<span class="source-line-no">506</span><span id="line-506">     *  &lt;p&gt;Finally, it calls</span>
+<span class="source-line-no">507</span><span id="line-507">     *  {@link #cacheMBeanInfo(javax.management.MBeanInfo) cacheMBeanInfo()}</span>
+<span class="source-line-no">508</span><span id="line-508">     *  in order to cache the new MBeanInfo for subsequent calls.</span>
+<span class="source-line-no">509</span><span id="line-509">     *</span>
+<span class="source-line-no">510</span><span id="line-510">     *  @return The cached {@code MBeanInfo} for this MBean, if not</span>
+<span class="source-line-no">511</span><span id="line-511">     *      {@code null}, or a newly built {@code MBeanInfo} if none was</span>
+<span class="source-line-no">512</span><span id="line-512">     *      cached.</span>
+<span class="source-line-no">513</span><span id="line-513">     */</span>
+<span class="source-line-no">514</span><span id="line-514">    @SuppressWarnings( "UnnecessaryJavaDocLink" )</span>
+<span class="source-line-no">515</span><span id="line-515">    @Override</span>
+<span class="source-line-no">516</span><span id="line-516">    public final MBeanInfo getMBeanInfo()</span>
+<span class="source-line-no">517</span><span id="line-517">    {</span>
+<span class="source-line-no">518</span><span id="line-518">        var retValue = getCachedMBeanInfo();</span>
+<span class="source-line-no">519</span><span id="line-519">        if( isNull( retValue ) )</span>
+<span class="source-line-no">520</span><span id="line-520">        {</span>
+<span class="source-line-no">521</span><span id="line-521">            final var className = getClass().getName();</span>
+<span class="source-line-no">522</span><span id="line-522"></span>
+<span class="source-line-no">523</span><span id="line-523">            //---* Set the attributes *----------------------------------------</span>
+<span class="source-line-no">524</span><span id="line-524">            final var attributes = buildAttributeInfoList();</span>
+<span class="source-line-no">525</span><span id="line-525"></span>
+<span class="source-line-no">526</span><span id="line-526">            //---* Set the constructors *--------------------------------------</span>
+<span class="source-line-no">527</span><span id="line-527">            /*</span>
+<span class="source-line-no">528</span><span id="line-528">             * We do not publish the constructors for this MBean.</span>
+<span class="source-line-no">529</span><span id="line-529">             */</span>
+<span class="source-line-no">530</span><span id="line-530">            final OpenMBeanConstructorInfo[] constructors = null;</span>
+<span class="source-line-no">531</span><span id="line-531"></span>
+<span class="source-line-no">532</span><span id="line-532">            //---* Set the operations *----------------------------------------</span>
+<span class="source-line-no">533</span><span id="line-533">            final var operations = buildOperationInfoList();</span>
+<span class="source-line-no">534</span><span id="line-534"></span>
+<span class="source-line-no">535</span><span id="line-535">            //---* Set the notification infos *--------------------------------</span>
+<span class="source-line-no">536</span><span id="line-536">            final var notificationInfos = buildNotificationInfoList();</span>
+<span class="source-line-no">537</span><span id="line-537"></span>
+<span class="source-line-no">538</span><span id="line-538">            //---* Set the descriptor *----------------------------------------</span>
+<span class="source-line-no">539</span><span id="line-539">            final Map&lt;String,?&gt; descriptorFields = Map.of( "immutableInfo", TRUE.toString() );</span>
+<span class="source-line-no">540</span><span id="line-540">            final Descriptor descriptor = new ImmutableDescriptor( descriptorFields );</span>
+<span class="source-line-no">541</span><span id="line-541"></span>
+<span class="source-line-no">542</span><span id="line-542">            //---* Create the return value *-----------------------------------</span>
+<span class="source-line-no">543</span><span id="line-543">            //noinspection ConstantValue</span>
+<span class="source-line-no">544</span><span id="line-544">            retValue = new OpenMBeanInfoSupport( className, DESCRIPTION, attributes, constructors, operations, notificationInfos, descriptor );</span>
+<span class="source-line-no">545</span><span id="line-545"></span>
+<span class="source-line-no">546</span><span id="line-546">            //---* Keep the new MBeanInfo *------------------------------------</span>
+<span class="source-line-no">547</span><span id="line-547">            cacheMBeanInfo( retValue );</span>
+<span class="source-line-no">548</span><span id="line-548">        }</span>
+<span class="source-line-no">549</span><span id="line-549"></span>
+<span class="source-line-no">550</span><span id="line-550">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">551</span><span id="line-551">        return retValue;</span>
+<span class="source-line-no">552</span><span id="line-552">    }   //  getMBeanInfo()</span>
+<span class="source-line-no">553</span><span id="line-553"></span>
+<span class="source-line-no">554</span><span id="line-554">    /**</span>
+<span class="source-line-no">555</span><span id="line-555">     *  {@inheritDoc}</span>
+<span class="source-line-no">556</span><span id="line-556">     */</span>
+<span class="source-line-no">557</span><span id="line-557">    @Override</span>
+<span class="source-line-no">558</span><span id="line-558">    public final MBeanNotificationInfo[] getNotificationInfo()</span>
+<span class="source-line-no">559</span><span id="line-559">    {</span>
+<span class="source-line-no">560</span><span id="line-560">        return getMBeanInfo().getNotifications();</span>
+<span class="source-line-no">561</span><span id="line-561">    }   //  getNotificationInfo()</span>
+<span class="source-line-no">562</span><span id="line-562"></span>
+<span class="source-line-no">563</span><span id="line-563">    /**</span>
+<span class="source-line-no">564</span><span id="line-564">     *  {@inheritDoc}</span>
+<span class="source-line-no">565</span><span id="line-565">     */</span>
+<span class="source-line-no">566</span><span id="line-566">    @Override</span>
+<span class="source-line-no">567</span><span id="line-567">    public final long getNotificationSequenceNumber() { return m_NotificationSequenceNumber.get(); }</span>
+<span class="source-line-no">568</span><span id="line-568"></span>
+<span class="source-line-no">569</span><span id="line-569">    /**</span>
+<span class="source-line-no">570</span><span id="line-570">     *  {@inheritDoc}</span>
+<span class="source-line-no">571</span><span id="line-571">     */</span>
+<span class="source-line-no">572</span><span id="line-572">    @Override</span>
+<span class="source-line-no">573</span><span id="line-573">    public final Optional&lt;PerformanceSection&gt; getPerformanceSection( final PerformanceSectionName name )</span>
+<span class="source-line-no">574</span><span id="line-574">    {</span>
+<span class="source-line-no">575</span><span id="line-575">        final Optional&lt;PerformanceSection&gt; retValue;</span>
+<span class="source-line-no">576</span><span id="line-576">        try</span>
+<span class="source-line-no">577</span><span id="line-577">        {</span>
+<span class="source-line-no">578</span><span id="line-578">            retValue = m_PerfRegistryReadGuard.execute( () -&gt; m_PerfSectionRegistry.get( requireNonNullArgument( name, "name" ) ) )</span>
+<span class="source-line-no">579</span><span id="line-579">                .map( PerformanceSectionInfo::getPerformanceSection );</span>
+<span class="source-line-no">580</span><span id="line-580">        }</span>
+<span class="source-line-no">581</span><span id="line-581">        catch( final ExecutionFailedException e )</span>
+<span class="source-line-no">582</span><span id="line-582">        {</span>
+<span class="source-line-no">583</span><span id="line-583">            final var cause = e.getCause();</span>
+<span class="source-line-no">584</span><span id="line-584">            if( cause instanceof final IllegalArgumentException iae ) throw iae;</span>
+<span class="source-line-no">585</span><span id="line-585">            throw e;</span>
+<span class="source-line-no">586</span><span id="line-586">        }</span>
+<span class="source-line-no">587</span><span id="line-587"></span>
+<span class="source-line-no">588</span><span id="line-588">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">589</span><span id="line-589">        return retValue;</span>
+<span class="source-line-no">590</span><span id="line-590">    }   //  getPerformanceSection()</span>
+<span class="source-line-no">591</span><span id="line-591"></span>
+<span class="source-line-no">592</span><span id="line-592">    /**</span>
+<span class="source-line-no">593</span><span id="line-593">     *  {@inheritDoc}</span>
+<span class="source-line-no">594</span><span id="line-594">     */</span>
+<span class="source-line-no">595</span><span id="line-595">    @Override</span>
+<span class="source-line-no">596</span><span id="line-596">    public final String [] getPerformanceSections()</span>
+<span class="source-line-no">597</span><span id="line-597">    {</span>
+<span class="source-line-no">598</span><span id="line-598">        final String [] retValue;</span>
+<span class="source-line-no">599</span><span id="line-599">        try( final var _ = m_PerfRegistryReadGuard.lock() )</span>
+<span class="source-line-no">600</span><span id="line-600">        {</span>
+<span class="source-line-no">601</span><span id="line-601">            retValue = m_PerfSectionRegistry.keySet()</span>
+<span class="source-line-no">602</span><span id="line-602">                .stream()</span>
+<span class="source-line-no">603</span><span id="line-603">                .sorted()</span>
+<span class="source-line-no">604</span><span id="line-604">                .map( PerformanceSectionName::toString )</span>
+<span class="source-line-no">605</span><span id="line-605">                .toArray( String []::new );</span>
+<span class="source-line-no">606</span><span id="line-606">        }</span>
+<span class="source-line-no">607</span><span id="line-607"></span>
+<span class="source-line-no">608</span><span id="line-608">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">609</span><span id="line-609">        return retValue;</span>
+<span class="source-line-no">610</span><span id="line-610">    }   //  getPerformanceSections()</span>
+<span class="source-line-no">611</span><span id="line-611"></span>
+<span class="source-line-no">612</span><span id="line-612">    /**</span>
+<span class="source-line-no">613</span><span id="line-613">     *  {@inheritDoc}</span>
+<span class="source-line-no">614</span><span id="line-614">     */</span>
+<span class="source-line-no">615</span><span id="line-615">    @Override</span>
+<span class="source-line-no">616</span><span id="line-616">    public final void postDeregister()</span>
+<span class="source-line-no">617</span><span id="line-617">    {</span>
+<span class="source-line-no">618</span><span id="line-618">        super.postDeregister();</span>
+<span class="source-line-no">619</span><span id="line-619"></span>
+<span class="source-line-no">620</span><span id="line-620">        //---* Shutdown the thread pool *--------------------------------------</span>
+<span class="source-line-no">621</span><span id="line-621">        try</span>
+<span class="source-line-no">622</span><span id="line-622">        {</span>
+<span class="source-line-no">623</span><span id="line-623">            m_ThreadPool.shutdown();</span>
+<span class="source-line-no">624</span><span id="line-624">            //noinspection ResultOfMethodCallIgnored</span>
+<span class="source-line-no">625</span><span id="line-625">            m_ThreadPool.awaitTermination( 1L, MINUTES );</span>
+<span class="source-line-no">626</span><span id="line-626">        }</span>
+<span class="source-line-no">627</span><span id="line-627">        catch( final InterruptedException _ )</span>
+<span class="source-line-no">628</span><span id="line-628">        {</span>
+<span class="source-line-no">629</span><span id="line-629">            /*</span>
+<span class="source-line-no">630</span><span id="line-630">             * Deliberately ignored!</span>
+<span class="source-line-no">631</span><span id="line-631">             */</span>
+<span class="source-line-no">632</span><span id="line-632">        }</span>
+<span class="source-line-no">633</span><span id="line-633">    }   //  postDeregister()</span>
+<span class="source-line-no">634</span><span id="line-634"></span>
+<span class="source-line-no">635</span><span id="line-635">    /**</span>
+<span class="source-line-no">636</span><span id="line-636">     *  {@inheritDoc}</span>
+<span class="source-line-no">637</span><span id="line-637">     *  &lt;p&gt;Finally, this method sends a notification.&lt;/p&gt;</span>
+<span class="source-line-no">638</span><span id="line-638">     *  &lt;p&gt;If an</span>
+<span class="source-line-no">639</span><span id="line-639">     *  {@link java.util.concurrent.Executor}</span>
+<span class="source-line-no">640</span><span id="line-640">     *  was specified in the constructor for the</span>
+<span class="source-line-no">641</span><span id="line-641">     *  {@link NotificationBroadcasterSupport}</span>
+<span class="source-line-no">642</span><span id="line-642">     *  instance, it will be given one task per selected listener to deliver</span>
+<span class="source-line-no">643</span><span id="line-643">     *  the notification to that listener.&lt;/p&gt;</span>
+<span class="source-line-no">644</span><span id="line-644">     */</span>
+<span class="source-line-no">645</span><span id="line-645">    @Override</span>
+<span class="source-line-no">646</span><span id="line-646">    public final void receivePerformanceReport( final PerformanceReport report )</span>
+<span class="source-line-no">647</span><span id="line-647">    {</span>
+<span class="source-line-no">648</span><span id="line-648">        //---* Update info *---------------------------------------------------</span>
+<span class="source-line-no">649</span><span id="line-649">        final var sectionName = requireNonNullArgument( report, "report" ).getPerformanceSection().getName();</span>
+<span class="source-line-no">650</span><span id="line-650">        final var sectionInfo = m_PerfRegistryReadGuard.execute( () -&gt; m_PerfSectionRegistry.get( sectionName ) );</span>
+<span class="source-line-no">651</span><span id="line-651">        sectionInfo.ifPresent( perfSectionInfo -&gt; perfSectionInfo.processTracker( (PerformanceTrackerImpl) report.getPerformanceTracker() ) );</span>
+<span class="source-line-no">652</span><span id="line-652"></span>
+<span class="source-line-no">653</span><span id="line-653">        //---* Compose the notification and send it *--------------------------</span>
+<span class="source-line-no">654</span><span id="line-654">        final var notification = new Notification( NOTIFICATION_Type, getPerfLogMBeanObjectName(), m_NotificationSequenceNumber.getAndIncrement(), currentTimeMillis(), ((PerformanceReportImpl) report).toJSON() );</span>
+<span class="source-line-no">655</span><span id="line-655"></span>
+<span class="source-line-no">656</span><span id="line-656">        m_NotificationBroadcasterSupport.sendNotification( notification );</span>
+<span class="source-line-no">657</span><span id="line-657">    }   //  receivePerformanceReport()</span>
+<span class="source-line-no">658</span><span id="line-658"></span>
+<span class="source-line-no">659</span><span id="line-659">    /**</span>
+<span class="source-line-no">660</span><span id="line-660">     *  {@inheritDoc}</span>
+<span class="source-line-no">661</span><span id="line-661">     */</span>
+<span class="source-line-no">662</span><span id="line-662">    @Override</span>
+<span class="source-line-no">663</span><span id="line-663">    public final void removeNotificationListener( final NotificationListener listener ) throws ListenerNotFoundException</span>
+<span class="source-line-no">664</span><span id="line-664">    {</span>
+<span class="source-line-no">665</span><span id="line-665">        m_NotificationBroadcasterSupport.removeNotificationListener( listener );</span>
+<span class="source-line-no">666</span><span id="line-666">    }   //  removeNotificationListener()</span>
+<span class="source-line-no">667</span><span id="line-667"></span>
+<span class="source-line-no">668</span><span id="line-668">    /**</span>
+<span class="source-line-no">669</span><span id="line-669">     *  {@inheritDoc}</span>
+<span class="source-line-no">670</span><span id="line-670">     */</span>
+<span class="source-line-no">671</span><span id="line-671">    @Override</span>
+<span class="source-line-no">672</span><span id="line-672">    public final void removeNotificationListener( final NotificationListener listener, final NotificationFilter filter, final Object handback ) throws ListenerNotFoundException</span>
+<span class="source-line-no">673</span><span id="line-673">    {</span>
+<span class="source-line-no">674</span><span id="line-674">        m_NotificationBroadcasterSupport.removeNotificationListener( listener, filter, handback );</span>
+<span class="source-line-no">675</span><span id="line-675">    }   //  removeNotificationListener()</span>
+<span class="source-line-no">676</span><span id="line-676"></span>
+<span class="source-line-no">677</span><span id="line-677">    /**</span>
+<span class="source-line-no">678</span><span id="line-678">     *  {@inheritDoc}</span>
+<span class="source-line-no">679</span><span id="line-679">     */</span>
+<span class="source-line-no">680</span><span id="line-680">    @Override</span>
+<span class="source-line-no">681</span><span id="line-681">    public final PerformanceSection retrievePerformanceSection( final PerformanceSectionName name )</span>
+<span class="source-line-no">682</span><span id="line-682">    {</span>
+<span class="source-line-no">683</span><span id="line-683">        final PerformanceSection retValue;</span>
+<span class="source-line-no">684</span><span id="line-684">        try( final var _ = m_PerfRegistryWriteGuard.lock() )</span>
+<span class="source-line-no">685</span><span id="line-685">        {</span>
+<span class="source-line-no">686</span><span id="line-686">            final var sectionInfo = m_PerfSectionRegistry.computeIfAbsent( requireNonNullArgument( name, "name" ), PerformanceSectionInfo::new );</span>
+<span class="source-line-no">687</span><span id="line-687">            retValue = sectionInfo.getPerformanceSection();</span>
+<span class="source-line-no">688</span><span id="line-688">        }</span>
+<span class="source-line-no">689</span><span id="line-689"></span>
+<span class="source-line-no">690</span><span id="line-690">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">691</span><span id="line-691">        return retValue;</span>
+<span class="source-line-no">692</span><span id="line-692">    }   //  retrievePerformanceSection()</span>
+<span class="source-line-no">693</span><span id="line-693"></span>
+<span class="source-line-no">694</span><span id="line-694">    /**</span>
+<span class="source-line-no">695</span><span id="line-695">     *  {@inheritDoc}</span>
+<span class="source-line-no">696</span><span id="line-696">     */</span>
+<span class="source-line-no">697</span><span id="line-697">    @Override</span>
+<span class="source-line-no">698</span><span id="line-698">    public final String showPerformanceSection( final String name )</span>
+<span class="source-line-no">699</span><span id="line-699">    {</span>
+<span class="source-line-no">700</span><span id="line-700">        final var json = m_JSONBuilder.createObject();</span>
+<span class="source-line-no">701</span><span id="line-701">        if( isNotEmptyOrBlank( name ) )</span>
+<span class="source-line-no">702</span><span id="line-702">        {</span>
+<span class="source-line-no">703</span><span id="line-703">            try</span>
+<span class="source-line-no">704</span><span id="line-704">            {</span>
+<span class="source-line-no">705</span><span id="line-705">                final var performanceSectionName = createPerformanceSectionName( name );</span>
+<span class="source-line-no">706</span><span id="line-706">                final var performanceSectionInfo = m_PerfRegistryReadGuard.execute( () -&gt; m_PerfSectionRegistry.get( performanceSectionName ) );</span>
+<span class="source-line-no">707</span><span id="line-707">                if( performanceSectionInfo.isPresent() )</span>
+<span class="source-line-no">708</span><span id="line-708">                {</span>
+<span class="source-line-no">709</span><span id="line-709">                    final var sectionInfo = performanceSectionInfo.get();</span>
+<span class="source-line-no">710</span><span id="line-710">                    final var section = json.setObject( JSONField_Section );</span>
+<span class="source-line-no">711</span><span id="line-711">                    section.set( JSONField_SectionName, name )</span>
+<span class="source-line-no">712</span><span id="line-712">                        .set( JSONField_SectionDescription, sectionInfo.getDescription() )</span>
+<span class="source-line-no">713</span><span id="line-713">                        .set( JSONField_SectionIgnored, sectionInfo.isIgnored() )</span>
+<span class="source-line-no">714</span><span id="line-714">                        .set( JSONField_SectionThresholdOnlyReport, sectionInfo.isSendingReportOnlyForExceededThreshold() );</span>
+<span class="source-line-no">715</span><span id="line-715">                    sectionInfo.getThreshold().ifPresentOrElse( v -&gt; section.set( JSONField_SectionThreshold, v, MILLISECOND ), () -&gt; section.set( JSONField_SectionThreshold, "disabled" ) );</span>
+<span class="source-line-no">716</span><span id="line-716">                    sectionInfo.getTimeout().ifPresentOrElse( v -&gt; section.set( JSONField_SectionTimeout, v, MILLISECOND ), () -&gt; section.set( JSONField_SectionTimeout, "disabled" ) );</span>
+<span class="source-line-no">717</span><span id="line-717">                    final var statistics = m_JSONBuilder.createObject();</span>
+<span class="source-line-no">718</span><span id="line-718">                    sectionInfo.getFirstStart().ifPresent( v -&gt; statistics.set( JSONField_FirstStart, v.format( ISO_ZONED_DATE_TIME ) ) );</span>
+<span class="source-line-no">719</span><span id="line-719">                    sectionInfo.getLastUpdated().ifPresent( v -&gt; statistics.set( JSONField_LastUpdated, v.format( ISO_ZONED_DATE_TIME ) ) );</span>
+<span class="source-line-no">720</span><span id="line-720">                    sectionInfo.getNumberOfCompletedRuns().ifPresent( v -&gt; statistics.set( JSONField_CompletedRuns, v ) );</span>
+<span class="source-line-no">721</span><span id="line-721">                    sectionInfo.getNumberOfRunsThatExceededThreshold().ifPresent( v -&gt; json.set( JSONField_ThresholdExceededRuns, v ) );</span>
+<span class="source-line-no">722</span><span id="line-722">                    sectionInfo.getNumberOfAbortedRuns().ifPresent( v -&gt; statistics.set( JSONField_AbortedRuns, v ) );</span>
+<span class="source-line-no">723</span><span id="line-723">                    sectionInfo.getNumberOfTimedOutRuns().ifPresent( v -&gt; statistics.set( JSONField_TimedOutRuns, v ) );</span>
+<span class="source-line-no">724</span><span id="line-724">                    if( !statistics.isEmpty() ) section.set( JSONField_SectionStatistics, statistics );</span>
+<span class="source-line-no">725</span><span id="line-725">                }</span>
+<span class="source-line-no">726</span><span id="line-726">                else</span>
+<span class="source-line-no">727</span><span id="line-727">                {</span>
+<span class="source-line-no">728</span><span id="line-728">                    addErrorToJSON( json, "No entry for this name: %s".formatted( name ) );</span>
 <span class="source-line-no">729</span><span id="line-729">                }</span>
-<span class="source-line-no">730</span><span id="line-730">                else</span>
-<span class="source-line-no">731</span><span id="line-731">                {</span>
-<span class="source-line-no">732</span><span id="line-732">                    addErrorToJSON( json, "No entry for this name: %s".formatted( name ) );</span>
-<span class="source-line-no">733</span><span id="line-733">                }</span>
+<span class="source-line-no">730</span><span id="line-730">            }</span>
+<span class="source-line-no">731</span><span id="line-731">            catch( final IllegalArgumentException e )</span>
+<span class="source-line-no">732</span><span id="line-732">            {</span>
+<span class="source-line-no">733</span><span id="line-733">                addErrorToJSON( json, "The given name '%s' is invalid: %s".formatted( name, e.getMessage() ) );</span>
 <span class="source-line-no">734</span><span id="line-734">            }</span>
-<span class="source-line-no">735</span><span id="line-735">            catch( final IllegalArgumentException e )</span>
-<span class="source-line-no">736</span><span id="line-736">            {</span>
-<span class="source-line-no">737</span><span id="line-737">                addErrorToJSON( json, "The given name '%s' is invalid: %s".formatted( name, e.getMessage() ) );</span>
-<span class="source-line-no">738</span><span id="line-738">            }</span>
+<span class="source-line-no">735</span><span id="line-735">        }</span>
+<span class="source-line-no">736</span><span id="line-736">        else</span>
+<span class="source-line-no">737</span><span id="line-737">        {</span>
+<span class="source-line-no">738</span><span id="line-738">            addErrorToJSON( json, "The given name is null, empty or blank" );</span>
 <span class="source-line-no">739</span><span id="line-739">        }</span>
-<span class="source-line-no">740</span><span id="line-740">        else</span>
-<span class="source-line-no">741</span><span id="line-741">        {</span>
-<span class="source-line-no">742</span><span id="line-742">            addErrorToJSON( json, "The given name is null, empty or blank" );</span>
-<span class="source-line-no">743</span><span id="line-743">        }</span>
-<span class="source-line-no">744</span><span id="line-744"></span>
-<span class="source-line-no">745</span><span id="line-745">        final var retValue = "%s".formatted( json );</span>
+<span class="source-line-no">740</span><span id="line-740"></span>
+<span class="source-line-no">741</span><span id="line-741">        final var retValue = "%s".formatted( json );</span>
+<span class="source-line-no">742</span><span id="line-742"></span>
+<span class="source-line-no">743</span><span id="line-743">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">744</span><span id="line-744">        return retValue;</span>
+<span class="source-line-no">745</span><span id="line-745">    }   //  showPerformanceSection()</span>
 <span class="source-line-no">746</span><span id="line-746"></span>
-<span class="source-line-no">747</span><span id="line-747">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">748</span><span id="line-748">        return retValue;</span>
-<span class="source-line-no">749</span><span id="line-749">    }   //  showPerformanceSection()</span>
-<span class="source-line-no">750</span><span id="line-750"></span>
-<span class="source-line-no">751</span><span id="line-751">    /**</span>
-<span class="source-line-no">752</span><span id="line-752">     *  &lt;p&gt;{@summary This method is invoked when the given thread terminates</span>
-<span class="source-line-no">753</span><span id="line-753">     *  due to the given uncaught exception.}&lt;/p&gt;</span>
-<span class="source-line-no">754</span><span id="line-754">     *  &lt;p&gt;Any exception thrown by this method will be ignored by the Java</span>
-<span class="source-line-no">755</span><span id="line-755">     *  Virtual Machine.&lt;/p&gt;</span>
-<span class="source-line-no">756</span><span id="line-756">     *  &lt;p&gt;This</span>
-<span class="source-line-no">757</span><span id="line-757">     *  {@link Thread.UncaughtExceptionHandler}</span>
-<span class="source-line-no">758</span><span id="line-758">     *  will be assigned to the</span>
-<span class="source-line-no">759</span><span id="line-759">     *  {@link java.util.concurrent.ThreadFactory}</span>
-<span class="source-line-no">760</span><span id="line-760">     *  used by the</span>
-<span class="source-line-no">761</span><span id="line-761">     *  {@linkplain #m_ThreadPool thread pool}</span>
-<span class="source-line-no">762</span><span id="line-762">     *  for the</span>
-<span class="source-line-no">763</span><span id="line-763">     *  {@link NotificationBroadcasterSupport}</span>
-<span class="source-line-no">764</span><span id="line-764">     *  instance.&lt;/p&gt;</span>
-<span class="source-line-no">765</span><span id="line-765">     *</span>
-<span class="source-line-no">766</span><span id="line-766">     *  @param  t   The thread.</span>
-<span class="source-line-no">767</span><span id="line-767">     *  @param  e   The exception.</span>
-<span class="source-line-no">768</span><span id="line-768">     *</span>
-<span class="source-line-no">769</span><span id="line-769">     *  @see Thread.UncaughtExceptionHandler#uncaughtException(Thread,Throwable)</span>
-<span class="source-line-no">770</span><span id="line-770">     */</span>
-<span class="source-line-no">771</span><span id="line-771">    private final void uncaughtExceptionHandler( final Thread t, final Throwable e )</span>
-<span class="source-line-no">772</span><span id="line-772">    {</span>
-<span class="source-line-no">773</span><span id="line-773">        m_Exceptions.addFirst( "%s - Thread %s aborted: %s".formatted( Instant.now(), t.getName(), e.toString() ) );</span>
-<span class="source-line-no">774</span><span id="line-774">        while( m_Exceptions.size() &gt; 10 ) m_Exceptions.removeLast();</span>
-<span class="source-line-no">775</span><span id="line-775">    }   //  uncaughtExceptionHandler()</span>
-<span class="source-line-no">776</span><span id="line-776">}</span>
-<span class="source-line-no">777</span><span id="line-777">//  class PerfLogMBeanImpl</span>
-<span class="source-line-no">778</span><span id="line-778"></span>
-<span class="source-line-no">779</span><span id="line-779">/*</span>
-<span class="source-line-no">780</span><span id="line-780"> *  End of File</span>
-<span class="source-line-no">781</span><span id="line-781"> */</span>
+<span class="source-line-no">747</span><span id="line-747">    /**</span>
+<span class="source-line-no">748</span><span id="line-748">     *  &lt;p&gt;{@summary This method is invoked when the given thread terminates</span>
+<span class="source-line-no">749</span><span id="line-749">     *  due to the given uncaught exception.}&lt;/p&gt;</span>
+<span class="source-line-no">750</span><span id="line-750">     *  &lt;p&gt;Any exception thrown by this method will be ignored by the Java</span>
+<span class="source-line-no">751</span><span id="line-751">     *  Virtual Machine.&lt;/p&gt;</span>
+<span class="source-line-no">752</span><span id="line-752">     *  &lt;p&gt;This</span>
+<span class="source-line-no">753</span><span id="line-753">     *  {@link Thread.UncaughtExceptionHandler}</span>
+<span class="source-line-no">754</span><span id="line-754">     *  will be assigned to the</span>
+<span class="source-line-no">755</span><span id="line-755">     *  {@link java.util.concurrent.ThreadFactory}</span>
+<span class="source-line-no">756</span><span id="line-756">     *  used by the</span>
+<span class="source-line-no">757</span><span id="line-757">     *  {@linkplain #m_ThreadPool thread pool}</span>
+<span class="source-line-no">758</span><span id="line-758">     *  for the</span>
+<span class="source-line-no">759</span><span id="line-759">     *  {@link NotificationBroadcasterSupport}</span>
+<span class="source-line-no">760</span><span id="line-760">     *  instance.&lt;/p&gt;</span>
+<span class="source-line-no">761</span><span id="line-761">     *</span>
+<span class="source-line-no">762</span><span id="line-762">     *  @param  t   The thread.</span>
+<span class="source-line-no">763</span><span id="line-763">     *  @param  e   The exception.</span>
+<span class="source-line-no">764</span><span id="line-764">     *</span>
+<span class="source-line-no">765</span><span id="line-765">     *  @see Thread.UncaughtExceptionHandler#uncaughtException(Thread,Throwable)</span>
+<span class="source-line-no">766</span><span id="line-766">     */</span>
+<span class="source-line-no">767</span><span id="line-767">    private final void uncaughtExceptionHandler( final Thread t, final Throwable e )</span>
+<span class="source-line-no">768</span><span id="line-768">    {</span>
+<span class="source-line-no">769</span><span id="line-769">        m_Exceptions.addFirst( "%s - Thread %s aborted: %s".formatted( Instant.now(), t.getName(), e.toString() ) );</span>
+<span class="source-line-no">770</span><span id="line-770">        while( m_Exceptions.size() &gt; 10 ) m_Exceptions.removeLast();</span>
+<span class="source-line-no">771</span><span id="line-771">    }   //  uncaughtExceptionHandler()</span>
+<span class="source-line-no">772</span><span id="line-772">}</span>
+<span class="source-line-no">773</span><span id="line-773">//  class PerfLogMBeanImpl</span>
+<span class="source-line-no">774</span><span id="line-774"></span>
+<span class="source-line-no">775</span><span id="line-775">/*</span>
+<span class="source-line-no">776</span><span id="line-776"> *  End of File</span>
+<span class="source-line-no">777</span><span id="line-777"> */</span>
 
 
 

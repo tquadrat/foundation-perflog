@@ -44,12 +44,12 @@
 <span class="source-line-no">031</span><span id="line-31"> *  Performance Logging and Monitoring.}&lt;/p&gt;</span>
 <span class="source-line-no">032</span><span id="line-32"> *</span>
 <span class="source-line-no">033</span><span id="line-33"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">034</span><span id="line-34"> *  @version $Id: PerfLogMBean.java 1216 2026-05-02 11:16:24Z tquadrat $</span>
+<span class="source-line-no">034</span><span id="line-34"> *  @version $Id: PerfLogMBean.java 1229 2026-05-04 19:11:41Z tquadrat $</span>
 <span class="source-line-no">035</span><span id="line-35"> *  @since 0.25.0</span>
 <span class="source-line-no">036</span><span id="line-36"> *</span>
 <span class="source-line-no">037</span><span id="line-37"> *  @UMLGraph.link</span>
 <span class="source-line-no">038</span><span id="line-38"> */</span>
-<span class="source-line-no">039</span><span id="line-39">@ClassVersion( sourceVersion = "$Id: PerfLogMBean.java 1216 2026-05-02 11:16:24Z tquadrat $" )</span>
+<span class="source-line-no">039</span><span id="line-39">@ClassVersion( sourceVersion = "$Id: PerfLogMBean.java 1229 2026-05-04 19:11:41Z tquadrat $" )</span>
 <span class="source-line-no">040</span><span id="line-40">@API( status = STABLE, since = "0.25.0" )</span>
 <span class="source-line-no">041</span><span id="line-41">public interface PerfLogMBean extends NotificationEmitter</span>
 <span class="source-line-no">042</span><span id="line-42">{</span>
@@ -161,7 +161,7 @@
 <span class="source-line-no">148</span><span id="line-148">     *</span>
 <span class="source-line-no">149</span><span id="line-149">     *  @param  name    The name of the performance section.</span>
 <span class="source-line-no">150</span><span id="line-150">     *  @return The status of the performance section, or a message indicating</span>
-<span class="source-line-no">151</span><span id="line-151">     *  what failed in case of error, as a JSON String.</span>
+<span class="source-line-no">151</span><span id="line-151">     *      what failed in case of error, as a JSON String.</span>
 <span class="source-line-no">152</span><span id="line-152">     */</span>
 <span class="source-line-no">153</span><span id="line-153">    public String showPerformanceSection( final String name );</span>
 <span class="source-line-no">154</span><span id="line-154">}</span>

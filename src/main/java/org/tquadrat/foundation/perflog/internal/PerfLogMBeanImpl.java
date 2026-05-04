@@ -101,12 +101,12 @@ import org.tquadrat.foundation.perflog.PerformanceSectionName;
  *  {@link PerfLogMBean}.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogMBeanImpl.java 1216 2026-05-02 11:16:24Z tquadrat $
+ *  @version $Id: PerfLogMBeanImpl.java 1229 2026-05-04 19:11:41Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogMBeanImpl.java 1216 2026-05-02 11:16:24Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogMBeanImpl.java 1229 2026-05-04 19:11:41Z tquadrat $" )
 @API( status = INTERNAL, since = "0.25.0" )
 public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean
 {
@@ -358,7 +358,7 @@ public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean
             params = new OpenMBeanParameterInfo[]
                 { new OpenMBeanParameterInfoSupport( "name", "The Name of the Performance Section to disable", SimpleType.STRING ) };
             buffer.add( new OpenMBeanOperationInfoSupport(
-                "enablePerformanceSection",
+                "disablePerformanceSection",
                 "Disable the given Performance Section",
                 params,
                 SimpleType.STRING,
@@ -387,7 +387,6 @@ public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean
         {
             try
             {
-                @SuppressWarnings( "LocalVariableNamingConvention" )
                 final var performanceSectionName = createPerformanceSectionName( name );
                 final var performanceSection = getPerformanceSection( performanceSectionName );
                 if( performanceSection.isPresent() )
@@ -435,7 +434,6 @@ public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean
         {
             try
             {
-                @SuppressWarnings( "LocalVariableNamingConvention" )
                 final var performanceSectionName = createPerformanceSectionName( name );
                 final var performanceSection = getPerformanceSection( performanceSectionName );
                 if( performanceSection.isPresent() )
@@ -704,9 +702,7 @@ public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean
         {
             try
             {
-                @SuppressWarnings( "LocalVariableNamingConvention" )
                 final var performanceSectionName = createPerformanceSectionName( name );
-                @SuppressWarnings( "LocalVariableNamingConvention" )
                 final var performanceSectionInfo = m_PerfRegistryReadGuard.execute( () -> m_PerfSectionRegistry.get( performanceSectionName ) );
                 if( performanceSectionInfo.isPresent() )
                 {
