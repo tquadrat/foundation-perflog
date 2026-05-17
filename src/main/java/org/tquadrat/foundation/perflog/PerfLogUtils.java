@@ -48,12 +48,12 @@ import org.tquadrat.foundation.perflog.remote.PerfLogRemote;
  *  Monitoring.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $
+ *  @version $Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 @UtilityClass
 public final class PerfLogUtils
@@ -67,19 +67,33 @@ public final class PerfLogUtils
      *  that allows to use it with try-with-resources.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $
+     *  @version $Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $
      *  @since 0.25.0
      *
      *  @UMLGraph.link
      */
-    @SuppressWarnings( "NewClassNamingConvention" )
-    @ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $" )
     @API( status = STABLE, since = "0.25.0" )
-    public static final class Holder implements AutoCloseable, PerformanceTracker
+    public static final class PerformanceTrackerHolder implements AutoCloseable, PerformanceTracker
     {
             /*------------*\
         ====** Attributes **====================================================
             \*------------*/
+        /**
+         *  The flag that indicates whether
+         *  {@link #close()}
+         *  was already called on this instance.
+         */
+        private boolean m_IsClosed = false;
+
+        /**
+         *  <p>{@summary The reference to a volatile instance of
+         *  {@link PerfLogManager}.}</p>
+         *  <p>It is kept here to prevent it from prematurely being garbage
+         *  collected.</p>
+         */
+        private PerfLogManager m_Manager;
+
         /**
          *  <p>{@summary The wrapped instance of
          *  {@link PerformanceTracker}.}</p>
@@ -91,24 +105,58 @@ public final class PerfLogUtils
         ====** Constructors **=================================================
             \*--------------*/
         /**
-         *  <p>{@summary Creates a new instance of {@code Holder} that holds an instance of
+         *  <p>{@summary Creates a new instance of
+         *  {@code PerformanceTrackerHolder} that holds an instance of
          *  {@link PerformanceTracker}.}</p>
          *
          *  @param  tracker The tracker instance to wrap.
          *  @throws ClassCastException  If called with an instance of
          *      {@code Holder}.
          */
-        private Holder( final PerformanceTrackerImpl tracker )
+        private PerformanceTrackerHolder( final PerformanceTrackerImpl tracker )
         {
             m_Tracker = requireNonNullArgument( tracker, "tracker" );
-        }   //  Holder()
+            m_Manager = null;
+        }   //  PerformanceTrackerHolder()
 
         /**
-         *  Creates a new instance of {@code Holder} that does not hold an
-         *  instance of
+         *  <p>{@summary Creates a new instance of
+         *  {@code PerformanceTrackerHolder} that holds an instance of
+         *  {@link PerformanceTracker}, created by calling
+         *  {@link PerfLogManager#createPerformanceTracker(PerformanceSectionName)}
+         *  on the given
+         *  {@link PerfLogManager}
+         *  instance with the given
+         *  {@link PerformanceSectionName}.}</p>
+         *
+         *  @param  manager The Performance Logging manager.
+         *  @param  name    The performance section name.
+         */
+        private PerformanceTrackerHolder( final PerfLogManager manager, final PerformanceSectionName name )
+        {
+            final var trackerOptional = requireNonNullArgument( manager, "manager" ).createPerformanceTracker( name );
+            if( trackerOptional.isEmpty() )
+            {
+                m_Tracker = null;
+                m_Manager = null;
+            }
+            else
+            {
+                m_Tracker = trackerOptional.get();
+                m_Manager = manager;
+            }
+        }   //  PerformanceTrackerHolder()
+
+        /**
+         *  Creates a new instance of {@code PerformanceTrackerHolder} that
+         *  does not hold an instance of
          *  {@link PerformanceTracker}.
          */
-        private Holder( ) { m_Tracker = null; }
+        private PerformanceTrackerHolder()
+        {
+            m_Tracker = null;
+            m_Manager = null;
+        }   //  PerformanceTrackerHolder()
 
             /*---------*\
         ====** Methods **======================================================
@@ -178,6 +226,12 @@ public final class PerfLogUtils
             {
                 abort();
             }
+            m_IsClosed = true;
+            if( nonNull( m_Manager ) )
+            {
+                m_Manager.close();
+                m_Manager = null;
+            }
         }   //  close()
 
         /**
@@ -194,10 +248,15 @@ public final class PerfLogUtils
 
         /**
          *  {@inheritDoc}
+         *  <p>Throws also an
+         *  {@link IllegalStateException}
+         *  if this instance of {@code PerformanceTrackerHolder} was already
+         *  closed.</p>
          */
         @Override
         public final PerformanceTracker reset( final boolean resetContext ) throws IllegalArgumentException
         {
+            if( m_IsClosed ) throw new IllegalStateException( "Holder was already closed" );
             if( nonNull( m_Tracker ) ) m_Tracker.reset( resetContext );
 
             //---* Done *------------------------------------------------------
@@ -222,7 +281,7 @@ public final class PerfLogUtils
             if( nonNull( m_Tracker ) ) m_Tracker.stop();
         }   //  stop()
     }
-    //  class Holder
+    //  class PerformanceTrackerHolder
 
         /*-----------*\
     ====** Constants **========================================================
@@ -278,10 +337,18 @@ public final class PerfLogUtils
      *  {@link PerfLogManager}
      *  that handles the connection with the underlying
      *  {@link PerfLogMBean}.}</p>
+     *  <p>When called multiple times with references to different
+     *  {@linkplain MBeanServer MBean servers},
+     *  each of these calls will create a new instance of
+     *  {@link PerfLogMBean}.</p>
      *
      *  @param  mbeanServer The MBean server that holds the
      *      {@code PerfLogMBean}.
      *  @return The new performance logging manager.
+     *
+     *  @see #createPerfLogManager()
+     *  @see #createPerfLogManager(UncaughtExceptionHandler)
+     *  @see #obtainMBeanServer()
      */
     public static final PerfLogManager createPerfLogManager( final MBeanServer mbeanServer )
     {
@@ -296,6 +363,10 @@ public final class PerfLogUtils
      *  {@link PerfLogManager}
      *  that handles the connection with the underlying
      *  {@link PerfLogMBean}.}</p>
+     *  <p>When called multiple times with references to different
+     *  {@linkplain MBeanServer MBean servers},
+     *  each of these calls will create a new instance of
+     *  {@link PerfLogMBean}.</p>
      *
      *  @param  mbeanServer The MBean server that holds the
      *      {@code PerfLogMBean}.
@@ -303,6 +374,10 @@ public final class PerfLogUtils
      *      {@link Thread.UncaughtExceptionHandler}
      *      that is used for the timeout monitoring thread.
      *  @return The new performance logging manager.
+     *
+     *  @see #createPerfLogManager()
+     *  @see #createPerfLogManager(UncaughtExceptionHandler)
+     *  @see #obtainMBeanServer()
      */
     @SuppressWarnings( "MethodParameterNamingConvention" )
     public static final PerfLogManager createPerfLogManager( final MBeanServer mbeanServer, final UncaughtExceptionHandler uncaughtExceptionHandler )
@@ -318,6 +393,10 @@ public final class PerfLogUtils
      *  {@link PerfLogManager}
      *  that handles the connection with the underlying
      *  {@link PerfLogMBean}.}</p>
+     *  <p>The method uses the
+     *  {@link MBeanServer}
+     *  that is returned from
+     *  {@link #obtainMBeanServer()}.</p>
      *
      *  @return The new performance logging manager.
      */
@@ -335,6 +414,11 @@ public final class PerfLogUtils
      *  {@link PerfLogManager}
      *  that handles the connection with the underlying
      *  {@link PerfLogMBean}.}</p>
+     *  <p>The method uses the
+     *  {@link MBeanServer}
+     *  that is returned from
+     *  {@link #obtainMBeanServer()}.</p>
+     *
      *  @param  uncaughtExceptionHandler    The implementation of
      *      {@link Thread.UncaughtExceptionHandler}
      *      that is used for the timeout monitoring thread.
@@ -380,7 +464,7 @@ public final class PerfLogUtils
      *  <p>{@summary Creates a holder for the given
      *  {@link PerformanceTracker}.}</p>
      *  <p>This is a convenience method that allows to use a performance
-     *  tracker with try-with-resources.</p>
+     *  tracker with {@code try-with-resources}.</p>
      *
      *  @param  tracker An instance of
      *      {@link Optional}
@@ -391,9 +475,85 @@ public final class PerfLogUtils
      *      {@link PerformanceTracker}.
      */
     @SuppressWarnings( {"OptionalUsedAsFieldOrParameterType"} )
-    public static final Holder hold( final Optional<? extends PerformanceTracker> tracker )
+    public static final PerformanceTrackerHolder hold( final Optional<? extends PerformanceTracker> tracker )
     {
-        final var retValue = tracker.map( v -> new Holder( (PerformanceTrackerImpl) v ) ).orElseGet( Holder::new );
+        final var retValue = requireNonNullArgument( tracker, "tracker" ).map( v -> new PerformanceTrackerHolder( (PerformanceTrackerImpl) v ) ).orElseGet( PerformanceTrackerHolder::new );
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  hold()
+
+    /**
+     *  <p>{@summary Creates a
+     *  {@link PerformanceTracker}
+     *  for the
+     *  {@link PerformanceSection}
+     *  with the given
+     *  {@linkplain PerformanceSectionName name}.}</p>
+     *  <p>It creates an instance of
+     *  {@link PerfLogManager}
+     *  on the fly, using the
+     *  {@link MBeanServer}
+     *  returned by
+     *  {@link #obtainMBeanServer()}.</p>
+     *  <p>This is a convenience method that allows to use a performance
+     *  tracker with {@code try-with-resources}.</p>
+     *
+     *  @param  name    The name of the performance section.
+     *  @return A holder for the given tracker.
+     */
+    public static final PerformanceTrackerHolder hold( final PerformanceSectionName name )
+    {
+        final var retValue = new PerformanceTrackerHolder( createPerfLogManager(), name );
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  hold()
+
+    /**
+     *  <p>{@summary Creates a
+     *  {@link PerformanceTracker}
+     *  for the
+     *  {@link PerformanceSection}
+     *  with the given
+     *  {@linkplain PerformanceSectionName name}.}</p>
+     *  <p>This is a convenience method that allows to use a performance
+     *  tracker with {@code try-with-resources}.</p>
+     *
+     *  @param  manager The Performance Logging Manager that connects to the
+     *      {@link PerfLogMBean}.
+     *  @param  name    The name of the performance section.
+     *  @return A holder for the given tracker.
+     */
+    public static final PerformanceTrackerHolder hold(  final PerfLogManager manager, final PerformanceSectionName name )
+    {
+        final var retValue = hold( requireNonNullArgument( manager, "manager" ).createPerformanceTracker( name ) );
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  hold()
+
+    /**
+     *  <p>{@summary Creates a
+     *  {@link PerformanceTracker}
+     *  for the
+     *  {@link PerformanceSection}
+     *  with the given name.}</p>
+     *  <p>It creates an instance of
+     *  {@link PerfLogManager}
+     *  on the fly, using the
+     *  {@link MBeanServer}
+     *  returned by
+     *  {@link #obtainMBeanServer()}.</p>
+     *  <p>This is a convenience method that allows to use a performance
+     *  tracker with {@code try-with-resources}.</p>
+     *
+     *  @param  value   The name of the performance section.
+     *  @return A holder for the given tracker.
+     */
+    public static final PerformanceTrackerHolder hold( final String value )
+    {
+        final var retValue = hold( createPerformanceSectionName( value ) );
 
         //---* Done *----------------------------------------------------------
         return retValue;
@@ -404,7 +564,7 @@ public final class PerfLogUtils
      *  {@link PerformanceTracker}
      *  and immediately starts it.}</p>
      *  <p>This is a convenience method that allows to use a performance
-     *  tracker with try-with-resources.</p>
+     *  tracker with {@code try-with-resources}.</p>
      *
      *  @param  tracker An instance of
      *      {@link Optional}
@@ -412,20 +572,114 @@ public final class PerfLogUtils
      *  @return A holder for the given tracker.
      */
     @SuppressWarnings( "OptionalUsedAsFieldOrParameterType" )
-    public static final Holder holdAndStart( final Optional<? extends PerformanceTracker> tracker )
+    public static final PerformanceTrackerHolder holdAndStart( final Optional<? extends PerformanceTracker> tracker )
     {
         final var retValue = hold( tracker );
         retValue.start();
 
         //---* Done *----------------------------------------------------------
         return retValue;
-    }   //  hold()
+    }   //  holdAndStart()
+
+    /**
+     *  <p>{@summary Creates a
+     *  {@link PerformanceTracker}
+     *  for the
+     *  {@link PerformanceSection}
+     *  with the given
+     *  {@linkplain PerformanceSectionName name}
+     *  and immediately starts it.}</p>
+     *  <p>It creates an instance of
+     *  {@link PerfLogManager}
+     *  on the fly, using the
+     *  {@link MBeanServer}
+     *  returned by
+     *  {@link #obtainMBeanServer()}.</p>
+     *  <p>This is a convenience method that allows to use a performance
+     *  tracker with {@code try-with-resources}.</p>
+     *
+     *  @param  name    The name of the performance section.
+     *  @return A holder for the given tracker.
+     */
+    public static final PerformanceTrackerHolder holdAndStart( final PerformanceSectionName name )
+    {
+        final var retValue = hold( name );
+        retValue.start();
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  holdAndStart()
+
+    /**
+     *  <p>{@summary Creates a
+     *  {@link PerformanceTracker}
+     *  for the
+     *  {@link PerformanceSection}
+     *  with the given
+     *  {@linkplain PerformanceSectionName name}
+     *  and immediately starts it.}</p>
+     *  <p>It creates an instance of
+     *  {@link PerfLogManager}
+     *  on the fly, using the
+     *  {@link MBeanServer}
+     *  returned by
+     *  {@link #obtainMBeanServer()}.</p>
+     *  <p>This is a convenience method that allows to use a performance
+     *  tracker with {@code try-with-resources}.</p>
+     *
+     *  @param  manager The Performance Logging Manager that connects to the
+     *      {@link PerfLogMBean}.
+     *  @param  name    The name of the performance section.
+     *  @return A holder for the given tracker.
+     */
+    public static final PerformanceTrackerHolder holdAndStart( final PerfLogManager manager, final PerformanceSectionName name )
+    {
+        final var retValue = hold( manager, name );
+        retValue.start();
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  holdAndStart()
+
+    /**
+     *  <p>{@summary Creates a
+     *  {@link PerformanceTracker}
+     *  for the
+     *  {@link PerformanceSection}
+     *  with the given name and immediately starts it.}</p>
+     *  <p>It creates an instance of
+     *  {@link PerfLogManager}
+     *  on the fly, using the
+     *  {@link MBeanServer}
+     *  returned by
+     *  {@link #obtainMBeanServer()}.</p>
+     *  <p>This is a convenience method that allows to use a performance
+     *  tracker with {@code try-with-resources}.</p>
+     *
+     *  @param  value   The name of the performance section.
+     *  @return A holder for the given tracker.
+     */
+    public static final PerformanceTrackerHolder holdAndStart( final String value )
+    {
+        final var retValue = hold( value );
+        retValue.start();
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  holdAndStart()
 
     /**
      *  <p>{@summary Retrieves the
      *  {@link MBeanServer}
      *  that is used for the registration of the
      *  {@link PerfLogMBean}.}</p>
+     *  <p>If the system property
+     *  {@value #SYSTEM_PROPERTY_UsedDedicatedMBeanServer}
+     *  is set to {@code true}, a dedicated MBean server for the domain
+     *  {@value PerfLogRemote#DOMAIN_NAME}
+     *  will be used, otherwise the MBean server that is returned by
+     *  {@link java.lang.management.ManagementFactory#getPlatformMBeanServer()}
+     *  is returned.</p>
      *
      *  @return The MBean server.
      *
@@ -434,6 +688,7 @@ public final class PerfLogUtils
     public static final MBeanServer obtainMBeanServer()
     {
         final MBeanServer retValue;
+        //noinspection AccessOfSystemProperties
         if( getBoolean( SYSTEM_PROPERTY_UsedDedicatedMBeanServer ) )
         {
             retValue = MBeanServerFactory.findMBeanServer( null )

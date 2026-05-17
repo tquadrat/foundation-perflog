@@ -7,7 +7,7 @@
      version='1.1'
      baseProfile='full'
      width='1302.000'
-     height='792.000'>
+     height='781.000'>
     <defs>
         <style><![CDATA[
             line
@@ -118,8 +118,8 @@
         </marker>
         <clipPath id='ID000001'>
             <rect class='focusClass'
-                  height='370.000'
-                  width='958.000'
+                  height='359.000'
+                  width='952.000'
                   x='0.000'
                   y='0.000'/>
         </clipPath>
@@ -129,19 +129,19 @@
                    clip-path='url(#ID000001)'>
                     <rect x='0.000'
                           y='0.000'
-                          width='958.000'
-                          height='370.000'
+                          width='952.000'
+                          height='359.000'
                           class='focusClass'/>
                     <line x1='0.000'
                           y1='17.000'
-                          x2='958.000'
+                          x2='952.000'
                           y2='17.000'
                           class='separator'/>
-                    <text x='413.000'
+                    <text x='410.000'
                           y='13.000'>PerformanceTrackerImpl</text>
                     <line x1='0.000'
                           y1='144.000'
-                          x2='958.000'
+                          x2='952.000'
                           y2='144.000'
                           class='separator'/>
                     <text y='30.000'>- m_Aborted:boolean</text>
@@ -173,31 +173,29 @@
                     <text x='5.000'
                           y='223.000'>+ addContext(name:java.lang.String,value:java.lang.String):org.tquadrat.foundation.perflog.PerformanceTracker</text>
                     <text x='5.000'
-                          y='234.000'>+ addContext(name:java.lang.String,value:T,stringConverter:org.tquadrat.foundation.lang.StringConverter&lt;T&gt;):org.tquadrat.foundation.perflog.PerformanceTracker</text>
+                          y='234.000'>+ getContext():java.util.Map&lt;java.lang.String,java.lang.String&gt;</text>
                     <text x='5.000'
-                          y='245.000'>+ getContext():java.util.Map&lt;java.lang.String,java.lang.String&gt;</text>
+                          y='245.000'>+ getElapsedTime():java.util.Optional&lt;org.tquadrat.foundation.value.TimeValue&gt;</text>
                     <text x='5.000'
-                          y='256.000'>+ getElapsedTime():java.util.Optional&lt;org.tquadrat.foundation.value.TimeValue&gt;</text>
+                          y='256.000'>+ getPerformanceSection():org.tquadrat.foundation.perflog.PerformanceSection</text>
                     <text x='5.000'
-                          y='267.000'>+ getPerformanceSection():org.tquadrat.foundation.perflog.PerformanceSection</text>
+                          y='267.000'>+ getStatus():org.tquadrat.foundation.perflog.PerformanceTracker.TrackerStatus</text>
                     <text x='5.000'
-                          y='278.000'>+ getStatus():org.tquadrat.foundation.perflog.PerformanceTracker.TrackerStatus</text>
+                          y='278.000'>+ getTimestamp():java.time.Instant</text>
                     <text x='5.000'
-                          y='289.000'>+ getTimestamp():java.time.Instant</text>
+                          y='289.000'>+ isThresholdExceeded():boolean</text>
                     <text x='5.000'
-                          y='300.000'>+ isThresholdExceeded():boolean</text>
+                          y='300.000'>+ isTimedOut():boolean</text>
                     <text x='5.000'
-                          y='311.000'>+ isTimedOut():boolean</text>
+                          y='311.000'>- registerTimeoutMonitor():void</text>
                     <text x='5.000'
-                          y='322.000'>- registerTimeoutMonitor():void</text>
+                          y='322.000'>+ reset(resetContext:boolean):org.tquadrat.foundation.perflog.PerformanceTracker</text>
                     <text x='5.000'
-                          y='333.000'>+ reset(resetContext:boolean):org.tquadrat.foundation.perflog.PerformanceTracker</text>
+                          y='333.000'>+ start():void</text>
                     <text x='5.000'
-                          y='344.000'>+ start():void</text>
+                          y='344.000'>+ stop():void</text>
                     <text x='5.000'
-                          y='355.000'>+ stop():void</text>
-                    <text x='5.000'
-                          y='366.000'>- terminateTimeoutMonitoring():void</text>
+                          y='355.000'>- terminateTimeoutMonitoring():void</text>
                 </g>
             </g>
         </symbol>
@@ -303,8 +301,7 @@
                           y='91.000'
                           class='abstract'>+ addContext(name:java.lang.String,value:java.lang.String):org.tquadrat.foundation.perflog.PerformanceTracker</text>
                     <text x='5.000'
-                          y='102.000'
-                          class='abstract'>+ addContext(name:java.lang.String,value:T,stringConverter:org.tquadrat.foundation.lang.StringConverter&lt;T&gt;):org.tquadrat.foundation.perflog.PerformanceTracker</text>
+                          y='102.000'>&#x2A22; addContext(name:java.lang.String,value:T,stringConverter:org.tquadrat.foundation.lang.StringConverter&lt;T&gt;):org.tquadrat.foundation.perflog.PerformanceTracker</text>
                     <text x='5.000'
                           y='113.000'
                           class='abstract'>+ getStatus():org.tquadrat.foundation.perflog.PerformanceTracker.TrackerStatus</text>
@@ -335,7 +332,7 @@
     <use x='319.000'
          y='25.000'
          xlink:href='#org.tquadrat.foundation.perflog.PerformanceTracker'/>
-    <use x='172.000'
+    <use x='175.000'
          y='297.000'
          xlink:href='#org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl'/>
 </svg>

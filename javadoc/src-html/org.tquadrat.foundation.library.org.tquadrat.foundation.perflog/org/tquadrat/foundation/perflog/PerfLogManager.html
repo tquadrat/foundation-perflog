@@ -43,121 +43,151 @@
 <span class="source-line-no">030</span><span id="line-30">import org.tquadrat.foundation.perflog.internal.PerfLogManagerImpl;</span>
 <span class="source-line-no">031</span><span id="line-31"></span>
 <span class="source-line-no">032</span><span id="line-32">/**</span>
-<span class="source-line-no">033</span><span id="line-33"> *  &lt;p&gt;{@summary This interface describes the MBean for the Foundation</span>
-<span class="source-line-no">034</span><span id="line-34"> *  Performance Logging and Monitoring.}&lt;/p&gt;</span>
-<span class="source-line-no">035</span><span id="line-35"> *</span>
-<span class="source-line-no">036</span><span id="line-36"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">037</span><span id="line-37"> *  @version $Id: PerfLogManager.java 1211 2026-05-01 15:24:10Z tquadrat $</span>
-<span class="source-line-no">038</span><span id="line-38"> *  @since 0.25.0</span>
-<span class="source-line-no">039</span><span id="line-39"> *</span>
-<span class="source-line-no">040</span><span id="line-40"> *  @UMLGraph.link</span>
-<span class="source-line-no">041</span><span id="line-41"> */</span>
-<span class="source-line-no">042</span><span id="line-42">@ClassVersion( sourceVersion = "$Id: PerfLogManager.java 1211 2026-05-01 15:24:10Z tquadrat $" )</span>
-<span class="source-line-no">043</span><span id="line-43">@API( status = STABLE, since = "0.25.0" )</span>
-<span class="source-line-no">044</span><span id="line-44">public sealed interface PerfLogManager extends AutoCloseable</span>
-<span class="source-line-no">045</span><span id="line-45">    permits PerfLogManagerImpl</span>
-<span class="source-line-no">046</span><span id="line-46">{</span>
-<span class="source-line-no">047</span><span id="line-47">        /*---------*\</span>
-<span class="source-line-no">048</span><span id="line-48">    ====** Methods **==========================================================</span>
-<span class="source-line-no">049</span><span id="line-49">        \*---------*/</span>
-<span class="source-line-no">050</span><span id="line-50">    /**</span>
-<span class="source-line-no">051</span><span id="line-51">     *  {@inheritDoc}</span>
-<span class="source-line-no">052</span><span id="line-52">     *  &lt;p&gt;After {@code close()} is called, calls to other methods of this</span>
-<span class="source-line-no">053</span><span id="line-53">     *  instance may result in an</span>
-<span class="source-line-no">054</span><span id="line-54">     *  {@link IllegalStateException}</span>
-<span class="source-line-no">055</span><span id="line-55">     *  to be thrown.&lt;/p&gt;</span>
-<span class="source-line-no">056</span><span id="line-56">     */</span>
-<span class="source-line-no">057</span><span id="line-57">    @Override</span>
-<span class="source-line-no">058</span><span id="line-58">    public void close();</span>
-<span class="source-line-no">059</span><span id="line-59"></span>
-<span class="source-line-no">060</span><span id="line-60">    /**</span>
-<span class="source-line-no">061</span><span id="line-61">     *  &lt;p&gt;{@summary Creates a performance tracker for the</span>
-<span class="source-line-no">062</span><span id="line-62">     *  {@link PerformanceSection}</span>
-<span class="source-line-no">063</span><span id="line-63">     *  with the given name.}&lt;/p&gt;</span>
-<span class="source-line-no">064</span><span id="line-64">     *  &lt;p&gt;The return value will be empty if the performance section is</span>
-<span class="source-line-no">065</span><span id="line-65">     *  currently ignored.&lt;/p&gt;</span>
-<span class="source-line-no">066</span><span id="line-66">     *</span>
-<span class="source-line-no">067</span><span id="line-67">     *  @param  name    The name of the performance section.</span>
-<span class="source-line-no">068</span><span id="line-68">     *  @return An instance of</span>
-<span class="source-line-no">069</span><span id="line-69">     *      {@link Optional}</span>
-<span class="source-line-no">070</span><span id="line-70">     *      that holds the new tracker.</span>
-<span class="source-line-no">071</span><span id="line-71">     *  @throws IllegalStateException</span>
-<span class="source-line-no">072</span><span id="line-72">     *      {@link #close()}</span>
-<span class="source-line-no">073</span><span id="line-73">     *      was already called on this instance.</span>
-<span class="source-line-no">074</span><span id="line-74">     */</span>
-<span class="source-line-no">075</span><span id="line-75">    public default Optional&lt;PerformanceTracker&gt; createPerformanceTracker( final String name ) throws IllegalStateException</span>
-<span class="source-line-no">076</span><span id="line-76">    {</span>
-<span class="source-line-no">077</span><span id="line-77">        final var retValue = createPerformanceTracker( createPerformanceSectionName( name ) );</span>
-<span class="source-line-no">078</span><span id="line-78"></span>
-<span class="source-line-no">079</span><span id="line-79">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">080</span><span id="line-80">        return retValue;</span>
-<span class="source-line-no">081</span><span id="line-81">    }   //  createPerformanceTracker()</span>
-<span class="source-line-no">082</span><span id="line-82"></span>
-<span class="source-line-no">083</span><span id="line-83">    /**</span>
-<span class="source-line-no">084</span><span id="line-84">     *  &lt;p&gt;{@summary Creates a performance tracker for the</span>
-<span class="source-line-no">085</span><span id="line-85">     *  {@link PerformanceSection}</span>
-<span class="source-line-no">086</span><span id="line-86">     *  with the given name.}&lt;/p&gt;</span>
-<span class="source-line-no">087</span><span id="line-87">     *  &lt;p&gt;The return value will be empty if the performance section is</span>
-<span class="source-line-no">088</span><span id="line-88">     *  currently ignored.&lt;/p&gt;</span>
-<span class="source-line-no">089</span><span id="line-89">     *</span>
-<span class="source-line-no">090</span><span id="line-90">     *  @param  name    The name of the performance section.</span>
-<span class="source-line-no">091</span><span id="line-91">     *  @return An instance of</span>
-<span class="source-line-no">092</span><span id="line-92">     *      {@link Optional}</span>
-<span class="source-line-no">093</span><span id="line-93">     *      that holds the new tracker.</span>
-<span class="source-line-no">094</span><span id="line-94">     *  @throws IllegalStateException</span>
-<span class="source-line-no">095</span><span id="line-95">     *      {@link #close()}</span>
-<span class="source-line-no">096</span><span id="line-96">     *      was already called on this instance.</span>
-<span class="source-line-no">097</span><span id="line-97">     */</span>
-<span class="source-line-no">098</span><span id="line-98">    public Optional&lt;PerformanceTracker&gt; createPerformanceTracker( final PerformanceSectionName name ) throws IllegalStateException;</span>
-<span class="source-line-no">099</span><span id="line-99"></span>
-<span class="source-line-no">100</span><span id="line-100">    /**</span>
-<span class="source-line-no">101</span><span id="line-101">     *  &lt;p&gt;{@summary Returns the performance section specified by the given</span>
-<span class="source-line-no">102</span><span id="line-102">     *  name.}&lt;/p&gt;</span>
-<span class="source-line-no">103</span><span id="line-103">     *  &lt;p&gt;Delegates to</span>
-<span class="source-line-no">104</span><span id="line-104">     *  {@link PerfLogMBean#getPerformanceSection(PerformanceSectionName)}&lt;/p&gt;</span>
+<span class="source-line-no">033</span><span id="line-33"> *  &lt;p&gt;{@summary This interface describes the Performance Logging and</span>
+<span class="source-line-no">034</span><span id="line-34"> *  Monitoring Manager that is the frontend to the</span>
+<span class="source-line-no">035</span><span id="line-35"> *  {@linkplain PerfLogMBean Performance Logging and Monitoring MBean}</span>
+<span class="source-line-no">036</span><span id="line-36"> *  that does the work behind the scenes.}&lt;/p&gt;</span>
+<span class="source-line-no">037</span><span id="line-37"> *  &lt;p&gt;Instances of {@code PerfLogManager} are thread-safe, so they can be</span>
+<span class="source-line-no">038</span><span id="line-38"> *  created as {@code static}:&lt;/p&gt;</span>
+<span class="source-line-no">039</span><span id="line-39"> *  {@include ${javadoc}/sample1a.txt:SOURCE}</span>
+<span class="source-line-no">040</span><span id="line-40"> *  &lt;p&gt;or as attributes as well.&lt;/p&gt;</span>
+<span class="source-line-no">041</span><span id="line-41"> *  &lt;p&gt;Because {@code PerfLogManager} implements</span>
+<span class="source-line-no">042</span><span id="line-42"> *  {@link AutoCloseable}</span>
+<span class="source-line-no">043</span><span id="line-43"> *  it can be used with {@code try-with-resources}, too:&lt;/p&gt;</span>
+<span class="source-line-no">044</span><span id="line-44"> *  {@include ${javadoc}/sample1c.txt:SOURCE}</span>
+<span class="source-line-no">045</span><span id="line-45"> *  &lt;p&gt;If an instance is abandoned, it will perform an automatic</span>
+<span class="source-line-no">046</span><span id="line-46"> *  clean-up.&lt;/p&gt;</span>
+<span class="source-line-no">047</span><span id="line-47"> *</span>
+<span class="source-line-no">048</span><span id="line-48"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
+<span class="source-line-no">049</span><span id="line-49"> *  @version $Id: PerfLogManager.java 1246 2026-05-16 14:07:00Z tquadrat $</span>
+<span class="source-line-no">050</span><span id="line-50"> *  @since 0.25.0</span>
+<span class="source-line-no">051</span><span id="line-51"> *</span>
+<span class="source-line-no">052</span><span id="line-52"> *  @UMLGraph.link</span>
+<span class="source-line-no">053</span><span id="line-53"> */</span>
+<span class="source-line-no">054</span><span id="line-54">@ClassVersion( sourceVersion = "$Id: PerfLogManager.java 1246 2026-05-16 14:07:00Z tquadrat $" )</span>
+<span class="source-line-no">055</span><span id="line-55">@API( status = STABLE, since = "0.25.0" )</span>
+<span class="source-line-no">056</span><span id="line-56">public sealed interface PerfLogManager extends AutoCloseable</span>
+<span class="source-line-no">057</span><span id="line-57">    permits PerfLogManagerImpl</span>
+<span class="source-line-no">058</span><span id="line-58">{</span>
+<span class="source-line-no">059</span><span id="line-59">        /*---------*\</span>
+<span class="source-line-no">060</span><span id="line-60">    ====** Methods **==========================================================</span>
+<span class="source-line-no">061</span><span id="line-61">        \*---------*/</span>
+<span class="source-line-no">062</span><span id="line-62">    /**</span>
+<span class="source-line-no">063</span><span id="line-63">     *  {@inheritDoc}</span>
+<span class="source-line-no">064</span><span id="line-64">     *  &lt;p&gt;After {@code close()} is called, calls to other methods of this</span>
+<span class="source-line-no">065</span><span id="line-65">     *  instance may result in an</span>
+<span class="source-line-no">066</span><span id="line-66">     *  {@link IllegalStateException}</span>
+<span class="source-line-no">067</span><span id="line-67">     *  to be thrown.&lt;/p&gt;</span>
+<span class="source-line-no">068</span><span id="line-68">     */</span>
+<span class="source-line-no">069</span><span id="line-69">    @Override</span>
+<span class="source-line-no">070</span><span id="line-70">    public void close();</span>
+<span class="source-line-no">071</span><span id="line-71"></span>
+<span class="source-line-no">072</span><span id="line-72">    /**</span>
+<span class="source-line-no">073</span><span id="line-73">     *  &lt;p&gt;{@summary Creates a performance tracker for the</span>
+<span class="source-line-no">074</span><span id="line-74">     *  {@link PerformanceSection}</span>
+<span class="source-line-no">075</span><span id="line-75">     *  with the given name.}&lt;/p&gt;</span>
+<span class="source-line-no">076</span><span id="line-76">     *  &lt;p&gt;The return value will be empty if the performance section is</span>
+<span class="source-line-no">077</span><span id="line-77">     *  currently ignored.&lt;/p&gt;</span>
+<span class="source-line-no">078</span><span id="line-78">     *  &lt;p&gt;If there is currently no performance section defined with the given</span>
+<span class="source-line-no">079</span><span id="line-79">     *  name, one will be created with default values.&lt;/p&gt;</span>
+<span class="source-line-no">080</span><span id="line-80">     *</span>
+<span class="source-line-no">081</span><span id="line-81">     *  @param  name    The name of the performance section.</span>
+<span class="source-line-no">082</span><span id="line-82">     *  @return An instance of</span>
+<span class="source-line-no">083</span><span id="line-83">     *      {@link Optional}</span>
+<span class="source-line-no">084</span><span id="line-84">     *      that holds the new tracker.</span>
+<span class="source-line-no">085</span><span id="line-85">     *  @throws IllegalStateException</span>
+<span class="source-line-no">086</span><span id="line-86">     *      {@link #close()}</span>
+<span class="source-line-no">087</span><span id="line-87">     *      was already called on this instance.</span>
+<span class="source-line-no">088</span><span id="line-88">     */</span>
+<span class="source-line-no">089</span><span id="line-89">    public default Optional&lt;PerformanceTracker&gt; createPerformanceTracker( final String name ) throws IllegalStateException</span>
+<span class="source-line-no">090</span><span id="line-90">    {</span>
+<span class="source-line-no">091</span><span id="line-91">        final var retValue = createPerformanceTracker( createPerformanceSectionName( name ) );</span>
+<span class="source-line-no">092</span><span id="line-92"></span>
+<span class="source-line-no">093</span><span id="line-93">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">094</span><span id="line-94">        return retValue;</span>
+<span class="source-line-no">095</span><span id="line-95">    }   //  createPerformanceTracker()</span>
+<span class="source-line-no">096</span><span id="line-96"></span>
+<span class="source-line-no">097</span><span id="line-97">    /**</span>
+<span class="source-line-no">098</span><span id="line-98">     *  &lt;p&gt;{@summary Creates a performance tracker for the</span>
+<span class="source-line-no">099</span><span id="line-99">     *  {@link PerformanceSection}</span>
+<span class="source-line-no">100</span><span id="line-100">     *  with the given name.}&lt;/p&gt;</span>
+<span class="source-line-no">101</span><span id="line-101">     *  &lt;p&gt;The return value will be empty if the performance section is</span>
+<span class="source-line-no">102</span><span id="line-102">     *  currently ignored.&lt;/p&gt;</span>
+<span class="source-line-no">103</span><span id="line-103">     *  &lt;p&gt;If there is currently no performance section defined with the given</span>
+<span class="source-line-no">104</span><span id="line-104">     *  name, one will be created with default values.&lt;/p&gt;</span>
 <span class="source-line-no">105</span><span id="line-105">     *</span>
 <span class="source-line-no">106</span><span id="line-106">     *  @param  name    The name of the performance section.</span>
 <span class="source-line-no">107</span><span id="line-107">     *  @return An instance of</span>
 <span class="source-line-no">108</span><span id="line-108">     *      {@link Optional}</span>
-<span class="source-line-no">109</span><span id="line-109">     *      that holds the retrieved performance section.</span>
+<span class="source-line-no">109</span><span id="line-109">     *      that holds the new tracker.</span>
 <span class="source-line-no">110</span><span id="line-110">     *  @throws IllegalStateException</span>
 <span class="source-line-no">111</span><span id="line-111">     *      {@link #close()}</span>
 <span class="source-line-no">112</span><span id="line-112">     *      was already called on this instance.</span>
 <span class="source-line-no">113</span><span id="line-113">     */</span>
-<span class="source-line-no">114</span><span id="line-114">    public Optional&lt;PerformanceSection&gt; getPerformanceSection( final PerformanceSectionName name ) throws IllegalStateException;</span>
+<span class="source-line-no">114</span><span id="line-114">    public Optional&lt;PerformanceTracker&gt; createPerformanceTracker( final PerformanceSectionName name ) throws IllegalStateException;</span>
 <span class="source-line-no">115</span><span id="line-115"></span>
 <span class="source-line-no">116</span><span id="line-116">    /**</span>
-<span class="source-line-no">117</span><span id="line-117">     *  Loads the</span>
-<span class="source-line-no">118</span><span id="line-118">     *  {@link PerformanceSection}</span>
-<span class="source-line-no">119</span><span id="line-119">     *  definitions.</span>
-<span class="source-line-no">120</span><span id="line-120">     *</span>
-<span class="source-line-no">121</span><span id="line-121">     *  @param  definitions The definitions for the performance sections.</span>
-<span class="source-line-no">122</span><span id="line-122">     *  @throws IllegalStateException</span>
-<span class="source-line-no">123</span><span id="line-123">     *      {@link #close()}</span>
-<span class="source-line-no">124</span><span id="line-124">     *      was already called on this instance.</span>
-<span class="source-line-no">125</span><span id="line-125">     */</span>
-<span class="source-line-no">126</span><span id="line-126">    public default void loadPerformanceSectionDefinitions( final PerformanceSection... definitions ) throws IllegalStateException</span>
-<span class="source-line-no">127</span><span id="line-127">    {</span>
-<span class="source-line-no">128</span><span id="line-128">        loadPerformanceSectionDefinitions( asList( requireNonNullArgument( definitions, "definitions" ) ) );</span>
-<span class="source-line-no">129</span><span id="line-129">    }   //  loadPerformanceSectionDefinitions()</span>
-<span class="source-line-no">130</span><span id="line-130"></span>
-<span class="source-line-no">131</span><span id="line-131">    /**</span>
-<span class="source-line-no">132</span><span id="line-132">     *  Loads the</span>
-<span class="source-line-no">133</span><span id="line-133">     *  {@link PerformanceSection}</span>
-<span class="source-line-no">134</span><span id="line-134">     *  definitions.</span>
-<span class="source-line-no">135</span><span id="line-135">     *</span>
-<span class="source-line-no">136</span><span id="line-136">     *  @param  definitions The definitions for the performance sections.</span>
-<span class="source-line-no">137</span><span id="line-137">     *  @throws IllegalStateException</span>
-<span class="source-line-no">138</span><span id="line-138">     *      {@link #close()}</span>
-<span class="source-line-no">139</span><span id="line-139">     *      was already called on this instance.</span>
-<span class="source-line-no">140</span><span id="line-140">     */</span>
-<span class="source-line-no">141</span><span id="line-141">    public void loadPerformanceSectionDefinitions( final Iterable&lt;PerformanceSection&gt; definitions ) throws IllegalStateException;</span>
-<span class="source-line-no">142</span><span id="line-142">}</span>
-<span class="source-line-no">143</span><span id="line-143">//  interface PerfLogManager</span>
-<span class="source-line-no">144</span><span id="line-144"></span>
-<span class="source-line-no">145</span><span id="line-145">/*</span>
-<span class="source-line-no">146</span><span id="line-146"> *  End of File</span>
-<span class="source-line-no">147</span><span id="line-147"> */</span>
+<span class="source-line-no">117</span><span id="line-117">     *  &lt;p&gt;{@summary Returns the performance section specified by the given</span>
+<span class="source-line-no">118</span><span id="line-118">     *  name.}&lt;/p&gt;</span>
+<span class="source-line-no">119</span><span id="line-119">     *  &lt;p&gt;Delegates to</span>
+<span class="source-line-no">120</span><span id="line-120">     *  {@link PerfLogMBean#getPerformanceSection(PerformanceSectionName)}&lt;/p&gt;</span>
+<span class="source-line-no">121</span><span id="line-121">     *</span>
+<span class="source-line-no">122</span><span id="line-122">     *  @param  name    The name of the performance section.</span>
+<span class="source-line-no">123</span><span id="line-123">     *  @return An instance of</span>
+<span class="source-line-no">124</span><span id="line-124">     *      {@link Optional}</span>
+<span class="source-line-no">125</span><span id="line-125">     *      that holds the retrieved performance section.</span>
+<span class="source-line-no">126</span><span id="line-126">     *  @throws IllegalStateException</span>
+<span class="source-line-no">127</span><span id="line-127">     *      {@link #close()}</span>
+<span class="source-line-no">128</span><span id="line-128">     *      was already called on this instance.</span>
+<span class="source-line-no">129</span><span id="line-129">     */</span>
+<span class="source-line-no">130</span><span id="line-130">    public Optional&lt;PerformanceSection&gt; getPerformanceSection( final PerformanceSectionName name ) throws IllegalStateException;</span>
+<span class="source-line-no">131</span><span id="line-131"></span>
+<span class="source-line-no">132</span><span id="line-132">    /**</span>
+<span class="source-line-no">133</span><span id="line-133">     *  &lt;p&gt;{@summary Loads the</span>
+<span class="source-line-no">134</span><span id="line-134">     *  {@linkplain PerformanceSection Performance Section definitions}.}&lt;/p&gt;</span>
+<span class="source-line-no">135</span><span id="line-135">     *  &lt;p&gt;Because these definitions are stored globally in the</span>
+<span class="source-line-no">136</span><span id="line-136">     *  {@linkplain PerfLogMBean Performance Logging and Monitorin MBean},</span>
+<span class="source-line-no">137</span><span id="line-137">     *  they need to be loaded only once. But overwriting them does not harm,</span>
+<span class="source-line-no">138</span><span id="line-138">     *  other than performance.&lt;/p&gt;</span>
+<span class="source-line-no">139</span><span id="line-139">     *  &lt;p&gt;Each instance of {@code PerfLogManager} shares the same instances</span>
+<span class="source-line-no">140</span><span id="line-140">     *  of</span>
+<span class="source-line-no">141</span><span id="line-141">     *  {@link PerformanceSection}.&lt;/p&gt;</span>
+<span class="source-line-no">142</span><span id="line-142">     *</span>
+<span class="source-line-no">143</span><span id="line-143">     *  @param  definitions The definitions for the performance sections.</span>
+<span class="source-line-no">144</span><span id="line-144">     *  @throws IllegalStateException</span>
+<span class="source-line-no">145</span><span id="line-145">     *      {@link #close()}</span>
+<span class="source-line-no">146</span><span id="line-146">     *      was already called on this instance.</span>
+<span class="source-line-no">147</span><span id="line-147">     */</span>
+<span class="source-line-no">148</span><span id="line-148">    @SuppressWarnings( "NewMethodNamingConvention" )</span>
+<span class="source-line-no">149</span><span id="line-149">    public default void loadPerformanceSectionDefinitions( final PerformanceSection... definitions ) throws IllegalStateException</span>
+<span class="source-line-no">150</span><span id="line-150">    {</span>
+<span class="source-line-no">151</span><span id="line-151">        loadPerformanceSectionDefinitions( asList( requireNonNullArgument( definitions, "definitions" ) ) );</span>
+<span class="source-line-no">152</span><span id="line-152">    }   //  loadPerformanceSectionDefinitions()</span>
+<span class="source-line-no">153</span><span id="line-153"></span>
+<span class="source-line-no">154</span><span id="line-154">    /**</span>
+<span class="source-line-no">155</span><span id="line-155">     *  &lt;p&gt;{@summary Loads the</span>
+<span class="source-line-no">156</span><span id="line-156">     *  {@linkplain PerformanceSection Performance Section definitions}.}&lt;/p&gt;</span>
+<span class="source-line-no">157</span><span id="line-157">     *  &lt;p&gt;Because these definitions are stored globally in the</span>
+<span class="source-line-no">158</span><span id="line-158">     *  {@linkplain PerfLogMBean Performance Logging and Monitorin MBean},</span>
+<span class="source-line-no">159</span><span id="line-159">     *  they need to be loaded only once. But overwriting them does not harm,</span>
+<span class="source-line-no">160</span><span id="line-160">     *  other than performance.&lt;/p&gt;</span>
+<span class="source-line-no">161</span><span id="line-161">     *  &lt;p&gt;Each instance of {@code PerfLogManager} shares the same instances</span>
+<span class="source-line-no">162</span><span id="line-162">     *  of</span>
+<span class="source-line-no">163</span><span id="line-163">     *  {@link PerformanceSection}.&lt;/p&gt;</span>
+<span class="source-line-no">164</span><span id="line-164">     *</span>
+<span class="source-line-no">165</span><span id="line-165">     *  @param  definitions The definitions for the performance sections.</span>
+<span class="source-line-no">166</span><span id="line-166">     *  @throws IllegalStateException</span>
+<span class="source-line-no">167</span><span id="line-167">     *      {@link #close()}</span>
+<span class="source-line-no">168</span><span id="line-168">     *      was already called on this instance.</span>
+<span class="source-line-no">169</span><span id="line-169">     */</span>
+<span class="source-line-no">170</span><span id="line-170">    @SuppressWarnings( "NewMethodNamingConvention" )</span>
+<span class="source-line-no">171</span><span id="line-171">    public void loadPerformanceSectionDefinitions( final Iterable&lt;PerformanceSection&gt; definitions ) throws IllegalStateException;</span>
+<span class="source-line-no">172</span><span id="line-172">}</span>
+<span class="source-line-no">173</span><span id="line-173">//  interface PerfLogManager</span>
+<span class="source-line-no">174</span><span id="line-174"></span>
+<span class="source-line-no">175</span><span id="line-175">/*</span>
+<span class="source-line-no">176</span><span id="line-176"> *  End of File</span>
+<span class="source-line-no">177</span><span id="line-177"> */</span>
 
 
 

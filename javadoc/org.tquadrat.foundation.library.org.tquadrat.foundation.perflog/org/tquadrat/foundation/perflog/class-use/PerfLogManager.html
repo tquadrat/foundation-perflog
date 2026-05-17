@@ -19,7 +19,7 @@ loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
 </noscript>
-<header role="banner"><div style="overflow:auto;"><img src="../../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-09T08:29:12.915601387Z[UTC]</p>      </div>
+<header role="banner"><div style="overflow:auto;"><img src="../../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-17T11:08:43.815247398Z[UTC]</p>      </div>
 <nav role="navigation">
 <!-- ========= START OF TOP NAVBAR ======= -->
 <div class="top-nav" id="navbar-top">
@@ -75,6 +75,18 @@ Monitoring library.</div>
 <li>
 <section class="detail" id="org.tquadrat.foundation.perflog">
 <h2>Uses of <a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a> in <a href="../package-summary.html">org.tquadrat.foundation.perflog</a></h2>
+<div class="caption"><span>Fields in <a href="../package-summary.html">org.tquadrat.foundation.perflog</a> declared as <a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>private <a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">PerfLogUtils.PerformanceTrackerHolder.</span><code><a href="../PerfLogUtils.PerformanceTrackerHolder.html#m_Manager" class="member-name-link">m_Manager</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The reference to a volatile instance of
+<a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>.</div>
+</div>
+</div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">org.tquadrat.foundation.perflog</a> that return <a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -112,6 +124,54 @@ that handles the connection with the underlying
 <a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
 that handles the connection with the underlying
 <a href="../PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</div>
+</div>
+</div>
+<div class="caption"><span>Methods in <a href="../package-summary.html">org.tquadrat.foundation.perflog</a> with parameters of type <a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Method</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final <a href="../PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">PerfLogUtils.</span><code><a href="../PerfLogUtils.html#hold(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSectionName)" class="member-name-link">hold</a><wbr>(<a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a>&nbsp;manager,
+ <a href="../PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates a
+<a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="../PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>.</div>
+</div>
+<div class="col-first odd-row-color"><code>static final <a href="../PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">PerfLogUtils.</span><code><a href="../PerfLogUtils.html#holdAndStart(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSectionName)" class="member-name-link">holdAndStart</a><wbr>(<a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a>&nbsp;manager,
+ <a href="../PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Creates a
+<a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="../PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>
+and immediately starts it.</div>
+</div>
+</div>
+<div class="caption"><span>Constructors in <a href="../package-summary.html">org.tquadrat.foundation.perflog</a> with parameters of type <a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier</div>
+<div class="table-header col-second">Constructor</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>private </code></div>
+<div class="col-second even-row-color"><code><a href="../PerfLogUtils.PerformanceTrackerHolder.html#%3Cinit%3E(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSectionName)" class="member-name-link">PerformanceTrackerHolder</a><wbr>(<a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a>&nbsp;manager,
+ <a href="../PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates a new instance of
+<code>PerformanceTrackerHolder</code> that holds an instance of
+<a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>, created by calling
+<a href="../PerfLogManager.html#createPerformanceTracker(org.tquadrat.foundation.perflog.PerformanceSectionName)"><code>PerfLogManager.createPerformanceTracker(PerformanceSectionName)</code></a>
+on the given
+<a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
+instance with the given
+<a href="../PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceSectionName</code></a>.</div>
 </div>
 </div>
 </section>

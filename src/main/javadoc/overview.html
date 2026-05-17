@@ -28,5 +28,154 @@
   algorithm.</p>
 <p>It allows to observe how much time is used to perform a single operation
   within an application and whether this changes over time.</p>
+<p>The application defines a <i>Performance Section</i> that wraps the
+  operation to monitor. Each Performance Section has a unique name that is used
+  for the statistics later. That name should be somehow meaningful.</p>
+<p>The section registers the time when it was entered, and when it was left
+  again, and the elapsed time will be made available to the monitoring
+  system.</p>
+<p>That monitoring system connects through JMX. This means it could either be
+  an internal thread inside the same application, or another process on the
+  same machine, or even a program running on another machine.</p>
+
+<h2>How to use it</h2>
+<h3>The Performance Logging and Monitoring Manager</h3>
+<p>For the integration of the Performance Logging and Monitoring into an
+  application, the first step is to create an instance of
+  {@link org.tquadrat.foundation.perflog.PerfLogManager PerfLogManager};
+  this is the frontend to the
+  {@linkplain org.tquadrat.foundation.perflog.PerfLogMBean Performance Logging and Monitoring MBean}
+  that does the library's work behind the scenes.</p>
+<p>Instances of {@code PerfLogManager} are thread-safe; it can be created as
+{@code static} or as an attribute:</p>
+{@include ${javadoc}/sample1a.txt:SOURCE}
+<p>Or it will be created for each method that should be monitored:</p>
+{@include ${javadoc}/sample1b.txt:SOURCE}
+<p>Because {@code PerfLogManager} implements
+  {@link java.lang.AutoCloseable}, it can also be used with
+  {@code try-with-resources}:</p>
+{@include ${javadoc}/sample1c.txt:SOURCE}
+
+<h3>The Performance Sections</h3>
+<p>The next step is to define and to register the
+  {@linkplain org.tquadrat.foundation.perflog.PerformanceSection performance sections}:</p>
+{@include ${javadoc}/sample2a.txt:SOURCE}
+<p>The instances of
+  {@link org.tquadrat.foundation.perflog.PerformanceSection PerformanceSection}
+  are stored globally by the
+  {@link org.tquadrat.foundation.perflog.PerfLogMBean PerfLogMBean}.
+  This means that each instance of {@code PerfLogManager} shares the same set
+  of {@code PerformanceSection} definitions.</p>
+<p>This allows to define and register them centrally, even if local manager
+  instances are used:</p>
+{@include ${javadoc}/sample2b.txt:SOURCE}
+
+<h4>Threshold</h4>
+<p>The threshold time for a performance section is the execution duration for
+  that section that is usually not exceeded. If that threshold limit is
+  exceeded, a corresponding flag is set in the performance report.</p>
+<p>When creating the performance section with the flag
+  {@link org.tquadrat.foundation.perflog.PerformanceSection.PerformanceSectionFlags#SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD},
+  a performance report will be created only when the threshold is exceeded.</p>
+
+<h4>Timeout</h4>
+<p>If the execution of a  performance section took longer than time configured
+  for the timeout, the performance tracker will be aborted and a performance
+  report is created. In this case, the exact execution time for the section is
+  not tracked.</p>
+<p>If both a threshold and a timeout value is set for the performance section,
+the timeout must but greater than the threshold.</p>
+
+<h3>Track the Performance</h3>
+<p>Before entering the code section that should be tracked, an instance of
+  {@link org.tquadrat.foundation.perflog.PerformanceTracker PerformanceTracker}
+  is requested from the {@code PerfLogManager} through a call to
+  {@link org.tquadrat.foundation.perflog.PerfLogManager#createPerformanceTracker(PerformanceSectionName) createPerformanceTracker()}
+  with the name of the performance section. If there is currently no
+  performance section defined with that name, one will be created with default
+  values (a dummy description, no threshold, no timeout, no flags – refer to
+  {@link org.tquadrat.foundation.perflog.PerformanceSection#PerformanceSection(PerformanceSectionName,String,TimeValue,TimeValue,PerformanceSectionFlags...s) PerformanceSection()}
+  for the details).</p>
+<p>When the performance section is currently not active
+  ({@link org.tquadrat.foundation.perflog.PerformanceSection#isIgnored()}
+  returns {@code true}), the call to {@code createPerformanceTracker()} returns
+  {@linkplain java.util.Optional#empty() empty}.</p>
+<p>When entering the code section, the tracker needs to be started, and at
+  the end, its should be stopped or, in case of an error, aborted.</p>
+<p>That may look like this:</p>
+{@include ${javadoc}/sample3a.txt:SOURCE}
+<p>The utility class
+  {@link org.tquadrat.foundation.perflog.PerfLogUtils PerfLogUtils}
+  has the methods {@code hold()} and {@code holdAndStart()} that allows to use
+  {@code try-with-resources}:</p>
+{@include ${javadoc}/sample3b.txt:SOURCE}
+<p>Or without the option to abort the performance tracker and with an internal,
+volatile Performance Logging Manager:</p>
+{@include ${javadoc}/sample3c.txt:SOURCE}
+
+<h4>The Context</h4>
+<p>If the execution time for a performance section is (probably) dependent on
+  some data, this can be documented through the context that is stored with the
+  tracker instance.</p>
+<p>{@link org.tquadrat.foundation.perflog.PerformanceTracker#addContext(String,String) PerformanceTracker.addContext()}
+  takes a category key and the related value; this allows to provide some
+  structured data:</p>
+{@include ${javadoc}/sample4.txt:SOURCE}
+<p>When reusing the tracker instance, it is possible to keep the current
+  context and only overwrite some of the entries; refer to
+  {@link org.tquadrat.foundation.perflog.PerformanceTracker#reset(boolean) PerformanceTracker#reset()}.</p>
+
+<h2>Receiving the Performance Reports</h2>
+<p>Once a performance tracker terminates, a performance report is created by
+  the Performance Logging and Monitoring MBean, then it will be issued by it as
+  a
+  {@link javax.management.Notification}.</p>
+<p>The report data is stored in JSON format in the
+  {@linkplain javax.management.Notification#getMessage() message part}
+  of the notification.</p>
+<p>Such a report may look like this:</p>
+<div class="source-container"><pre>
+{
+  "PerformanceSection":
+  {
+    "Name":"PS_Load",
+    "Description":"Loading Data",
+    "ThresholdOnlyReport":false
+  },
+  "StartTime":"2026-05-17T09:43:46.723338398Z",
+  "ElapsedTime":
+  {
+    "Unit":"ms",
+    "Value":29001.241731
+  },
+  "ExceededThreshold":false,
+  "IsTimedOut":false,
+  "IsAborted":false,
+  "Context":
+  {
+    "Source":"…",
+    "Source Date":"…",
+    "Source Size":"…",
+    "Source Lines":"…"
+  }
+}
+</pre></div>
+
+<h3>Internal Client</h3>
+<p>For a client that runs within the same JVM as the application itself, the
+  class
+  {@link  org.tquadrat.foundation.perflog.client.PerfLogClientSupport PerfLogClientSupport}
+  can be used like this:</p>
+{@include ${javadoc}/sample5.txt:SOURCE}
+
+<h3>Remote Client</h3>
+<p>If a client running inside another JVM should be used, either on the same or
+  another machine, if is necessary to expose the MBeanServer first:</p>
+{@include ${javadoc}/sample6.txt:SOURCE}
+<p>The library
+  <a href='https://tquadrat.github.io/foundation-perflogremote/'>org.tquadrat.foundation.perflog.remote</a>
+  provides a helper class for the implementation of a remote client.</p>
+  <p>A simple implementation could look like this:</p>
+{@include ${test}/org/tquadrat/foundation/perflog/remote/RemoteClient.java:SOURCE_SNIPPET}
 </body>
 </html>

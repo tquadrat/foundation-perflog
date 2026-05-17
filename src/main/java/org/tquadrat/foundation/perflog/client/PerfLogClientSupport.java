@@ -34,14 +34,16 @@ import org.tquadrat.foundation.annotation.ClassVersion;
  *  messages that are sent each time a
  *  {@linkplain org.tquadrat.foundation.perflog.PerformanceSection performance
  *  section} was left.</p>
+ *  <p>It can be used like this</p>
+ *  {@include ${javadoc}/sample5.txt:SOURCE}
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogClientSupport.java 1207 2026-04-24 21:50:11Z tquadrat $
+ *  @version $Id: PerfLogClientSupport.java 1248 2026-05-17 11:08:34Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogClientSupport.java 1207 2026-04-24 21:50:11Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogClientSupport.java 1248 2026-05-17 11:08:34Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 public final class PerfLogClientSupport extends PerfLogClientBase
 {

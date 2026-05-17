@@ -1,0 +1,13 @@
+…
+
+//---* Create the Performance Sections and add them *--------------------------
+final var PS1 = PerfLogUtils.createPerformanceSectionName( "PS_Load" );
+final var PS2 = PerfLogUtils.createPerformanceSectionName( "PS_Dump" );
+
+perfLogManager.loadPerformanceSectionDefinition(
+    new PerformanceSection( PS1, "Loading Data", null, null, SEND_REPORT_FOR_ABORT ),
+    new PerformanceSection( PS2, "Dumping Data", new TimeValue( MILLISECOND, 500), null,
+        SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD, SEND_REPORT_FOR_ABORT )
+    }
+
+…

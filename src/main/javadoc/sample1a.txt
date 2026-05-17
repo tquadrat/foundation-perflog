@@ -1,0 +1,15 @@
+…
+
+/**
+ *  The interface to the PerfLog MBean.
+ */
+private static final PerfLogManager PERFLOGMANAGER;
+
+…
+
+static
+{
+    //---* Initialise the Performance Logging *--------------------------------
+    PERFLOGMANAGER = PerfLogUtils.createPerfLogManager();
+}
+…

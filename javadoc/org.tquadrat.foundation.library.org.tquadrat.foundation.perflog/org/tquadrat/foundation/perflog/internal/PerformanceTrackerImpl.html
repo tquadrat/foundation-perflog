@@ -45,7 +45,7 @@ loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
 </noscript>
-<header role="banner"><div style="overflow:auto;"><img src="../../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-09T08:29:12.915601387Z[UTC]</p>      </div>
+<header role="banner"><div style="overflow:auto;"><img src="../../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-17T11:08:43.815247398Z[UTC]</p>      </div>
 <nav role="navigation">
 <!-- ========= START OF TOP NAVBAR ======= -->
 <div class="top-nav" id="navbar-top">
@@ -113,7 +113,6 @@ loadScripts(document, 'script');</script>
 <li><a href="#abort(boolean)" tabindex="0">abort(boolean)</a></li>
 <li><a href="#abort(java.lang.String,java.lang.Throwable,boolean)" tabindex="0">abort(String, Throwable, boolean)</a></li>
 <li><a href="#addContext(java.lang.String,java.lang.String)" tabindex="0">addContext(String, String)</a></li>
-<li><a href="#addContext(java.lang.String,T,org.tquadrat.foundation.lang.StringConverter)" tabindex="0">addContext(String, T, StringConverter)</a></li>
 <li><a href="#getContext()" tabindex="0">getContext()</a></li>
 <li><a href="#getElapsedTime()" tabindex="0">getElapsedTime()</a></li>
 <li><a href="#getPerformanceSection()" tabindex="0">getPerformanceSection()</a></li>
@@ -145,10 +144,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="annotations"><a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">@ClassVersion</a>(<a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html#sourceVersion()" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">sourceVersion</a>="$Id: PerformanceTrackerImpl.java 1218 2026-05-02 15:17:24Z tquadrat $")
+<div class="type-signature"><span class="annotations"><a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">@ClassVersion</a>(<a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html#sourceVersion()" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">sourceVersion</a>="$Id: PerformanceTrackerImpl.java 1248 2026-05-17 11:08:34Z tquadrat $")
 <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html" title="class or interface in org.apiguardian.api" class="external-link">@API</a>(<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#status()" title="class or interface in org.apiguardian.api" class="external-link">status</a>=<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.Status.html#STABLE" title="class or interface in org.apiguardian.api" class="external-link">STABLE</a>,
      <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#since()" title="class or interface in org.apiguardian.api" class="external-link">since</a>="0.25.0")
-</span><span class="modifiers">public final class </span><span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-57">PerformanceTrackerImpl</a></span>
+</span><span class="modifiers">public final class </span><span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-56">PerformanceTrackerImpl</a></span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></span></div>
 <div class="block"><p>The implementation for the interface
@@ -157,7 +156,7 @@ implements <a href="../PerformanceTracker.html" title="interface in org.tquadrat
 <dt><span class="simpleTagLabel">Author:</span></dt>
   <dd>Thomas Thrien (<a href="mailto:thomas.thrien@tquadrat.org">thomas.thrien@tquadrat.org</a>)</dd>
 <dt>Version:</dt>
-<dd>$Id: PerformanceTrackerImpl.java 1218 2026-05-02 15:17:24Z tquadrat $</dd>
+<dd>$Id: PerformanceTrackerImpl.java 1248 2026-05-17 11:08:34Z tquadrat $</dd>
 <dt>Since:</dt>
 <dd>0.25.0</dd>
 
@@ -327,75 +326,68 @@ and sends a report if required.</div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Adds context information to this tracker.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final &lt;T&gt;&nbsp;<a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addContext(java.lang.String,T,org.tquadrat.foundation.lang.StringConverter)" class="member-name-link">addContext</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
- T&nbsp;value,
- <a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/lang/StringConverter.html" title="class or interface in org.tquadrat.foundation.lang" class="external-link">StringConverter</a>&lt;T&gt;&nbsp;stringConverter)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getContext()" class="member-name-link">getContext</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Adds context information to this tracker.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getContext()" class="member-name-link">getContext</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the context information.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="https://tquadrat.github.io/foundation-value/javadoc/org.tquadrat.foundation.value/org/tquadrat/foundation/value/TimeValue.html" title="class or interface in org.tquadrat.foundation.value" class="external-link">TimeValue</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getElapsedTime()" class="member-name-link">getElapsedTime</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="https://tquadrat.github.io/foundation-value/javadoc/org.tquadrat.foundation.value/org/tquadrat/foundation/value/TimeValue.html" title="class or interface in org.tquadrat.foundation.value" class="external-link">TimeValue</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getElapsedTime()" class="member-name-link">getElapsedTime</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the elapsed time in nanoseconds.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">PerformanceSection</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPerformanceSection()" class="member-name-link">getPerformanceSection</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">PerformanceSection</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPerformanceSection()" class="member-name-link">getPerformanceSection</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the performance section.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../PerformanceTracker.TrackerStatus.html" title="enum class in org.tquadrat.foundation.perflog">PerformanceTracker.TrackerStatus</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getStatus()" class="member-name-link">getStatus</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../PerformanceTracker.TrackerStatus.html" title="enum class in org.tquadrat.foundation.perflog">PerformanceTracker.TrackerStatus</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getStatus()" class="member-name-link">getStatus</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the status of this tracker instance.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="class or interface in java.time" class="external-link">Instant</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTimestamp()" class="member-name-link">getTimestamp</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="class or interface in java.time" class="external-link">Instant</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTimestamp()" class="member-name-link">getTimestamp</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the timestamp.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isThresholdExceeded()" class="member-name-link">isThresholdExceeded</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isThresholdExceeded()" class="member-name-link">isThresholdExceeded</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Checks whether the threshold was exceeded.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isTimedOut()" class="member-name-link">isTimedOut</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isTimedOut()" class="member-name-link">isTimedOut</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Checks whether the tracker was aborted due to a
 timeout.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#registerTimeoutMonitor()" class="member-name-link">registerTimeoutMonitor</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#registerTimeoutMonitor()" class="member-name-link">registerTimeoutMonitor</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Registers the timeout monitor for this performance tracker.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reset(boolean)" class="member-name-link">reset</a><wbr>(boolean&nbsp;resetContext)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reset(boolean)" class="member-name-link">reset</a><wbr>(boolean&nbsp;resetContext)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Resets the instance.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Resets the instance and starts the performance timer.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stop()" class="member-name-link">stop</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stop()" class="member-name-link">stop</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Stops the performance timer and transfers the elapsed time
 to the
 <a href="../PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>
 for further processing.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#terminateTimeoutMonitoring()" class="member-name-link">terminateTimeoutMonitoring</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private final void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#terminateTimeoutMonitoring()" class="member-name-link">terminateTimeoutMonitoring</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Terminates the timeout monitor.</div>
 </div>
 </div>
@@ -406,7 +398,7 @@ for further processing.</div>
 <code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-org.tquadrat.foundation.perflog.PerformanceTracker">Methods inherited from interface&nbsp;<a href="../PerformanceTracker.html#method-summary" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></h3>
-<code><a href="../PerformanceTracker.html#isActive()" title="isActive()">isActive</a></code></div>
+<code><a href="../PerformanceTracker.html#addContext(java.lang.String,T,org.tquadrat.foundation.lang.StringConverter)" title="addContext(String, T, StringConverter)">addContext</a>, <a href="../PerformanceTracker.html#isActive()" title="isActive()">isActive</a></code></div>
 </section>
 </li>
 </ul>
@@ -422,7 +414,7 @@ for further processing.</div>
 <section class="detail" id="m_Aborted">
 <h3>m_Aborted</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-68">m_Aborted</a></span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-67">m_Aborted</a></span></div>
 <div class="block">The flag that indicates whether the tracker was aborted.</div>
 </div>
 </section>
@@ -431,7 +423,7 @@ for further processing.</div>
 <section class="detail" id="m_Context">
 <h3>m_Context</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-73">m_Context</a></span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-72">m_Context</a></span></div>
 <div class="block">The context data.</div>
 </div>
 </section>
@@ -440,7 +432,7 @@ for further processing.</div>
 <section class="detail" id="m_EndTime">
 <h3>m_EndTime</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-81">m_EndTime</a></span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-80">m_EndTime</a></span></div>
 <div class="block"><p>The end time for this performance tracker.</p>
 <p>This is not an absolute time, but a relative value.</p></div>
 <dl class="notes">
@@ -458,7 +450,7 @@ for further processing.</div>
 <section class="detail" id="m_PerfLogManager">
 <h3>m_PerfLogManager</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="PerfLogManagerImpl.html" title="class in org.tquadrat.foundation.perflog.internal">PerfLogManagerImpl</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-86">m_PerfLogManager</a></span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="PerfLogManagerImpl.html" title="class in org.tquadrat.foundation.perflog.internal">PerfLogManagerImpl</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-85">m_PerfLogManager</a></span></div>
 <div class="block">The reference to the performance manager that created this tracker.</div>
 </div>
 </section>
@@ -467,7 +459,7 @@ for further processing.</div>
 <section class="detail" id="m_PerformanceSection">
 <h3>m_PerformanceSection</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">PerformanceSection</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-91">m_PerformanceSection</a></span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">PerformanceSection</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-90">m_PerformanceSection</a></span></div>
 <div class="block">The performance section for this tracker.</div>
 </div>
 </section>
@@ -476,7 +468,7 @@ for further processing.</div>
 <section class="detail" id="m_Started">
 <h3>m_Started</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-96">m_Started</a></span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-95">m_Started</a></span></div>
 <div class="block">The flag that indicates whether the tracker was started.</div>
 </div>
 </section>
@@ -485,7 +477,7 @@ for further processing.</div>
 <section class="detail" id="m_StartTime">
 <h3>m_StartTime</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-104">m_StartTime</a></span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-103">m_StartTime</a></span></div>
 <div class="block"><p>The start time for this performance tracker.</p>
 <p>This is not an absolute time, but a relative value.</p></div>
 <dl class="notes">
@@ -503,7 +495,7 @@ for further processing.</div>
 <section class="detail" id="m_Stopped">
 <h3>m_Stopped</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-109">m_Stopped</a></span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-108">m_Stopped</a></span></div>
 <div class="block">The flag that indicates whether the tracker was stopped.</div>
 </div>
 </section>
@@ -512,7 +504,7 @@ for further processing.</div>
 <section class="detail" id="m_TimedOut">
 <h3>m_TimedOut</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-115">m_TimedOut</a></span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-114">m_TimedOut</a></span></div>
 <div class="block"><p>The flag that indicates whether this tracker was aborted
 because of a timeout.</p></div>
 </div>
@@ -522,7 +514,7 @@ because of a timeout.</p></div>
 <section class="detail" id="m_TimeOutFuture">
 <h3>m_TimeOutFuture</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ScheduledFuture.html" title="class or interface in java.util.concurrent" class="external-link">ScheduledFuture</a>&lt;?&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-121">m_TimeOutFuture</a></span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ScheduledFuture.html" title="class or interface in java.util.concurrent" class="external-link">ScheduledFuture</a>&lt;?&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-120">m_TimeOutFuture</a></span></div>
 <div class="block"><p>The future that is used for the timeout handling.</p>
 <p>Will be <code>null</code> when the timeout is disabled.</p></div>
 </div>
@@ -532,7 +524,7 @@ because of a timeout.</p></div>
 <section class="detail" id="m_Timestamp">
 <h3>m_Timestamp</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="class or interface in java.time" class="external-link">Instant</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-127">m_Timestamp</a></span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="class or interface in java.time" class="external-link">Instant</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-126">m_Timestamp</a></span></div>
 <div class="block"><p>The absolute time when this performance tracker was
 started. This is only used for reporting purposes.</p></div>
 </div>
@@ -550,7 +542,7 @@ started. This is only used for reporting purposes.</p></div>
 <section class="detail" id="&lt;init&gt;(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSection)">
 <h3>PerformanceTrackerImpl</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-140">PerformanceTrackerImpl</a></span><wbr><span class="parameters">(<a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a>&nbsp;perfLogManager,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-139">PerformanceTrackerImpl</a></span><wbr><span class="parameters">(<a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a>&nbsp;perfLogManager,
  <a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">PerformanceSection</a>&nbsp;performanceSection)</span></div>
 <div class="block">Creates a new instance of <code>PerformanceTrackerImpl</code>.</div>
 <dl class="notes">
@@ -575,7 +567,7 @@ started. This is only used for reporting purposes.</p></div>
 <section class="detail" id="abort()">
 <h3>abort</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-152">abort</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-151">abort</a></span>()</div>
 <div class="block"><p>Stops the performance timer.</p>
 <p>If the tracker has been aborted or stopped already, nothing happens.
 Same if it was never started.</p></div>
@@ -590,7 +582,7 @@ Same if it was never started.</p></div>
 <section class="detail" id="abort(java.lang.String)">
 <h3>abort</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-158">abort</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</span></div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-157">abort</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</span></div>
 <div class="block"><p>Stops the performance timer and takes a message describing
 the reason for the abort.</p>
 <p>If the tracker has been aborted or stopped already, nothing happens.
@@ -608,7 +600,7 @@ Same if it was never started.</p></div>
 <section class="detail" id="abort(java.lang.String,java.lang.Throwable)">
 <h3>abort</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-164">abort</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message,
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-163">abort</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Throwable.html" title="class or interface in java.lang" class="external-link">Throwable</a>&nbsp;cause)</span></div>
 <div class="block"><p>Stops the performance timer and takes a message describing
 the reason for the abort, plus the exception that caused it.</p>
@@ -628,7 +620,7 @@ Same if it was never started.</p></div>
 <section class="detail" id="abort(boolean)">
 <h3>abort</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-176">abort</a></span><wbr><span class="parameters">(boolean&nbsp;flag)</span></div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-175">abort</a></span><wbr><span class="parameters">(boolean&nbsp;flag)</span></div>
 <div class="block"><p>Stops the performance timer and sets the
 <a href="#isTimedOut()">timeout flag</a>.</p>
 <p>If the tracker has been aborted or stopped already, nothing happens.
@@ -645,7 +637,7 @@ Same if it was never started.</p></div>
 <section class="detail" id="abort(java.lang.String,java.lang.Throwable,boolean)">
 <h3>abort</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-191">abort</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message,
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-190">abort</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Throwable.html" title="class or interface in java.lang" class="external-link">Throwable</a>&nbsp;cause,
  boolean&nbsp;flag)</span></div>
 <div class="block"><p>Stops the performance timer, sets the
@@ -667,7 +659,7 @@ Same if it was never started.</p></div>
 <section class="detail" id="addContext(java.lang.String,java.lang.String)">
 <h3>addContext</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-205">addContext</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-204">addContext</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</span></div>
 <div class="block"><p>Adds context information to this tracker. This is also
 transferred to the
@@ -681,7 +673,17 @@ an underscore (&quot;_&quot;/#x005f).</p>
 name, it will overwrite the existing value.</p>
 <p>A call to
 <a href="../PerformanceTracker.html#start()"><code>PerformanceTracker.start()</code></a>
-will not reset the context.</p></div>
+will not reset the context.</p>
+<p>An example on how to use the context may look like this:</p>
+<div class="source-container"><pre><span class="source-line-no">1</span>//---* Load Data *-------------------------------------------------------------
+<span class="source-line-no">2</span>try( final var tracker = PerfLogUtils.holdAndStart( PS1 ) )
+<span class="source-line-no">3</span>{
+<span class="source-line-no">4</span>    tracker.setContext( &quot;Source&quot;, &hellip; );
+<span class="source-line-no">5</span>
+<span class="source-line-no">6</span>    // Do something here!!
+<span class="source-line-no">7</span>    &hellip;
+<span class="source-line-no">8</span>}
+</pre></div></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../PerformanceTracker.html#addContext(java.lang.String,java.lang.String)">addContext</a></code>&nbsp;in interface&nbsp;<code><a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></code></dd>
@@ -696,45 +698,10 @@ will not reset the context.</p></div>
 </section>
 </li>
 <li>
-<section class="detail" id="addContext(java.lang.String,T,org.tquadrat.foundation.lang.StringConverter)">
-<h3 id="addContext(java.lang.String,java.lang.Object,org.tquadrat.foundation.lang.StringConverter)">addContext</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-225">addContext</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
- T&nbsp;value,
- <a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/lang/StringConverter.html" title="class or interface in org.tquadrat.foundation.lang" class="external-link">StringConverter</a>&lt;T&gt;&nbsp;stringConverter)</span></div>
-<div class="block"><p>Adds context information to this tracker. This is also
-transferred to the
-<a href="../PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>
-when the tracker is
-<a href="../PerformanceTracker.html#stop()">stopped</a>.</p>
-<p>The given name is unique; if a value is added with an already known
-name, it will overwrite the existing value.</p>
-<p>A call to
-<a href="../PerformanceTracker.html#start()"><code>PerformanceTracker.start()</code></a>
-will not reset the context.</p></div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../PerformanceTracker.html#addContext(java.lang.String,T,org.tquadrat.foundation.lang.StringConverter)">addContext</a></code>&nbsp;in interface&nbsp;<code><a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></code></dd>
-<dt>Type Parameters:</dt>
-<dd><span id="addContext(java.lang.String,T,org.tquadrat.foundation.lang.StringConverter)-type-param-T"><code>T</code> - The type of the context value.</span></dd>
-<dt>Parameters:</dt>
-<dd><code>name</code> - The name of the context value.</dd>
-<dd><code>value</code> - The context value; <code>null</code> removes the entry with
-    the given name.</dd>
-<dd><code>stringConverter</code> - The instance of
-    <a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/lang/StringConverter.html" title="class or interface in org.tquadrat.foundation.lang" class="external-link"><code>StringConverter</code></a>
-    that is used to translate the value into a String.</dd>
-<dt>Returns:</dt>
-<dd>This instance.</dd>
-</dl>
-</div>
-</section>
-</li>
-<li>
 <section class="detail" id="getContext()">
 <h3>getContext</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-239">getContext</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-226">getContext</a></span>()</div>
 <div class="block">Returns the context information.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -747,7 +714,7 @@ will not reset the context.</p></div>
 <section class="detail" id="getElapsedTime()">
 <h3>getElapsedTime</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://tquadrat.github.io/foundation-value/javadoc/org.tquadrat.foundation.value/org/tquadrat/foundation/value/TimeValue.html" title="class or interface in org.tquadrat.foundation.value" class="external-link">TimeValue</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-249">getElapsedTime</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://tquadrat.github.io/foundation-value/javadoc/org.tquadrat.foundation.value/org/tquadrat/foundation/value/TimeValue.html" title="class or interface in org.tquadrat.foundation.value" class="external-link">TimeValue</a>&gt;</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-236">getElapsedTime</a></span>()</div>
 <div class="block">Returns the elapsed time in nanoseconds.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -762,7 +729,7 @@ will not reset the context.</p></div>
 <section class="detail" id="getPerformanceSection()">
 <h3>getPerformanceSection</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">PerformanceSection</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-265">getPerformanceSection</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">PerformanceSection</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-252">getPerformanceSection</a></span>()</div>
 <div class="block">Returns the performance section.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -775,7 +742,7 @@ will not reset the context.</p></div>
 <section class="detail" id="getStatus()">
 <h3>getStatus</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../PerformanceTracker.TrackerStatus.html" title="enum class in org.tquadrat.foundation.perflog">PerformanceTracker.TrackerStatus</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-271">getStatus</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../PerformanceTracker.TrackerStatus.html" title="enum class in org.tquadrat.foundation.perflog">PerformanceTracker.TrackerStatus</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-258">getStatus</a></span>()</div>
 <div class="block">Returns the status of this tracker instance.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
@@ -790,7 +757,7 @@ will not reset the context.</p></div>
 <section class="detail" id="getTimestamp()">
 <h3>getTimestamp</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="class or interface in java.time" class="external-link">Instant</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-298">getTimestamp</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html" title="class or interface in java.time" class="external-link">Instant</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-285">getTimestamp</a></span>()</div>
 <div class="block">Returns the timestamp.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -803,7 +770,7 @@ will not reset the context.</p></div>
 <section class="detail" id="isThresholdExceeded()">
 <h3>isThresholdExceeded</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-309">isThresholdExceeded</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-296">isThresholdExceeded</a></span>()</div>
 <div class="block"><p>Checks whether the threshold was exceeded. This means the
 operation covered by the performance section for this tracker took
 longer than the estimated time.</div>
@@ -819,7 +786,7 @@ longer than the estimated time.</div>
 <section class="detail" id="isTimedOut()">
 <h3>isTimedOut</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-330">isTimedOut</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-317">isTimedOut</a></span>()</div>
 <div class="block"><p>Checks whether the tracker was aborted due to a
 timeout.</p></div>
 <dl class="notes">
@@ -836,7 +803,7 @@ timeout.</p></div>
 <section class="detail" id="registerTimeoutMonitor()">
 <h3>registerTimeoutMonitor</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-336">registerTimeoutMonitor</a></span>()</div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-323">registerTimeoutMonitor</a></span>()</div>
 <div class="block">Registers the timeout monitor for this performance tracker.</div>
 </div>
 </section>
@@ -845,7 +812,7 @@ timeout.</p></div>
 <section class="detail" id="reset(boolean)">
 <h3>reset</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-344">reset</a></span><wbr><span class="parameters">(boolean&nbsp;resetContext)</span>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a></span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-331">reset</a></span><wbr><span class="parameters">(boolean&nbsp;resetContext)</span>
                                throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></span></div>
 <div class="block"><p>Resets the instance.</p>
 <p>If the tracker was already started, but never stopped or aborted, an
@@ -870,7 +837,7 @@ is thrown.</p></div>
 <section class="detail" id="start()">
 <h3>start</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-369">start</a></span>()
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-356">start</a></span>()
                  throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></span></div>
 <div class="block"><p>Resets the instance and starts the performance timer.</p>
 <p>If the tracker was already started, but never stopped or aborted, an
@@ -890,7 +857,7 @@ is thrown.</p></div>
 <section class="detail" id="stop()">
 <h3>stop</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-383">stop</a></span>()
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-370">stop</a></span>()
                 throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></span></div>
 <div class="block"><p>Stops the performance timer and transfers the elapsed time
 to the
@@ -912,7 +879,7 @@ was never started.</p></div>
 <section class="detail" id="terminateTimeoutMonitoring()">
 <h3>terminateTimeoutMonitoring</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-399">terminateTimeoutMonitoring</a></span>()</div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerformanceTrackerImpl.html#line-386">terminateTimeoutMonitoring</a></span>()</div>
 <div class="block">Terminates the timeout monitor.</div>
 </div>
 </section>

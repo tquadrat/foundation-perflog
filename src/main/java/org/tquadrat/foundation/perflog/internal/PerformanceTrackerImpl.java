@@ -38,7 +38,6 @@ import java.util.concurrent.ScheduledFuture;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.lang.StringConverter;
 import org.tquadrat.foundation.perflog.PerfLogManager;
 import org.tquadrat.foundation.perflog.PerformanceSection;
 import org.tquadrat.foundation.perflog.PerformanceTracker;
@@ -49,12 +48,12 @@ import org.tquadrat.foundation.value.TimeValue;
  *  {@link PerformanceTracker}}.</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerformanceTrackerImpl.java 1218 2026-05-02 15:17:24Z tquadrat $
+ *  @version $Id: PerformanceTrackerImpl.java 1248 2026-05-17 11:08:34Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerformanceTrackerImpl.java 1218 2026-05-02 15:17:24Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerformanceTrackerImpl.java 1248 2026-05-17 11:08:34Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 @SuppressWarnings( "ClassWithTooManyFields" )
 public final class PerformanceTrackerImpl implements PerformanceTracker
@@ -190,7 +189,7 @@ public final class PerformanceTrackerImpl implements PerformanceTracker
      */
     private final void abort( final String message, final Throwable cause, final boolean flag )
     {
-        if( m_Started && !m_Stopped )
+        if( m_Started && !m_Stopped && !m_Aborted )
         {
             terminateTimeoutMonitoring();
             m_Aborted = true;
@@ -217,18 +216,6 @@ public final class PerformanceTrackerImpl implements PerformanceTracker
 
         //---* Done *----------------------------------------------------------
         return this;
-    }   //  addContext
-
-    /**
-     *  {@inheritDoc}
-     */
-    @Override
-    public final <T> PerformanceTracker addContext( final String name, final T value, final StringConverter<T> stringConverter )
-    {
-        final var retValue = addContext( requireNonNullArgument( name, "name" ), requireNonNullArgument( stringConverter, "stringConverter" ).toString( value ) );
-
-        //---* Done *----------------------------------------------------------
-        return retValue;
     }   //  addContext
 
     /**

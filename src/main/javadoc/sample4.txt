@@ -1,0 +1,32 @@
+//---* Load Data *-------------------------------------------------------------
+try( final var tracker = PerfLogUtils.hold( perfLogManager.createPerformanceTracker( PS1 ) ) )
+{
+    final var source = Path.of( fileName );
+    final var lastModified = ZonedDateTime.ofInstant( Instant.ofEpochMilli( Files.getLastModifiedTime( source ).toMillis() ), UTC );
+    final var size = new DataSizeValue( BYTE, Files.size( source ) );
+    final var lineCounter = new AtomicInteger( 0 );
+
+    tracker.setContext( "Source", source.toString );
+    tracker.setContext( "Source Date", lastModified.format( DateTimeFormatter.ISO_ZONED_DATE_TIME );
+    tracker.setContext( "Source Size", "%0.1s".formatted( size.convert( KIBIBYTE ) );
+
+    try
+    {
+        tracker.start();
+        Files.lines( source )
+            .peek( _ -> lineCounter.incrementAndGet() )
+            .forEach( line -> /* Do something here!! */ );
+        tracker.setContext( "Source Lines", lineCounter.toString() );
+
+        …
+    }
+    catch( final IOException e )
+    {
+        tracker.abort( "An exception was caught", e );
+        throw e;
+    }
+}
+catch( final IOException e )
+{
+    // Handle the exception …
+}

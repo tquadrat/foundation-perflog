@@ -1,0 +1,29 @@
+/**
+ *  Receive the Performance Logging and Monitoring Notifications and
+ *  process them.
+ */
+public final void run()
+{
+    final var mbeanServer = obtainMBeanServer();
+    try( final var clientSupport = new PerfLogClientSupport() )
+    {
+        clientSupport.connect( mbeanServer, true );
+        var proceed = true;
+        while( proceed )
+        {
+            try
+            {
+                final var message = clientSupport.awaitMessage();
+                // Process the message!!
+            }
+            catch( final InterruptedException _ )
+            {
+                proceed = false;
+            }
+        }
+    }
+    catch( final InstanceNotFoundException e )
+    {
+        throw new UnexpectedExceptionError( "Should not happen as we set force = 'true' when connecting", e );
+    }
+}   //  run()

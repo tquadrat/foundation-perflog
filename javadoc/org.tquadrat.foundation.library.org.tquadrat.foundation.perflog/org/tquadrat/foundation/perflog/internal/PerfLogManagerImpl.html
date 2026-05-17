@@ -37,7 +37,7 @@ loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
 </noscript>
-<header role="banner"><div style="overflow:auto;"><img src="../../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-09T08:29:12.915601387Z[UTC]</p>      </div>
+<header role="banner"><div style="overflow:auto;"><img src="../../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-17T11:08:43.815247398Z[UTC]</p>      </div>
 <nav role="navigation">
 <!-- ========= START OF TOP NAVBAR ======= -->
 <div class="top-nav" id="navbar-top">
@@ -126,7 +126,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="annotations"><a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">@ClassVersion</a>(<a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html#sourceVersion()" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">sourceVersion</a>="$Id: PerfLogManagerImpl.java 1216 2026-05-02 11:16:24Z tquadrat $")
+<div class="type-signature"><span class="annotations"><a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">@ClassVersion</a>(<a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html#sourceVersion()" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">sourceVersion</a>="$Id: PerfLogManagerImpl.java 1246 2026-05-16 14:07:00Z tquadrat $")
 <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html" title="class or interface in org.apiguardian.api" class="external-link">@API</a>(<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#status()" title="class or interface in org.apiguardian.api" class="external-link">status</a>=<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.Status.html#INTERNAL" title="class or interface in org.apiguardian.api" class="external-link">INTERNAL</a>,
      <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#since()" title="class or interface in org.apiguardian.api" class="external-link">since</a>="0.25.0")
 </span><span class="modifiers">public final class </span><span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerfLogManagerImpl.html#line-62">PerfLogManagerImpl</a></span>
@@ -138,7 +138,7 @@ implements <a href="../PerfLogManager.html" title="interface in org.tquadrat.fou
 <dt><span class="simpleTagLabel">Author:</span></dt>
   <dd>Thomas Thrien (<a href="mailto:thomas.thrien@tquadrat.org">thomas.thrien@tquadrat.org</a>)</dd>
 <dt>Version:</dt>
-<dd>$Id: PerfLogManagerImpl.java 1216 2026-05-02 11:16:24Z tquadrat $</dd>
+<dd>$Id: PerfLogManagerImpl.java 1246 2026-05-16 14:07:00Z tquadrat $</dd>
 <dt>Since:</dt>
 <dd>0.25.0</dd>
 
@@ -334,8 +334,7 @@ name.</div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#loadPerformanceSectionDefinitions(java.lang.Iterable)" class="member-name-link">loadPerformanceSectionDefinitions</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">PerformanceSection</a>&gt;&nbsp;definitions)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Loads the
-<a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
-definitions.</div>
+<a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">Performance Section definitions</a>.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ScheduledFuture.html" title="class or interface in java.util.concurrent" class="external-link">ScheduledFuture</a><wbr>&lt;?&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#registerTimeoutMonitor(org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl)" class="member-name-link">registerTimeoutMonitor</a><wbr>(<a href="PerformanceTrackerImpl.html" title="class in org.tquadrat.foundation.perflog.internal">PerformanceTrackerImpl</a>&nbsp;tracker)</code></div>
@@ -588,7 +587,9 @@ it first.</p></div>
 <a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
 with the given name.</p>
 <p>The return value will be empty if the performance section is
-currently ignored.</p></div>
+currently ignored.</p>
+<p>If there is currently no performance section defined with the given
+name, one will be created with default values.</p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../PerfLogManager.html#createPerformanceTracker(org.tquadrat.foundation.perflog.PerformanceSectionName)">createPerformanceTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></code></dd>
@@ -671,9 +672,15 @@ name.</p>
 <h3>loadPerformanceSectionDefinitions</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name"><a href="../../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/internal/PerfLogManagerImpl.html#line-381">loadPerformanceSectionDefinitions</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">PerformanceSection</a>&gt;&nbsp;definitions)</span></div>
-<div class="block">Loads the
-<a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
-definitions.</div>
+<div class="block"><p>Loads the
+<a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">Performance Section definitions</a>.</p>
+<p>Because these definitions are stored globally in the
+<a href="../PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog">Performance Logging and Monitorin MBean</a>,
+they need to be loaded only once. But overwriting them does not harm,
+other than performance.</p>
+<p>Each instance of <code>PerfLogManager</code> shares the same instances
+of
+<a href="../PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>.</p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../PerfLogManager.html#loadPerformanceSectionDefinitions(java.lang.Iterable)">loadPerformanceSectionDefinitions</a></code>&nbsp;in interface&nbsp;<code><a href="../PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></code></dd>

@@ -19,12 +19,13 @@
 package org.tquadrat.foundation.perflog;
 
 import static org.apiguardian.api.API.Status.STABLE;
+import static org.tquadrat.foundation.lang.Objects.requireNonNullArgument;
 import static org.tquadrat.foundation.perflog.PerformanceTracker.TrackerStatus.STATUS_STARTED;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.lang.StringConverter;
-import org.tquadrat.foundation.perflog.PerfLogUtils.Holder;
+import org.tquadrat.foundation.perflog.PerfLogUtils.PerformanceTrackerHolder;
 import org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl;
 
 /**
@@ -36,15 +37,15 @@ import org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl;
  *  thread-safe, but it can be reused multiple times.</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerformanceTracker.java 1211 2026-05-01 15:24:10Z tquadrat $
+ *  @version $Id: PerformanceTracker.java 1248 2026-05-17 11:08:34Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerformanceTracker.java 1211 2026-05-01 15:24:10Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerformanceTracker.java 1248 2026-05-17 11:08:34Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 public sealed interface PerformanceTracker
-    permits Holder, PerformanceTrackerImpl
+    permits PerformanceTrackerHolder, PerformanceTrackerImpl
 {
         /*---------------*\
     ====** Inner Classes **====================================================
@@ -54,12 +55,12 @@ public sealed interface PerformanceTracker
      *  {@link PerformanceTracker}.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerformanceTracker.java 1211 2026-05-01 15:24:10Z tquadrat $
+     *  @version $Id: PerformanceTracker.java 1248 2026-05-17 11:08:34Z tquadrat $
      *  @since 0.25.0
      *
      *  @UMLGraph.link
      */
-    @ClassVersion( sourceVersion = "$Id: PerformanceTracker.java 1211 2026-05-01 15:24:10Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerformanceTracker.java 1248 2026-05-17 11:08:34Z tquadrat $" )
     @API( status = STABLE, since = "0.25.0" )
     public static enum TrackerStatus
     {
@@ -133,6 +134,8 @@ public sealed interface PerformanceTracker
      *  <p>A call to
      *  {@link #start()}
      *  will not reset the context.</p>
+     *  <p>An example on how to use the context may look like this:</p>
+     *  {@include ${javadoc}/sample3c.txt:SOURCE}
      *
      *  @param  name    The name of the context value.
      *  @param  value   The context value; {@code null} removes the entry with
@@ -161,8 +164,16 @@ public sealed interface PerformanceTracker
      *      {@link StringConverter}
      *      that is used to translate the value into a String.
      *  @return This instance.
+     *
+     *  @see #addContext(String,String)
      */
-    public <T> PerformanceTracker addContext( final String name, final T value, final StringConverter<T> stringConverter );
+    public default <T> PerformanceTracker addContext( final String name, final T value, final StringConverter<T> stringConverter )
+    {
+        final var retValue = addContext( requireNonNullArgument( name, "name" ), requireNonNullArgument( stringConverter, "stringConverter" ).toString( value ) );
+
+        //---* Done *----------------------------------------------------------
+        return retValue;
+    }   //  addContext
 
     /**
      *  Returns the status of this tracker instance.

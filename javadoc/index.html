@@ -20,7 +20,7 @@ loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
 </noscript>
-<header role="banner"><div style="overflow:auto;"><img src="./resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-09T08:29:12.915601387Z[UTC]</p>      </div>
+<header role="banner"><div style="overflow:auto;"><img src="./resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-17T11:08:43.815247398Z[UTC]</p>      </div>
 <nav role="navigation">
 <!-- ========= START OF TOP NAVBAR ======= -->
 <div class="top-nav" id="navbar-top">
@@ -56,7 +56,431 @@ loadScripts(document, 'script');</script>
   <i>not</i> meant as a framework for benchmarking an application or
   algorithm.</p>
 <p>It allows to observe how much time is used to perform a single operation
-  within an application and whether this changes over time.</p></div>
+  within an application and whether this changes over time.</p>
+<p>The application defines a <i>Performance Section</i> that wraps the
+  operation to monitor. Each Performance Section has a unique name that is used
+  for the statistics later. That name should be somehow meaningful.</p>
+<p>The section registers the time when it was entered, and when it was left
+  again, and the elapsed time will be made available to the monitoring
+  system.</p>
+<p>That monitoring system connects through JMX. This means it could either be
+  an internal thread inside the same application, or another process on the
+  same machine, or even a program running on another machine.</p>
+
+<h2 id="how-to-use-it-heading">How to use it</h2>
+<h3 id="the-performance-logging-and-monitoring-manager-heading">The Performance Logging and Monitoring Manager</h3>
+<p>For the integration of the Performance Logging and Monitoring into an
+  application, the first step is to create an instance of
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>;
+  this is the frontend to the
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog">Performance Logging and Monitoring MBean</a>
+  that does the library's work behind the scenes.</p>
+<p>Instances of <code>PerfLogManager</code> are thread-safe; it can be created as
+<code>static</code> or as an attribute:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>&hellip;
+<span class="source-line-no">02</span>
+<span class="source-line-no">03</span>/**
+<span class="source-line-no">04</span> *  The interface to the PerfLog MBean.
+<span class="source-line-no">05</span> */
+<span class="source-line-no">06</span>private static final PerfLogManager PERFLOGMANAGER;
+<span class="source-line-no">07</span>
+<span class="source-line-no">08</span>&hellip;
+<span class="source-line-no">09</span>
+<span class="source-line-no">10</span>static
+<span class="source-line-no">11</span>{
+<span class="source-line-no">12</span>    //---* Initialise the Performance Logging *--------------------------------
+<span class="source-line-no">13</span>    PERFLOGMANAGER = PerfLogUtils.createPerfLogManager();
+<span class="source-line-no">14</span>}
+<span class="source-line-no">15</span>&hellip;
+</pre></div>
+<p>Or it will be created for each method that should be monitored:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>&hellip;
+<span class="source-line-no">02</span>
+<span class="source-line-no">03</span>//---* Initialise the Performance Logging *------------------------------------
+<span class="source-line-no">04</span>final var perfLogManager = PerfLogUtils.createPerfLogManager();
+<span class="source-line-no">05</span>
+<span class="source-line-no">06</span>&hellip;
+<span class="source-line-no">07</span>
+<span class="source-line-no">08</span>// Do something &hellip;
+<span class="source-line-no">09</span>
+<span class="source-line-no">10</span>&hellip;
+<span class="source-line-no">11</span>
+<span class="source-line-no">12</span>perfLogManager.close()
+<span class="source-line-no">13</span>
+<span class="source-line-no">14</span>&hellip;
+</pre></div>
+<p>Because <code>PerfLogManager</code> implements
+  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/AutoCloseable.html" title="class or interface in java.lang" class="external-link"><code>AutoCloseable</code></a>, it can also be used with
+  <code>try-with-resources</code>:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>&hellip;
+<span class="source-line-no">02</span>
+<span class="source-line-no">03</span>//---* Initialise the Performance Logging *------------------------------------
+<span class="source-line-no">04</span>try( final var perfLogManager = PerfLogUtils.createPerfLogManager() )
+<span class="source-line-no">05</span>{
+<span class="source-line-no">06</span>    // Do something &hellip;
+<span class="source-line-no">07</span>
+<span class="source-line-no">08</span>    &hellip;
+<span class="source-line-no">09</span>}
+<span class="source-line-no">10</span>&hellip;
+</pre></div>
+
+<h3 id="the-performance-sections-heading">The Performance Sections</h3>
+<p>The next step is to define and to register the
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerformanceSection.html" title="class in org.tquadrat.foundation.perflog">performance sections</a>:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>&hellip;
+<span class="source-line-no">02</span>
+<span class="source-line-no">03</span>//---* Create the Performance Sections and add them *--------------------------
+<span class="source-line-no">04</span>final var PS1 = PerfLogUtils.createPerformanceSectionName( &quot;PS_Load&quot; );
+<span class="source-line-no">05</span>final var PS2 = PerfLogUtils.createPerformanceSectionName( &quot;PS_Dump&quot; );
+<span class="source-line-no">06</span>
+<span class="source-line-no">07</span>perfLogManager.loadPerformanceSectionDefinition(
+<span class="source-line-no">08</span>    new PerformanceSection( PS1, &quot;Loading Data&quot;, null, null, SEND_REPORT_FOR_ABORT ),
+<span class="source-line-no">09</span>    new PerformanceSection( PS2, &quot;Dumping Data&quot;, new TimeValue( MILLISECOND, 500), null,
+<span class="source-line-no">10</span>        SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD, SEND_REPORT_FOR_ABORT )
+<span class="source-line-no">11</span>    }
+<span class="source-line-no">12</span>
+<span class="source-line-no">13</span>&hellip;
+</pre></div>
+<p>The instances of
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+  are stored globally by the
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.
+  This means that each instance of <code>PerfLogManager</code> shares the same set
+  of <code>PerformanceSection</code> definitions.</p>
+<p>This allows to define and register them centrally, even if local manager
+  instances are used:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>&hellip;
+<span class="source-line-no">02</span>
+<span class="source-line-no">03</span>/**
+<span class="source-line-no">04</span> *  The name for the performance section for loading data.
+<span class="source-line-no">05</span> */
+<span class="source-line-no">06</span>public static final PerformanceSectionName PS1;
+<span class="source-line-no">07</span>
+<span class="source-line-no">08</span>/**
+<span class="source-line-no">09</span> *  The name for the performance section for dumping data.
+<span class="source-line-no">10</span> */
+<span class="source-line-no">11</span>public static final PerformanceSectionName PS2;
+<span class="source-line-no">12</span>
+<span class="source-line-no">13</span>static
+<span class="source-line-no">14</span>{
+<span class="source-line-no">15</span>    //---* Initialise the Performance Logging *--------------------------------
+<span class="source-line-no">16</span>    final var perfLogManager = PerfLogUtils.createPerfLogManager();
+<span class="source-line-no">17</span>
+<span class="source-line-no">18</span>    //---* Create the Performance Sections and add them *----------------------
+<span class="source-line-no">19</span>    PS1 = PerfLogUtils.createPerformanceSectionName( &quot;PS_Load&quot; );
+<span class="source-line-no">20</span>    PS2 = PerfLogUtils.createPerformanceSectionName( &quot;PS_Dump&quot; );
+<span class="source-line-no">21</span>
+<span class="source-line-no">22</span>    perfLogManager.loadPerformanceSectionDefinition(
+<span class="source-line-no">23</span>        new PerformanceSection( PS1, &quot;Loading Data&quot;, null, null, SEND_REPORT_FOR_ABORT ),
+<span class="source-line-no">24</span>        new PerformanceSection( PS2, &quot;Dumping Data&quot;, new TimeValue( MILLISECOND, 500), null,
+<span class="source-line-no">25</span>            SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD, SEND_REPORT_FOR_ABORT )
+<span class="source-line-no">26</span>        }
+<span class="source-line-no">27</span>}
+<span class="source-line-no">28</span>
+<span class="source-line-no">29</span>&hellip;
+</pre></div>
+
+<h4 id="threshold-heading">Threshold</h4>
+<p>The threshold time for a performance section is the execution duration for
+  that section that is usually not exceeded. If that threshold limit is
+  exceeded, a corresponding flag is set in the performance report.</p>
+<p>When creating the performance section with the flag
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerformanceSection.PerformanceSectionFlags.html#SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD"><code>SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD</code></a>,
+  a performance report will be created only when the threshold is exceeded.</p>
+
+<h4 id="timeout-heading">Timeout</h4>
+<p>If the execution of a  performance section took longer than time configured
+  for the timeout, the performance tracker will be aborted and a performance
+  report is created. In this case, the exact execution time for the section is
+  not tracked.</p>
+<p>If both a threshold and a timeout value is set for the performance section,
+the timeout must but greater than the threshold.</p>
+
+<h3 id="track-the-performance-heading">Track the Performance</h3>
+<p>Before entering the code section that should be tracked, an instance of
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+  is requested from the <code>PerfLogManager</code> through a call to
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogManager.html#createPerformanceTracker(org.tquadrat.foundation.perflog.PerformanceSectionName)"><code>createPerformanceTracker()</code></a>
+  with the name of the performance section. If there is currently no
+  performance section defined with that name, one will be created with default
+  values (a dummy description, no threshold, no timeout, no flags – refer to
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerformanceSection.html#%3Cinit%3E(org.tquadrat.foundation.perflog.PerformanceSectionName,java.lang.String,org.tquadrat.foundation.value.TimeValue,org.tquadrat.foundation.value.TimeValue,org.tquadrat.foundation.perflog.PerformanceSection.PerformanceSectionFlags...)"><code>PerformanceSection()</code></a>
+  for the details).</p>
+<p>When the performance section is currently not active
+  (<a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerformanceSection.html#isIgnored()"><code>PerformanceSection.isIgnored()</code></a>
+  returns <code>true</code>), the call to <code>createPerformanceTracker()</code> returns
+  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html#empty()" title="class or interface in java.util" class="external-link">empty</a>.</p>
+<p>When entering the code section, the tracker needs to be started, and at
+  the end, its should be stopped or, in case of an error, aborted.</p>
+<p>That may look like this:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>final var perfLogManager = PerfLogUtils.createPerfLogManager();
+<span class="source-line-no">02</span>&hellip;
+<span class="source-line-no">03</span>
+<span class="source-line-no">04</span>//---* Load Data *-------------------------------------------------------------
+<span class="source-line-no">05</span>final var tracker = perfLogManager.createPerformanceTracker( PS1 );
+<span class="source-line-no">06</span>try
+<span class="source-line-no">07</span>{
+<span class="source-line-no">08</span>    tracker.ifPresent( t -&gt;
+<span class="source-line-no">09</span>    {
+<span class="source-line-no">10</span>        t.setContext( &quot;Source&quot;, &hellip; );
+<span class="source-line-no">11</span>        t.start();
+<span class="source-line-no">12</span>    });
+<span class="source-line-no">13</span>
+<span class="source-line-no">14</span>    // Do something here!!
+<span class="source-line-no">15</span>    &hellip;
+<span class="source-line-no">16</span>
+<span class="source-line-no">17</span>    tracker.ifPresent( PerformanceTracker::stop() );
+<span class="source-line-no">18</span>}
+<span class="source-line-no">19</span>catch( final AnException e )
+<span class="source-line-no">20</span>{
+<span class="source-line-no">21</span>    tracker.ifPresent( t -&gt; t.abort( &quot;An exception was caught&quot;, e ) );
+<span class="source-line-no">22</span>}
+</pre></div>
+<p>The utility class
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html" title="class in org.tquadrat.foundation.perflog"><code>PerfLogUtils</code></a>
+  has the methods <code>hold()</code> and <code>holdAndStart()</code> that allows to use
+  <code>try-with-resources</code>:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>final var perfLogManager = PerfLogUtils.createPerfLogManager();
+<span class="source-line-no">02</span>&hellip;
+<span class="source-line-no">03</span>
+<span class="source-line-no">04</span>//---* Load Data *-------------------------------------------------------------
+<span class="source-line-no">05</span>try( final var tracker = PerfLogUtils.hold( perfLogManager.createPerformanceTracker( PS1 ) ) )
+<span class="source-line-no">06</span>{
+<span class="source-line-no">07</span>    tracker.setContext( &quot;Source&quot;, &hellip; );
+<span class="source-line-no">08</span>
+<span class="source-line-no">09</span>    try
+<span class="source-line-no">10</span>    {
+<span class="source-line-no">11</span>        tracker.start();
+<span class="source-line-no">12</span>        // Do something here!!
+<span class="source-line-no">13</span>        &hellip;
+<span class="source-line-no">14</span>    }
+<span class="source-line-no">15</span>    catch( final AnException e )
+<span class="source-line-no">16</span>    {
+<span class="source-line-no">17</span>        tracker.abort( &quot;An exception was caught&quot;, e );
+<span class="source-line-no">18</span>    }
+<span class="source-line-no">19</span>}
+</pre></div>
+<p>Or without the option to abort the performance tracker and with an internal,
+volatile Performance Logging Manager:</p>
+<div class="source-container"><pre><span class="source-line-no">1</span>//---* Load Data *-------------------------------------------------------------
+<span class="source-line-no">2</span>try( final var tracker = PerfLogUtils.holdAndStart( PS1 ) )
+<span class="source-line-no">3</span>{
+<span class="source-line-no">4</span>    tracker.setContext( &quot;Source&quot;, &hellip; );
+<span class="source-line-no">5</span>
+<span class="source-line-no">6</span>    // Do something here!!
+<span class="source-line-no">7</span>    &hellip;
+<span class="source-line-no">8</span>}
+</pre></div>
+
+<h4 id="the-context-heading">The Context</h4>
+<p>If the execution time for a performance section is (probably) dependent on
+  some data, this can be documented through the context that is stored with the
+  tracker instance.</p>
+<p><a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerformanceTracker.html#addContext(java.lang.String,java.lang.String)"><code>PerformanceTracker.addContext()</code></a>
+  takes a category key and the related value; this allows to provide some
+  structured data:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>//---* Load Data *-------------------------------------------------------------
+<span class="source-line-no">02</span>try( final var tracker = PerfLogUtils.hold( perfLogManager.createPerformanceTracker( PS1 ) ) )
+<span class="source-line-no">03</span>{
+<span class="source-line-no">04</span>    final var source = Path.of( fileName );
+<span class="source-line-no">05</span>    final var lastModified = ZonedDateTime.ofInstant( Instant.ofEpochMilli( Files.getLastModifiedTime( source ).toMillis() ), UTC );
+<span class="source-line-no">06</span>    final var size = new DataSizeValue( BYTE, Files.size( source ) );
+<span class="source-line-no">07</span>    final var lineCounter = new AtomicInteger( 0 );
+<span class="source-line-no">08</span>
+<span class="source-line-no">09</span>    tracker.setContext( &quot;Source&quot;, source.toString );
+<span class="source-line-no">10</span>    tracker.setContext( &quot;Source Date&quot;, lastModified.format( DateTimeFormatter.ISO_ZONED_DATE_TIME );
+<span class="source-line-no">11</span>    tracker.setContext( &quot;Source Size&quot;, &quot;%0.1s&quot;.formatted( size.convert( KIBIBYTE ) );
+<span class="source-line-no">12</span>
+<span class="source-line-no">13</span>    try
+<span class="source-line-no">14</span>    {
+<span class="source-line-no">15</span>        tracker.start();
+<span class="source-line-no">16</span>        Files.lines( source )
+<span class="source-line-no">17</span>            .peek( _ -&gt; lineCounter.incrementAndGet() )
+<span class="source-line-no">18</span>            .forEach( line -&gt; /* Do something here!! */ );
+<span class="source-line-no">19</span>        tracker.setContext( &quot;Source Lines&quot;, lineCounter.toString() );
+<span class="source-line-no">20</span>
+<span class="source-line-no">21</span>        &hellip;
+<span class="source-line-no">22</span>    }
+<span class="source-line-no">23</span>    catch( final IOException e )
+<span class="source-line-no">24</span>    {
+<span class="source-line-no">25</span>        tracker.abort( &quot;An exception was caught&quot;, e );
+<span class="source-line-no">26</span>        throw e;
+<span class="source-line-no">27</span>    }
+<span class="source-line-no">28</span>}
+<span class="source-line-no">29</span>catch( final IOException e )
+<span class="source-line-no">30</span>{
+<span class="source-line-no">31</span>    // Handle the exception &hellip;
+<span class="source-line-no">32</span>}
+</pre></div>
+<p>When reusing the tracker instance, it is possible to keep the current
+  context and only overwrite some of the entries; refer to
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerformanceTracker.html#reset(boolean)"><code>PerformanceTracker#reset()</code></a>.</p>
+
+<h2 id="receiving-the-performance-reports-heading">Receiving the Performance Reports</h2>
+<p>Once a performance tracker terminates, a performance report is created by
+  the Performance Logging and Monitoring MBean, then it will be issued by it as
+  a
+  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/Notification.html" title="class or interface in javax.management" class="external-link"><code>Notification</code></a>.</p>
+<p>The report data is stored in JSON format in the
+  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/Notification.html#getMessage()" title="class or interface in javax.management" class="external-link">message part</a>
+  of the notification.</p>
+<p>Such a report may look like this:</p>
+<div class="source-container"><pre>
+{
+  "PerformanceSection":
+  {
+    "Name":"PS_Load",
+    "Description":"Loading Data",
+    "ThresholdOnlyReport":false
+  },
+  "StartTime":"2026-05-17T09:43:46.723338398Z",
+  "ElapsedTime":
+  {
+    "Unit":"ms",
+    "Value":29001.241731
+  },
+  "ExceededThreshold":false,
+  "IsTimedOut":false,
+  "IsAborted":false,
+  "Context":
+  {
+    "Source":"…",
+    "Source Date":"…",
+    "Source Size":"…",
+    "Source Lines":"…"
+  }
+}
+</pre></div>
+
+<h3 id="internal-client-heading">Internal Client</h3>
+<p>For a client that runs within the same JVM as the application itself, the
+  class
+  <a href="org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/client/PerfLogClientSupport.html" title="class in org.tquadrat.foundation.perflog.client"><code>PerfLogClientSupport</code></a>
+  can be used like this:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>/**
+<span class="source-line-no">02</span> *  Receive the Performance Logging and Monitoring Notifications and
+<span class="source-line-no">03</span> *  process them.
+<span class="source-line-no">04</span> */
+<span class="source-line-no">05</span>public final void run()
+<span class="source-line-no">06</span>{
+<span class="source-line-no">07</span>    final var mbeanServer = obtainMBeanServer();
+<span class="source-line-no">08</span>    try( final var clientSupport = new PerfLogClientSupport() )
+<span class="source-line-no">09</span>    {
+<span class="source-line-no">10</span>        clientSupport.connect( mbeanServer, true );
+<span class="source-line-no">11</span>        var proceed = true;
+<span class="source-line-no">12</span>        while( proceed )
+<span class="source-line-no">13</span>        {
+<span class="source-line-no">14</span>            try
+<span class="source-line-no">15</span>            {
+<span class="source-line-no">16</span>                final var message = clientSupport.awaitMessage();
+<span class="source-line-no">17</span>                // Process the message!!
+<span class="source-line-no">18</span>            }
+<span class="source-line-no">19</span>            catch( final InterruptedException _ )
+<span class="source-line-no">20</span>            {
+<span class="source-line-no">21</span>                proceed = false;
+<span class="source-line-no">22</span>            }
+<span class="source-line-no">23</span>        }
+<span class="source-line-no">24</span>    }
+<span class="source-line-no">25</span>    catch( final InstanceNotFoundException e )
+<span class="source-line-no">26</span>    {
+<span class="source-line-no">27</span>        throw new UnexpectedExceptionError( &quot;Should not happen as we set force = 'true' when connecting&quot;, e );
+<span class="source-line-no">28</span>    }
+<span class="source-line-no">29</span>}   //  run()
+</pre></div>
+
+<h3 id="remote-client-heading">Remote Client</h3>
+<p>If a client running inside another JVM should be used, either on the same or
+  another machine, if is necessary to expose the MBeanServer first:</p>
+<div class="source-container"><pre><span class="source-line-no">01</span>import static org.tquadrat.foundation.mgmt.JMXUtils.enableRemoteAccess;
+<span class="source-line-no">02</span>import java.rmi.RemoteException;
+<span class="source-line-no">03</span>import java.io.IOException;
+<span class="source-line-no">04</span>&hellip;
+<span class="source-line-no">05</span>
+<span class="source-line-no">06</span>try
+<span class="source-line-no">07</span>{
+<span class="source-line-no">08</span>    final var mbeanServer = obtainMBeanServer();
+<span class="source-line-no">09</span>    final var url = enableRemoteAccess( mbeanServer, 9999, Map.of() );
+<span class="source-line-no">10</span>}
+<span class="source-line-no">11</span>catch( final IOException | RemoteException e )
+<span class="source-line-no">12</span>{
+<span class="source-line-no">13</span>    err.println( &quot;Cannot expose MBeanServer&quot; );
+<span class="source-line-no">14</span>    e.printStackTrace( err );
+<span class="source-line-no">15</span>}
+</pre></div>
+<p>The library
+  <a href='https://tquadrat.github.io/foundation-perflogremote/'>org.tquadrat.foundation.perflog.remote</a>
+  provides a helper class for the implementation of a remote client.</p>
+  <p>A simple implementation could look like this:</p>
+<div class="source-container"><pre>&hellip;
+<span class="source-line-no">047</span>public final class RemoteClient
+<span class="source-line-no">048</span>{
+<span class="source-line-no">049</span>        /*---------*\
+<span class="source-line-no">050</span>    ====** Methods **==========================================================
+<span class="source-line-no">051</span>        \*---------*/
+<span class="source-line-no">052</span>    /**
+<span class="source-line-no">053</span>     *  The implementation for
+<span class="source-line-no">054</span>     *  {@link NotificationListener}.
+<span class="source-line-no">055</span>     *
+<span class="source-line-no">056</span>     *  @param  notification    The notification.
+<span class="source-line-no">057</span>     *  @param  handback    The handback.
+<span class="source-line-no">058</span>     */
+<span class="source-line-no">059</span>    private static final void listener( final Notification notification, final Object handback )
+<span class="source-line-no">060</span>    {
+<span class="source-line-no">061</span>        out.printf( &quot;&quot;&quot;
+<span class="source-line-no">062</span>            Type:    %1$s
+<span class="source-line-no">063</span>            Message: %3$s
+<span class="source-line-no">064</span>            SeqNo:   %2$d
+<span class="source-line-no">065</span>            -------------------------------------------------------------------
+<span class="source-line-no">066</span>            &quot;&quot;&quot;, notification.getType(), notification.getSequenceNumber(), notification.getMessage() );
+<span class="source-line-no">067</span>    }   //  listener()
+<span class="source-line-no">068</span>
+<span class="source-line-no">069</span>    /**
+<span class="source-line-no">070</span>     *  The program entry point.
+<span class="source-line-no">071</span>     *
+<span class="source-line-no">072</span>     *  @param  args    The command line arguments.
+<span class="source-line-no">073</span>     */
+<span class="source-line-no">074</span>    public static final void main( final String... args )
+<span class="source-line-no">075</span>    {
+<span class="source-line-no">076</span>        //---* Initialise the error handling *---------------------------------
+<span class="source-line-no">077</span>        currentThread().setUncaughtExceptionHandler( RemoteClient::uncaughtExceptionHandler );
+<span class="source-line-no">078</span>
+<span class="source-line-no">079</span>        while( true )
+<span class="source-line-no">080</span>        {
+<span class="source-line-no">081</span>            try( final var remote = PerfLogRemote.connect( 9999, RemoteClient::listener ) )
+<span class="source-line-no">082</span>            {
+<span class="source-line-no">083</span>                out.println( remote.getMBeanInfo() );
+<span class="source-line-no">084</span>                for( final var name : remote.getPerformanceSections() )
+<span class="source-line-no">085</span>                {
+<span class="source-line-no">086</span>                    out.println( remote.getPerformanceSection( name ) );
+<span class="source-line-no">087</span>                }
+<span class="source-line-no">088</span>                out.println( &quot;=&quot;.repeat( 67 ) );
+<span class="source-line-no">089</span>                while( true );
+<span class="source-line-no">090</span>            }
+<span class="source-line-no">091</span>            catch(  final IOException | InstanceNotFoundException | ReflectionException | IntrospectionException | AttributeNotFoundException | MBeanException e )
+<span class="source-line-no">092</span>            {
+<span class="source-line-no">093</span>                e.printStackTrace( err );
+<span class="source-line-no">094</span>            }
+<span class="source-line-no">095</span>        }
+<span class="source-line-no">096</span>    }   //  main()
+<span class="source-line-no">097</span>
+<span class="source-line-no">098</span>    /**
+<span class="source-line-no">099</span>     *  An implementation of
+<span class="source-line-no">100</span>     *  {@link Thread.UncaughtExceptionHandler}.
+<span class="source-line-no">101</span>     *
+<span class="source-line-no">102</span>     *  @param  t   The aborted thread.
+<span class="source-line-no">103</span>     *  @param  e   The
+<span class="source-line-no">104</span>     *      {@link Throwable}
+<span class="source-line-no">105</span>     *      that caused the abort.
+<span class="source-line-no">106</span>     */
+<span class="source-line-no">107</span>    private static final void uncaughtExceptionHandler( final Thread t, final Throwable e )
+<span class="source-line-no">108</span>    {
+<span class="source-line-no">109</span>        err.printf( &quot;Thread %s aborted due to an exception%n&quot;, t.getName() );
+<span class="source-line-no">110</span>        e.printStackTrace( err );
+<span class="source-line-no">111</span>    }   //  uncaughtExceptionHandler()
+<span class="source-line-no">112</span>}
+<span class="source-line-no">113</span>//  class Client
+&hellip;
+</pre></div></div>
 <div id="all-modules-table">
 <div class="caption"><span>Modules</span></div>
 <div class="summary-table two-column-summary">

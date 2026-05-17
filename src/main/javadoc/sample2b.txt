@@ -1,0 +1,29 @@
+…
+
+/**
+ *  The name for the performance section for loading data.
+ */
+public static final PerformanceSectionName PS1;
+
+/**
+ *  The name for the performance section for dumping data.
+ */
+public static final PerformanceSectionName PS2;
+
+static
+{
+    //---* Initialise the Performance Logging *--------------------------------
+    final var perfLogManager = PerfLogUtils.createPerfLogManager();
+
+    //---* Create the Performance Sections and add them *----------------------
+    PS1 = PerfLogUtils.createPerformanceSectionName( "PS_Load" );
+    PS2 = PerfLogUtils.createPerformanceSectionName( "PS_Dump" );
+
+    perfLogManager.loadPerformanceSectionDefinition(
+        new PerformanceSection( PS1, "Loading Data", null, null, SEND_REPORT_FOR_ABORT ),
+        new PerformanceSection( PS2, "Dumping Data", new TimeValue( MILLISECOND, 500), null,
+            SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD, SEND_REPORT_FOR_ABORT )
+        }
+}
+
+…

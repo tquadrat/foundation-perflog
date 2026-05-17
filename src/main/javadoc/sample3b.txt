@@ -1,0 +1,19 @@
+final var perfLogManager = PerfLogUtils.createPerfLogManager();
+…
+
+//---* Load Data *-------------------------------------------------------------
+try( final var tracker = PerfLogUtils.hold( perfLogManager.createPerformanceTracker( PS1 ) ) )
+{
+    tracker.setContext( "Source", … );
+
+    try
+    {
+        tracker.start();
+        // Do something here!!
+        …
+    }
+    catch( final AnException e )
+    {
+        tracker.abort( "An exception was caught", e );
+    }
+}

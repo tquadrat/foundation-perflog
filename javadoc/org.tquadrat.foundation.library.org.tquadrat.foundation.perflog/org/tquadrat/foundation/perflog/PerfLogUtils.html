@@ -29,7 +29,7 @@ loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
 </noscript>
-<header role="banner"><div style="overflow:auto;"><img src="../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-09T08:29:12.915601387Z[UTC]</p>      </div>
+<header role="banner"><div style="overflow:auto;"><img src="../../../../../resources/tquadrat_logo.jpg" alt="tquadrat.org"style="float:right;"><div style="font-family:sans-serif;font-size:40px;font-weight:bold;padding-left:30px;"><p>tquadrat's <i>Foundation</i> Library<br>org.tquadrat.foundation.perflog 0.25.1 API</p></div>      <p>Build: 2026-05-17T11:08:43.815247398Z[UTC]</p>      </div>
 <nav role="navigation">
 <!-- ========= START OF TOP NAVBAR ======= -->
 <div class="top-nav" id="navbar-top">
@@ -90,7 +90,13 @@ loadScripts(document, 'script');</script>
 <li><a href="#createPerformanceSectionName(java.lang.String)" tabindex="0">createPerformanceSectionName(String)</a></li>
 <li><a href="#getPerfLogMBeanObjectName()" tabindex="0">getPerfLogMBeanObjectName()</a></li>
 <li><a href="#hold(java.util.Optional)" tabindex="0">hold(Optional)</a></li>
+<li><a href="#hold(org.tquadrat.foundation.perflog.PerformanceSectionName)" tabindex="0">hold(PerformanceSectionName)</a></li>
+<li><a href="#hold(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSectionName)" tabindex="0">hold(PerfLogManager, PerformanceSectionName)</a></li>
+<li><a href="#hold(java.lang.String)" tabindex="0">hold(String)</a></li>
 <li><a href="#holdAndStart(java.util.Optional)" tabindex="0">holdAndStart(Optional)</a></li>
+<li><a href="#holdAndStart(org.tquadrat.foundation.perflog.PerformanceSectionName)" tabindex="0">holdAndStart(PerformanceSectionName)</a></li>
+<li><a href="#holdAndStart(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSectionName)" tabindex="0">holdAndStart(PerfLogManager, PerformanceSectionName)</a></li>
+<li><a href="#holdAndStart(java.lang.String)" tabindex="0">holdAndStart(String)</a></li>
 <li><a href="#obtainMBeanServer()" tabindex="0">obtainMBeanServer()</a></li>
 </ol>
 </li>
@@ -107,7 +113,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="annotations"><a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">@ClassVersion</a>(<a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html#sourceVersion()" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">sourceVersion</a>="$Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $")
+<div class="type-signature"><span class="annotations"><a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">@ClassVersion</a>(<a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/ClassVersion.html#sourceVersion()" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">sourceVersion</a>="$Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $")
 <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html" title="class or interface in org.apiguardian.api" class="external-link">@API</a>(<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#status()" title="class or interface in org.apiguardian.api" class="external-link">status</a>=<a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.Status.html#STABLE" title="class or interface in org.apiguardian.api" class="external-link">STABLE</a>,
      <a href="https://apiguardian-team.github.io/apiguardian/docs/current/api/org/apiguardian/api/API.html#since()" title="class or interface in org.apiguardian.api" class="external-link">since</a>="0.25.0")
 <a href="https://tquadrat.github.io/foundation-base/javadoc/org.tquadrat.foundation.base/org/tquadrat/foundation/annotation/UtilityClass.html" title="class or interface in org.tquadrat.foundation.annotation" class="external-link">@UtilityClass</a>
@@ -119,7 +125,7 @@ Monitoring.</p></div>
 <dt><span class="simpleTagLabel">Author:</span></dt>
   <dd>Thomas Thrien (<a href="mailto:thomas.thrien@tquadrat.org">thomas.thrien@tquadrat.org</a>)</dd>
 <dt>Version:</dt>
-<dd>$Id: PerfLogUtils.java 1218 2026-05-02 15:17:24Z tquadrat $</dd>
+<dd>$Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $</dd>
 <dt>Since:</dt>
 <dd>0.25.0</dd>
 
@@ -155,7 +161,7 @@ Monitoring.</p></div>
 <div class="table-header col-second">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="PerfLogUtils.Holder.html" class="type-name-link" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.Holder</a></code></div>
+<div class="col-second even-row-color"><code><a href="PerfLogUtils.PerformanceTrackerHolder.html" class="type-name-link" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">A holder for
 <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
@@ -276,17 +282,79 @@ that handles the connection with the underlying
 for the
 <a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.Holder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.Holder</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#hold(java.util.Optional)" class="member-name-link">hold</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;? extends <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a>&gt;&nbsp;tracker)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#hold(java.lang.String)" class="member-name-link">hold</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given name.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#hold(java.util.Optional)" class="member-name-link">hold</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;? extends <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a>&gt;&nbsp;tracker)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a holder for the given
 <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.Holder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.Holder</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#hold(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSectionName)" class="member-name-link">hold</a><wbr>(<a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a>&nbsp;manager,
+ <a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#hold(org.tquadrat.foundation.perflog.PerformanceSectionName)" class="member-name-link">hold</a><wbr>(<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#holdAndStart(java.lang.String)" class="member-name-link">holdAndStart</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given name and immediately starts it.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#holdAndStart(java.util.Optional)" class="member-name-link">holdAndStart</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;? extends <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a holder for the given
 <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+and immediately starts it.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#holdAndStart(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSectionName)" class="member-name-link">holdAndStart</a><wbr>(<a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a>&nbsp;manager,
+ <a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>
+and immediately starts it.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#holdAndStart(org.tquadrat.foundation.perflog.PerformanceSectionName)" class="member-name-link">holdAndStart</a><wbr>(<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>
 and immediately starts it.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link">MBeanServer</a></code></div>
@@ -318,7 +386,7 @@ that is used for the registration of the
 <section class="detail" id="DOMAIN_NAME">
 <h3>DOMAIN_NAME</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-242">DOMAIN_NAME</a></span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-301">DOMAIN_NAME</a></span></div>
 <div class="block"><p>The domain name part of the
 <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/ObjectName.html" title="class or interface in javax.management" class="external-link"><code>ObjectName</code></a>
 identifying the
@@ -343,7 +411,7 @@ MBean server is needed; usually the Platform MBean server is used.</p></div>
 <section class="detail" id="MBEAN_TYPE">
 <h3>MBEAN_TYPE</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-251">MBEAN_TYPE</a></span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-310">MBEAN_TYPE</a></span></div>
 <div class="block">The type for the
 <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/ObjectName.html" title="class or interface in javax.management" class="external-link"><code>ObjectName</code></a>
 identifying the
@@ -364,7 +432,7 @@ in the MBean server: <a href="https://tquadrat.github.io/foundation-perflogremot
 <section class="detail" id="SYSTEM_PROPERTY_UsedDedicatedMBeanServer">
 <h3>SYSTEM_PROPERTY_UsedDedicatedMBeanServer</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-262">SYSTEM_PROPERTY_UsedDedicatedMBeanServer</a></span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-321">SYSTEM_PROPERTY_UsedDedicatedMBeanServer</a></span></div>
 <div class="block"><p>The name of the system property that controls whether to
 use a dedicated
 <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link"><code>MBeanServer</code></a>: "org.tquadrat.foundation.perflog.UseDedicatedMBeanServer".</p>
@@ -394,7 +462,7 @@ is used.</p></div>
 <section class="detail" id="&lt;init&gt;()">
 <h3>PerfLogUtils</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-271">PerfLogUtils</a></span>()</div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-330">PerfLogUtils</a></span>()</div>
 <div class="block">Not instance allowed for this class!</div>
 </div>
 </section>
@@ -411,10 +479,14 @@ is used.</p></div>
 <section class="detail" id="createPerfLogManager(javax.management.MBeanServer)">
 <h3>createPerfLogManager</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-286">createPerfLogManager</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link">MBeanServer</a>&nbsp;mbeanServer)</span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-353">createPerfLogManager</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link">MBeanServer</a>&nbsp;mbeanServer)</span></div>
 <div class="block"><p>Creates an instance of
 <a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
 that handles the connection with the underlying
+<a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p>
+<p>When called multiple times with references to different
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link">MBean servers</a>,
+each of these calls will create a new instance of
 <a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p></div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -422,6 +494,14 @@ that handles the connection with the underlying
     <code>PerfLogMBean</code>.</dd>
 <dt>Returns:</dt>
 <dd>The new performance logging manager.</dd>
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list-long">
+<li><a href="#createPerfLogManager()"><code>createPerfLogManager()</code></a></li>
+<li><a href="#createPerfLogManager(java.lang.Thread.UncaughtExceptionHandler)"><code>createPerfLogManager(UncaughtExceptionHandler)</code></a></li>
+<li><a href="#obtainMBeanServer()"><code>obtainMBeanServer()</code></a></li>
+</ul>
+</dd>
 </dl>
 </div>
 </section>
@@ -430,11 +510,15 @@ that handles the connection with the underlying
 <section class="detail" id="createPerfLogManager(javax.management.MBeanServer,java.lang.Thread.UncaughtExceptionHandler)">
 <h3>createPerfLogManager</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-307">createPerfLogManager</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link">MBeanServer</a>&nbsp;mbeanServer,
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-382">createPerfLogManager</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link">MBeanServer</a>&nbsp;mbeanServer,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Thread.UncaughtExceptionHandler.html" title="class or interface in java.lang" class="external-link">Thread.UncaughtExceptionHandler</a>&nbsp;uncaughtExceptionHandler)</span></div>
 <div class="block"><p>Creates an instance of
 <a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
 that handles the connection with the underlying
+<a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p>
+<p>When called multiple times with references to different
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link">MBean servers</a>,
+each of these calls will create a new instance of
 <a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p></div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -445,6 +529,14 @@ that handles the connection with the underlying
     that is used for the timeout monitoring thread.</dd>
 <dt>Returns:</dt>
 <dd>The new performance logging manager.</dd>
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list-long">
+<li><a href="#createPerfLogManager()"><code>createPerfLogManager()</code></a></li>
+<li><a href="#createPerfLogManager(java.lang.Thread.UncaughtExceptionHandler)"><code>createPerfLogManager(UncaughtExceptionHandler)</code></a></li>
+<li><a href="#obtainMBeanServer()"><code>obtainMBeanServer()</code></a></li>
+</ul>
+</dd>
 </dl>
 </div>
 </section>
@@ -453,11 +545,15 @@ that handles the connection with the underlying
 <section class="detail" id="createPerfLogManager()">
 <h3>createPerfLogManager</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-324">createPerfLogManager</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-403">createPerfLogManager</a></span>()</div>
 <div class="block"><p>Creates an instance of
 <a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
 that handles the connection with the underlying
-<a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p></div>
+<a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p>
+<p>The method uses the
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link"><code>MBeanServer</code></a>
+that is returned from
+<a href="#obtainMBeanServer()"><code>obtainMBeanServer()</code></a>.</p></div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>The new performance logging manager.</dd>
@@ -469,11 +565,15 @@ that handles the connection with the underlying
 <section class="detail" id="createPerfLogManager(java.lang.Thread.UncaughtExceptionHandler)">
 <h3>createPerfLogManager</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-344">createPerfLogManager</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Thread.UncaughtExceptionHandler.html" title="class or interface in java.lang" class="external-link">Thread.UncaughtExceptionHandler</a>&nbsp;uncaughtExceptionHandler)</span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-428">createPerfLogManager</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Thread.UncaughtExceptionHandler.html" title="class or interface in java.lang" class="external-link">Thread.UncaughtExceptionHandler</a>&nbsp;uncaughtExceptionHandler)</span></div>
 <div class="block"><p>Creates an instance of
 <a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
 that handles the connection with the underlying
-<a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p></div>
+<a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p>
+<p>The method uses the
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link"><code>MBeanServer</code></a>
+that is returned from
+<a href="#obtainMBeanServer()"><code>obtainMBeanServer()</code></a>.</p></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>uncaughtExceptionHandler</code> - The implementation of
@@ -489,7 +589,7 @@ that handles the connection with the underlying
 <section class="detail" id="createPerformanceSectionName(java.lang.String)">
 <h3>createPerformanceSectionName</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-361">createPerformanceSectionName</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-445">createPerformanceSectionName</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</span></div>
 <div class="block">Creates a new instance for an implementation of
 <code>PerformanceSectionName</code> based on the given value.</div>
 <dl class="notes">
@@ -505,7 +605,7 @@ that handles the connection with the underlying
 <section class="detail" id="getPerfLogMBeanObjectName()">
 <h3>getPerfLogMBeanObjectName</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/ObjectName.html" title="class or interface in javax.management" class="external-link">ObjectName</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-377">getPerfLogMBeanObjectName</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/ObjectName.html" title="class or interface in javax.management" class="external-link">ObjectName</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-461">getPerfLogMBeanObjectName</a></span>()</div>
 <div class="block">Returns the
 <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/ObjectName.html" title="class or interface in javax.management" class="external-link"><code>ObjectName</code></a>
 for the
@@ -521,11 +621,11 @@ for the
 <section class="detail" id="hold(java.util.Optional)">
 <h3>hold</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.Holder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.Holder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-393">hold</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;? extends <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a>&gt;&nbsp;tracker)</span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-477">hold</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;? extends <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a>&gt;&nbsp;tracker)</span></div>
 <div class="block"><p>Creates a holder for the given
 <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>.</p>
 <p>This is a convenience method that allows to use a performance
-tracker with try-with-resources.</p></div>
+tracker with <code>try-with-resources</code>.</p></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>tracker</code> - An instance of
@@ -542,15 +642,95 @@ tracker with try-with-resources.</p></div>
 </section>
 </li>
 <li>
+<section class="detail" id="hold(org.tquadrat.foundation.perflog.PerformanceSectionName)">
+<h3>hold</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-505">hold</a></span><wbr><span class="parameters">(<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</span></div>
+<div class="block"><p>Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>.</p>
+<p>It creates an instance of
+<a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
+on the fly, using the
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link"><code>MBeanServer</code></a>
+returned by
+<a href="#obtainMBeanServer()"><code>obtainMBeanServer()</code></a>.</p>
+<p>This is a convenience method that allows to use a performance
+tracker with <code>try-with-resources</code>.</p></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>name</code> - The name of the performance section.</dd>
+<dt>Returns:</dt>
+<dd>A holder for the given tracker.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="hold(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSectionName)">
+<h3>hold</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-528">hold</a></span><wbr><span class="parameters">(<a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a>&nbsp;manager,
+ <a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</span></div>
+<div class="block"><p>Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>.</p>
+<p>This is a convenience method that allows to use a performance
+tracker with <code>try-with-resources</code>.</p></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>manager</code> - The Performance Logging Manager that connects to the
+    <a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</dd>
+<dd><code>name</code> - The name of the performance section.</dd>
+<dt>Returns:</dt>
+<dd>A holder for the given tracker.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="hold(java.lang.String)">
+<h3>hold</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-554">hold</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</span></div>
+<div class="block"><p>Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given name.</p>
+<p>It creates an instance of
+<a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
+on the fly, using the
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link"><code>MBeanServer</code></a>
+returned by
+<a href="#obtainMBeanServer()"><code>obtainMBeanServer()</code></a>.</p>
+<p>This is a convenience method that allows to use a performance
+tracker with <code>try-with-resources</code>.</p></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>value</code> - The name of the performance section.</dd>
+<dt>Returns:</dt>
+<dd>A holder for the given tracker.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="holdAndStart(java.util.Optional)">
 <h3>holdAndStart</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.Holder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.Holder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-414">holdAndStart</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;? extends <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a>&gt;&nbsp;tracker)</span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-574">holdAndStart</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;? extends <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog">PerformanceTracker</a>&gt;&nbsp;tracker)</span></div>
 <div class="block"><p>Creates a holder for the given
 <a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
 and immediately starts it.</p>
 <p>This is a convenience method that allows to use a performance
-tracker with try-with-resources.</p></div>
+tracker with <code>try-with-resources</code>.</p></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>tracker</code> - An instance of
@@ -563,14 +743,109 @@ tracker with try-with-resources.</p></div>
 </section>
 </li>
 <li>
+<section class="detail" id="holdAndStart(org.tquadrat.foundation.perflog.PerformanceSectionName)">
+<h3>holdAndStart</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-604">holdAndStart</a></span><wbr><span class="parameters">(<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</span></div>
+<div class="block"><p>Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>
+and immediately starts it.</p>
+<p>It creates an instance of
+<a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
+on the fly, using the
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link"><code>MBeanServer</code></a>
+returned by
+<a href="#obtainMBeanServer()"><code>obtainMBeanServer()</code></a>.</p>
+<p>This is a convenience method that allows to use a performance
+tracker with <code>try-with-resources</code>.</p></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>name</code> - The name of the performance section.</dd>
+<dt>Returns:</dt>
+<dd>A holder for the given tracker.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="holdAndStart(org.tquadrat.foundation.perflog.PerfLogManager,org.tquadrat.foundation.perflog.PerformanceSectionName)">
+<h3>holdAndStart</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-635">holdAndStart</a></span><wbr><span class="parameters">(<a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog">PerfLogManager</a>&nbsp;manager,
+ <a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">PerformanceSectionName</a>&nbsp;name)</span></div>
+<div class="block"><p>Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given
+<a href="PerformanceSectionName.html" title="interface in org.tquadrat.foundation.perflog">name</a>
+and immediately starts it.</p>
+<p>It creates an instance of
+<a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
+on the fly, using the
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link"><code>MBeanServer</code></a>
+returned by
+<a href="#obtainMBeanServer()"><code>obtainMBeanServer()</code></a>.</p>
+<p>This is a convenience method that allows to use a performance
+tracker with <code>try-with-resources</code>.</p></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>manager</code> - The Performance Logging Manager that connects to the
+    <a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</dd>
+<dd><code>name</code> - The name of the performance section.</dd>
+<dt>Returns:</dt>
+<dd>A holder for the given tracker.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="holdAndStart(java.lang.String)">
+<h3>holdAndStart</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="PerfLogUtils.PerformanceTrackerHolder.html" title="class in org.tquadrat.foundation.perflog">PerfLogUtils.PerformanceTrackerHolder</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-662">holdAndStart</a></span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</span></div>
+<div class="block"><p>Creates a
+<a href="PerformanceTracker.html" title="interface in org.tquadrat.foundation.perflog"><code>PerformanceTracker</code></a>
+for the
+<a href="PerformanceSection.html" title="class in org.tquadrat.foundation.perflog"><code>PerformanceSection</code></a>
+with the given name and immediately starts it.</p>
+<p>It creates an instance of
+<a href="PerfLogManager.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogManager</code></a>
+on the fly, using the
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link"><code>MBeanServer</code></a>
+returned by
+<a href="#obtainMBeanServer()"><code>obtainMBeanServer()</code></a>.</p>
+<p>This is a convenience method that allows to use a performance
+tracker with <code>try-with-resources</code>.</p></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>value</code> - The name of the performance section.</dd>
+<dt>Returns:</dt>
+<dd>A holder for the given tracker.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="obtainMBeanServer()">
 <h3>obtainMBeanServer</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link">MBeanServer</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-434">obtainMBeanServer</a></span>()</div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link">MBeanServer</a></span>&nbsp;<span class="element-name"><a href="../../../../../src-html/org.tquadrat.foundation.library.org.tquadrat.foundation.perflog/org/tquadrat/foundation/perflog/PerfLogUtils.html#line-688">obtainMBeanServer</a></span>()</div>
 <div class="block"><p>Retrieves the
 <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/javax/management/MBeanServer.html" title="class or interface in javax.management" class="external-link"><code>MBeanServer</code></a>
 that is used for the registration of the
-<a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p></div>
+<a href="PerfLogMBean.html" title="interface in org.tquadrat.foundation.perflog"><code>PerfLogMBean</code></a>.</p>
+<p>If the system property
+<a href="#SYSTEM_PROPERTY_UsedDedicatedMBeanServer">"org.tquadrat.foundation.perflog.UseDedicatedMBeanServer"</a>
+is set to <code>true</code>, a dedicated MBean server for the domain
+<a href="https://tquadrat.github.io/foundation-perflogremote/javadoc/org.tquadrat.foundation.perflog.remote/org/tquadrat/foundation/perflog/remote/PerfLogRemote.html#DOMAIN_NAME" title="class or interface in org.tquadrat.foundation.perflog.remote" class="external-link">"org.tquadrat.foundation.PerfLog"</a>
+will be used, otherwise the MBean server that is returned by
+<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.management/java/lang/management/ManagementFactory.html#getPlatformMBeanServer()" title="class or interface in java.lang.management" class="external-link"><code>ManagementFactory.getPlatformMBeanServer()</code></a>
+is returned.</p></div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>The MBean server.</dd>

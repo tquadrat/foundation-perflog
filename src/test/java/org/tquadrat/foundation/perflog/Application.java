@@ -42,6 +42,7 @@ import java.util.Map;
 
 import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.annotation.PlaygroundClass;
+import org.tquadrat.foundation.exception.UnexpectedExceptionError;
 import org.tquadrat.foundation.perflog.client.PerfLogClientSupport;
 import org.tquadrat.foundation.util.stringconverter.IntegerStringConverter;
 import org.tquadrat.foundation.value.Time;
@@ -52,9 +53,9 @@ import org.tquadrat.foundation.value.TimeValue;
  *  Monitoring.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Application.java 1213 2026-05-02 07:00:29Z tquadrat $
+ *  @version $Id: Application.java 1248 2026-05-17 11:08:34Z tquadrat $
  */
-@ClassVersion( sourceVersion = "$Id: Application.java 1213 2026-05-02 07:00:29Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Application.java 1248 2026-05-17 11:08:34Z tquadrat $" )
 @PlaygroundClass
 public final class Application
 {
@@ -120,11 +121,16 @@ public final class Application
                 {
                     thresholdTracker.addContext( "LoopCounter", ++loopCounter, IntegerStringConverter.INSTANCE );
                     thresholdTracker.start();
-                    try( final var loopTracker = hold( perfLogManager.createPerformanceTracker( loopSectionName ) ) )
+                    final var loopTracker = hold( perfLogManager.createPerformanceTracker( loopSectionName ) );
+                    try( loopTracker )
                     {
                         loopTracker.addContext( "LoopCounter", loopCounter, IntegerStringConverter.INSTANCE );
                         loopTracker.start();
                         repose( Duration.ofSeconds( 29 ) );
+                    }
+                    catch( final Exception e )
+                    {
+                        loopTracker.abort( "Exception caught", e );
                     }
                     repose( (long) random.nextInt( 800 ) + 300 );
                 }
@@ -135,6 +141,36 @@ public final class Application
             e.printStackTrace( err );
         }
     }   //  main()
+
+    /**
+     *  Receive the Performance Logging and Monitoring Notifications and
+     *  process them.
+     */
+    public final void run()
+    {
+        final var mbeanServer = obtainMBeanServer();
+        try( final var clientSupport = new PerfLogClientSupport() )
+        {
+            clientSupport.connect( mbeanServer, true );
+            var proceed = true;
+            while( proceed )
+            {
+                try
+                {
+                    final var message = clientSupport.awaitMessage();
+                    // Process the message!!
+                }
+                catch( final InterruptedException _ )
+                {
+                    proceed = false;
+                }
+            }
+        }
+        catch( final InstanceNotFoundException e )
+        {
+            throw new UnexpectedExceptionError( "Should not happen as we set force = 'true' when connecting", e );
+        }
+    }   //  run()
 
     /**
      *  An implementation of

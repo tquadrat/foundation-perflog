@@ -1,0 +1,15 @@
+import static org.tquadrat.foundation.mgmt.JMXUtils.enableRemoteAccess;
+import java.rmi.RemoteException;
+import java.io.IOException;
+…
+
+try
+{
+    final var mbeanServer = obtainMBeanServer();
+    final var url = enableRemoteAccess( mbeanServer, 9999, Map.of() );
+}
+catch( final IOException | RemoteException e )
+{
+    err.println( "Cannot expose MBeanServer" );
+    e.printStackTrace( err );
+}

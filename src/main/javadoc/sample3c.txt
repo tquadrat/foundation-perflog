@@ -1,0 +1,8 @@
+//---* Load Data *-------------------------------------------------------------
+try( final var tracker = PerfLogUtils.holdAndStart( PS1 ) )
+{
+    tracker.setContext( "Source", … );
+
+    // Do something here!!
+    …
+}
