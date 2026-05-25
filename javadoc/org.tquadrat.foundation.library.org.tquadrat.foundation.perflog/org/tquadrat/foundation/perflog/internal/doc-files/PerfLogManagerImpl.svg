@@ -7,7 +7,7 @@
      version='1.1'
      baseProfile='full'
      width='1164.000'
-     height='888.000'>
+     height='899.000'>
     <defs>
         <style><![CDATA[
             line
@@ -118,7 +118,7 @@
         </marker>
         <clipPath id='ID000001'>
             <rect class='focusClass'
-                  height='249.000'
+                  height='260.000'
                   width='1114.000'
                   x='0.000'
                   y='0.000'/>
@@ -130,7 +130,7 @@
                     <rect x='0.000'
                           y='0.000'
                           width='1114.000'
-                          height='249.000'
+                          height='260.000'
                           class='focusClass'/>
                     <line x1='0.000'
                           y1='17.000'
@@ -140,50 +140,52 @@
                     <text x='503.000'
                           y='13.000'>PerfLogManagerImpl</text>
                     <line x1='0.000'
-                          y1='100.000'
+                          y1='111.000'
                           x2='1114.000'
-                          y2='100.000'
+                          y2='111.000'
                           class='separator'/>
                     <text y='30.000'
                           class='final'>- m_Cleanable:java.lang.ref.Cleaner.Cleanable</text>
-                    <text y='41.000'>- m_IsActive:boolean</text>
-                    <text y='52.000'
-                          class='final'>- m_Janitor:org.tquadrat.foundation.perflog.internal.PerfLogManagerImpl.Janitor</text>
+                    <text y='41.000'
+                          class='static final'>- m_InstanceCounter:java.util.concurrent.atomic.AtomicInteger</text>
+                    <text y='52.000'>- m_IsActive:boolean</text>
                     <text y='63.000'
-                          class='final'>- m_MBean:org.tquadrat.foundation.perflog.PerfLogMBean</text>
+                          class='final'>- m_Janitor:org.tquadrat.foundation.perflog.internal.PerfLogManagerImpl.Janitor</text>
                     <text y='74.000'
-                          class='final'>- m_TimeoutScheduler:java.util.concurrent.ScheduledExecutorService</text>
+                          class='final'>- m_MBean:org.tquadrat.foundation.perflog.PerfLogMBean</text>
                     <text y='85.000'
-                          class='static final'>- m_Cleaner:java.lang.ref.Cleaner</text>
+                          class='final'>- m_TimeoutScheduler:java.util.concurrent.ScheduledExecutorService</text>
                     <text y='96.000'
+                          class='static final'>- m_Cleaner:java.lang.ref.Cleaner</text>
+                    <text y='107.000'
                           class='static final'>- MATH_CONTEXT:java.math.MathContext</text>
                     <text x='5.000'
-                          y='113.000'>+ PerfLogManagerImpl(mbeanServer:javax.management.MBeanServer,objectName:javax.management.ObjectName)</text>
+                          y='124.000'>+ PerfLogManagerImpl(mbeanServer:javax.management.MBeanServer,objectName:javax.management.ObjectName)</text>
                     <text x='5.000'
-                          y='124.000'>+ PerfLogManagerImpl(mbeanServer:javax.management.MBeanServer,objectName:javax.management.ObjectName,uncaughtExceptionHandler:java.lang.Thread.UncaughtExceptionHandler)</text>
+                          y='135.000'>+ PerfLogManagerImpl(mbeanServer:javax.management.MBeanServer,objectName:javax.management.ObjectName,uncaughtExceptionHandler:java.lang.Thread.UncaughtExceptionHandler)</text>
                     <text x='5.000'
-                          y='135.000'>- PerfLogManagerImpl(ignored:boolean,mbeanServer:javax.management.MBeanServer,objectName:javax.management.ObjectName,uncaughtExceptionHandler:java.lang.Thread.UncaughtExceptionHandler)</text>
+                          y='146.000'>- PerfLogManagerImpl(ignored:boolean,mbeanServer:javax.management.MBeanServer,objectName:javax.management.ObjectName,uncaughtExceptionHandler:java.lang.Thread.UncaughtExceptionHandler)</text>
                     <text x='5.000'
-                          y='146.000'>- checkActive():boolean</text>
+                          y='157.000'>- checkActive():boolean</text>
                     <text x='5.000'
-                          y='157.000'>+ close():void</text>
+                          y='168.000'>+ close():void</text>
                     <text x='5.000'
-                          y='168.000'
+                          y='179.000'
                           class='static'>- connectToMBean(mbeanServer:javax.management.MBeanServer,objectName:javax.management.ObjectName):org.tquadrat.foundation.perflog.PerfLogMBean</text>
                     <text x='5.000'
-                          y='179.000'>+ createPerformanceTracker(name:org.tquadrat.foundation.perflog.PerformanceSectionName):java.util.Optional&lt;org.tquadrat.foundation.perflog.PerformanceTracker&gt;</text>
+                          y='190.000'>+ createPerformanceTracker(name:org.tquadrat.foundation.perflog.PerformanceSectionName):java.util.Optional&lt;org.tquadrat.foundation.perflog.PerformanceTracker&gt;</text>
                     <text x='5.000'
-                          y='190.000'>- createTimeoutMonitor(uncaughtExceptionHandler:java.lang.Thread.UncaughtExceptionHandler):java.util.concurrent.ScheduledExecutorService</text>
+                          y='201.000'>- createTimeoutMonitor(uncaughtExceptionHandler:java.lang.Thread.UncaughtExceptionHandler):java.util.concurrent.ScheduledExecutorService</text>
                     <text x='5.000'
-                          y='201.000'>+ getMBean():org.tquadrat.foundation.perflog.PerfLogMBean</text>
+                          y='212.000'>+ getMBean():org.tquadrat.foundation.perflog.PerfLogMBean</text>
                     <text x='5.000'
-                          y='212.000'>+ getPerformanceSection(name:org.tquadrat.foundation.perflog.PerformanceSectionName):java.util.Optional&lt;org.tquadrat.foundation.perflog.PerformanceSection&gt;</text>
+                          y='223.000'>+ getPerformanceSection(name:org.tquadrat.foundation.perflog.PerformanceSectionName):java.util.Optional&lt;org.tquadrat.foundation.perflog.PerformanceSection&gt;</text>
                     <text x='5.000'
-                          y='223.000'>+ loadPerformanceSectionDefinitions(definitions:java.lang.Iterable&lt;org.tquadrat.foundation.perflog.PerformanceSection&gt;):void</text>
+                          y='234.000'>+ loadPerformanceSectionDefinitions(definitions:java.lang.Iterable&lt;org.tquadrat.foundation.perflog.PerformanceSection&gt;):void</text>
                     <text x='5.000'
-                          y='234.000'>+ registerTimeoutMonitor(tracker:org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl):java.util.concurrent.ScheduledFuture&lt;?&gt;</text>
+                          y='245.000'>+ registerTimeoutMonitor(tracker:org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl):java.util.concurrent.ScheduledFuture&lt;?&gt;</text>
                     <text x='5.000'
-                          y='245.000'>+ sendReport(tracker:org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl,message:java.lang.String,cause:java.lang.Throwable):void</text>
+                          y='256.000'>+ sendReport(tracker:org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl,message:java.lang.String,cause:java.lang.Throwable):void</text>
                 </g>
             </g>
         </symbol>

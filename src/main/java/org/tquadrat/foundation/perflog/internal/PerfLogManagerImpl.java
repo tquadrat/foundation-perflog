@@ -38,6 +38,7 @@ import java.math.MathContext;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.annotation.ClassVersion;
@@ -54,12 +55,12 @@ import org.tquadrat.foundation.perflog.PerformanceTracker;
  *  {@link org.tquadrat.foundation.perflog.PerfLogManager}.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogManagerImpl.java 1246 2026-05-16 14:07:00Z tquadrat $
+ *  @version $Id: PerfLogManagerImpl.java 1249 2026-05-17 11:40:55Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1246 2026-05-16 14:07:00Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1249 2026-05-17 11:40:55Z tquadrat $" )
 @API( status = INTERNAL, since = "0.25.0" )
 public final class PerfLogManagerImpl implements PerfLogManager
 {
@@ -73,7 +74,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *  in case that was not properly closed.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerfLogManagerImpl.java 1246 2026-05-16 14:07:00Z tquadrat $
+     *  @version $Id: PerfLogManagerImpl.java 1249 2026-05-17 11:40:55Z tquadrat $
      *  @since 0.25.0
      *
      *  @param  scheduledExecutorService    The reference to the
@@ -83,7 +84,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *  @UMLGraph.link
      */
     @SuppressWarnings( "NewClassNamingConvention" )
-    @ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1246 2026-05-16 14:07:00Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1249 2026-05-17 11:40:55Z tquadrat $" )
     @API( status = INTERNAL, since = "0.25.0" )
     private record Janitor( ScheduledExecutorService scheduledExecutorService ) implements Runnable
     {
@@ -113,6 +114,12 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *  for this instance.
      */
     private final Cleanable m_Cleanable;
+
+    /**
+     *  The instance counter that is used for the thread names in
+     *  {@link #createTimeoutMonitor(UncaughtExceptionHandler)}.
+     */
+    private static final AtomicInteger m_InstanceCounter = new AtomicInteger( 0 );
 
     /**
      *  The flag the indicates whether this manager is (still) active.
@@ -338,7 +345,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
     private final ScheduledExecutorService createTimeoutMonitor( final UncaughtExceptionHandler uncaughtExceptionHandler )
     {
         //---* Create the ScheduledExecutorService *---------------------------
-        final var threadName = "TimeoutMonitor";
+        final var threadName = "TimeoutMonitor[%d]".formatted( m_InstanceCounter.incrementAndGet() );
         final var builder = Thread.ofVirtual()
             .name( threadName );
         if( nonNull( uncaughtExceptionHandler ) ) builder.uncaughtExceptionHandler( uncaughtExceptionHandler);
