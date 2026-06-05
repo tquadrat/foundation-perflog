@@ -114,12 +114,12 @@
 <span class="source-line-no">101</span><span id="line-101"> *  {@link PerfLogMBean}.}&lt;/p&gt;</span>
 <span class="source-line-no">102</span><span id="line-102"> *</span>
 <span class="source-line-no">103</span><span id="line-103"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">104</span><span id="line-104"> *  @version $Id: PerfLogMBeanImpl.java 1229 2026-05-04 19:11:41Z tquadrat $</span>
+<span class="source-line-no">104</span><span id="line-104"> *  @version $Id: PerfLogMBeanImpl.java 1258 2026-06-04 18:33:06Z tquadrat $</span>
 <span class="source-line-no">105</span><span id="line-105"> *  @since 0.25.0</span>
 <span class="source-line-no">106</span><span id="line-106"> *</span>
 <span class="source-line-no">107</span><span id="line-107"> *  @UMLGraph.link</span>
 <span class="source-line-no">108</span><span id="line-108"> */</span>
-<span class="source-line-no">109</span><span id="line-109">@ClassVersion( sourceVersion = "$Id: PerfLogMBeanImpl.java 1229 2026-05-04 19:11:41Z tquadrat $" )</span>
+<span class="source-line-no">109</span><span id="line-109">@ClassVersion( sourceVersion = "$Id: PerfLogMBeanImpl.java 1258 2026-06-04 18:33:06Z tquadrat $" )</span>
 <span class="source-line-no">110</span><span id="line-110">@API( status = INTERNAL, since = "0.25.0" )</span>
 <span class="source-line-no">111</span><span id="line-111">public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean</span>
 <span class="source-line-no">112</span><span id="line-112">{</span>
@@ -512,7 +512,7 @@
 <span class="source-line-no">499</span><span id="line-499">     *  &lt;p&gt;This method first calls</span>
 <span class="source-line-no">500</span><span id="line-500">     *  {@link #getCachedMBeanInfo()}</span>
 <span class="source-line-no">501</span><span id="line-501">     *  in order to retrieve the cached {@code MBeanInfo} for this MBean, if</span>
-<span class="source-line-no">502</span><span id="line-502">     *  any. If the result from this call is not {@code null}, it will be</span>
+<span class="source-line-no">502</span><span id="line-502">     *  any. If the result from this call is not {@null}, it will be</span>
 <span class="source-line-no">503</span><span id="line-503">     *  returned.&lt;/p&gt;</span>
 <span class="source-line-no">504</span><span id="line-504">     *  &lt;p&gt;Otherwise, this method builds a {@code MBeanInfo} for this MBean</span>
 <span class="source-line-no">505</span><span id="line-505">     *  from scratch.&lt;/p&gt;</span>
@@ -521,7 +521,7 @@
 <span class="source-line-no">508</span><span id="line-508">     *  in order to cache the new MBeanInfo for subsequent calls.</span>
 <span class="source-line-no">509</span><span id="line-509">     *</span>
 <span class="source-line-no">510</span><span id="line-510">     *  @return The cached {@code MBeanInfo} for this MBean, if not</span>
-<span class="source-line-no">511</span><span id="line-511">     *      {@code null}, or a newly built {@code MBeanInfo} if none was</span>
+<span class="source-line-no">511</span><span id="line-511">     *      {@null}, or a newly built {@code MBeanInfo} if none was</span>
 <span class="source-line-no">512</span><span id="line-512">     *      cached.</span>
 <span class="source-line-no">513</span><span id="line-513">     */</span>
 <span class="source-line-no">514</span><span id="line-514">    @SuppressWarnings( "UnnecessaryJavaDocLink" )</span>

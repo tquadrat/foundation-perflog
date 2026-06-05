@@ -48,12 +48,12 @@ import org.tquadrat.foundation.value.TimeValue;
  *  {@link PerformanceTracker}}.</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerformanceTrackerImpl.java 1248 2026-05-17 11:08:34Z tquadrat $
+ *  @version $Id: PerformanceTrackerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerformanceTrackerImpl.java 1248 2026-05-17 11:08:34Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerformanceTrackerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 @SuppressWarnings( "ClassWithTooManyFields" )
 public final class PerformanceTrackerImpl implements PerformanceTracker
@@ -115,7 +115,7 @@ public final class PerformanceTrackerImpl implements PerformanceTracker
 
     /**
      *  <p>{@summary The future that is used for the timeout handling.}</p>
-     *  <p>Will be {@code null} when the timeout is disabled.</p>
+     *  <p>Will be {@null} when the timeout is disabled.</p>
      */
     private ScheduledFuture<?> m_TimeOutFuture = null;
 
@@ -169,7 +169,7 @@ public final class PerformanceTrackerImpl implements PerformanceTracker
      *  <p>If the tracker has been aborted or stopped already, nothing happens.
      *  Same if it was never started.</p>
      *
-     *  @param  flag    {@code true} if the tracker timed out, {@code false}
+     *  @param  flag    {@true} if the tracker timed out, {@false}
      *      if this is a &quot;regular&quot; abort.
      */
     @SuppressWarnings( "PublicMethodNotExposedInInterface" )
@@ -184,7 +184,7 @@ public final class PerformanceTrackerImpl implements PerformanceTracker
      *
      *  @param  message The message describing the reason for the abort.
      *  @param  cause   The exception that caused the abort.
-     *  @param  flag    {@code true} if the tracker timed out, {@code false}
+     *  @param  flag    {@true} if the tracker timed out, {@false}
      *      if this is a &quot;regular&quot; abort.
      */
     private final void abort( final String message, final Throwable cause, final boolean flag )
@@ -290,8 +290,8 @@ public final class PerformanceTrackerImpl implements PerformanceTracker
      *  operation covered by the performance section for this tracker took
      *  longer than the estimated time.
      *
-     *  @return {@code true} if the operation took longer than the provided
-     *      threshold, {@code false} otherwise, or no threshold was provided.
+     *  @return {@true} if the operation took longer than the provided
+     *      threshold, {@false} otherwise, or no threshold was provided.
      */
     @SuppressWarnings( "PublicMethodNotExposedInInterface" )
     public boolean isThresholdExceeded()
@@ -309,8 +309,8 @@ public final class PerformanceTrackerImpl implements PerformanceTracker
      *  <p>{@summary Checks whether the tracker was aborted due to a
      *  timeout.}</p>
      *
-     *  @return {@code true} if the tracker was aborted due to a timeout,
-     *      {@code false} if it is still running, if it was regularly stopped,
+     *  @return {@true} if the tracker was aborted due to a timeout,
+     *      {@false} if it is still running, if it was regularly stopped,
      *      if aborted due to other reasons, or if the timeout was disabled for
      *      the respective performance section.
      */

@@ -55,12 +55,12 @@ import org.tquadrat.foundation.perflog.PerformanceTracker;
  *  {@link org.tquadrat.foundation.perflog.PerfLogManager}.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogManagerImpl.java 1249 2026-05-17 11:40:55Z tquadrat $
+ *  @version $Id: PerfLogManagerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1249 2026-05-17 11:40:55Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @API( status = INTERNAL, since = "0.25.0" )
 public final class PerfLogManagerImpl implements PerfLogManager
 {
@@ -74,7 +74,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *  in case that was not properly closed.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerfLogManagerImpl.java 1249 2026-05-17 11:40:55Z tquadrat $
+     *  @version $Id: PerfLogManagerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $
      *  @since 0.25.0
      *
      *  @param  scheduledExecutorService    The reference to the
@@ -84,7 +84,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *  @UMLGraph.link
      */
     @SuppressWarnings( "NewClassNamingConvention" )
-    @ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1249 2026-05-17 11:40:55Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $" )
     @API( status = INTERNAL, since = "0.25.0" )
     private record Janitor( ScheduledExecutorService scheduledExecutorService ) implements Runnable
     {
@@ -230,7 +230,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *  {@link IllegalStateException}
      *  if not.
      *
-     *  @return {@code true} if the manager is still active.
+     *  @return {@true} if the manager is still active.
      *  @throws IllegalStateException
      *      {@link #close()}
      *      was already called on this instance.
@@ -401,7 +401,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *  Registers a timeout monitor from a performance tracker.
      *
      *  @param  tracker The performance tracker to register.
-     *  @return The timeout monitor; will be {@code null} if the given tracker
+     *  @return The timeout monitor; will be {@null} if the given tracker
      *      is not active, or the performance section for that tracker does
      *      not define a timeout value.
      *  @throws IllegalStateException
@@ -433,9 +433,9 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *
      *  @param  tracker The tracker that collected the performance data.
      *  @param  message The message describing the reason for the abort of the
-     *      tracker; can be {@code null}.
+     *      tracker; can be {@null}.
      *  @param  cause   The exception that caused the abort; can be
-     *      {@code null}.
+     *      {@null}.
      *  @throws IllegalStateException
      *      {@link #close()}
      *      was already called on this instance.

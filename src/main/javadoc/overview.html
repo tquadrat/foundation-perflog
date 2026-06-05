@@ -98,7 +98,7 @@ the timeout must but greater than the threshold.</p>
   for the details).</p>
 <p>When the performance section is currently not active
   ({@link org.tquadrat.foundation.perflog.PerformanceSection#isIgnored()}
-  returns {@code true}), the call to {@code createPerformanceTracker()} returns
+  returns {@true}), the call to {@code createPerformanceTracker()} returns
   {@linkplain java.util.Optional#empty() empty}.</p>
 <p>When entering the code section, the tracker needs to be started, and at
   the end, its should be stopped or, in case of an error, aborted.</p>

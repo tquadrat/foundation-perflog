@@ -101,12 +101,12 @@ import org.tquadrat.foundation.perflog.PerformanceSectionName;
  *  {@link PerfLogMBean}.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogMBeanImpl.java 1229 2026-05-04 19:11:41Z tquadrat $
+ *  @version $Id: PerfLogMBeanImpl.java 1258 2026-06-04 18:33:06Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogMBeanImpl.java 1229 2026-05-04 19:11:41Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogMBeanImpl.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @API( status = INTERNAL, since = "0.25.0" )
 public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean
 {
@@ -499,7 +499,7 @@ public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean
      *  <p>This method first calls
      *  {@link #getCachedMBeanInfo()}
      *  in order to retrieve the cached {@code MBeanInfo} for this MBean, if
-     *  any. If the result from this call is not {@code null}, it will be
+     *  any. If the result from this call is not {@null}, it will be
      *  returned.</p>
      *  <p>Otherwise, this method builds a {@code MBeanInfo} for this MBean
      *  from scratch.</p>
@@ -508,7 +508,7 @@ public class PerfLogMBeanImpl extends StandardMBean implements PerfLogMBean
      *  in order to cache the new MBeanInfo for subsequent calls.
      *
      *  @return The cached {@code MBeanInfo} for this MBean, if not
-     *      {@code null}, or a newly built {@code MBeanInfo} if none was
+     *      {@null}, or a newly built {@code MBeanInfo} if none was
      *      cached.
      */
     @SuppressWarnings( "UnnecessaryJavaDocLink" )

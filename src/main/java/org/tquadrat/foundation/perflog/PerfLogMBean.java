@@ -31,12 +31,12 @@ import org.tquadrat.foundation.annotation.ClassVersion;
  *  Performance Logging and Monitoring.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogMBean.java 1229 2026-05-04 19:11:41Z tquadrat $
+ *  @version $Id: PerfLogMBean.java 1258 2026-06-04 18:33:06Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogMBean.java 1229 2026-05-04 19:11:41Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogMBean.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 public interface PerfLogMBean extends NotificationEmitter
 {
@@ -131,7 +131,7 @@ public interface PerfLogMBean extends NotificationEmitter
      *  disabled. Obviously, it should not be ignored.</p>
      *
      *  @param  name    The name of the performance section.
-     *  @return The performance section; will never be {@code null}.
+     *  @return The performance section; will never be {@null}.
      */
     public PerformanceSection retrievePerformanceSection( final PerformanceSectionName name );
 

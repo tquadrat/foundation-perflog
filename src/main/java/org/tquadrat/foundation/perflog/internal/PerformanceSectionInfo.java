@@ -29,12 +29,12 @@ import org.tquadrat.foundation.value.TimeValue;
  *  &quot;Performance Section&quot;.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerformanceSectionInfo.java 1216 2026-05-02 11:16:24Z tquadrat $
+ *  @version $Id: PerformanceSectionInfo.java 1258 2026-06-04 18:33:06Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerformanceSectionInfo.java 1216 2026-05-02 11:16:24Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerformanceSectionInfo.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @API( status = INTERNAL, since = "0.25.0" )
 public class PerformanceSectionInfo
 {
@@ -425,18 +425,18 @@ public class PerformanceSectionInfo
      *  Returns the flag that controls whether the performance section is
      *  currently ignored.
      *
-     *  @return {@code true} if the performance section is currently ignored,
-     *      {@code false} if the performance section is currently observed.
+     *  @return {@true} if the performance section is currently ignored,
+     *      {@false} if the performance section is currently observed.
      */
     public final boolean isIgnored() { return m_PerformanceSection.isIgnored(); }
 
     /**
      *  <p>{@summary Checks whether the average execution time is above the
      *  threshold for the performance section.} If the threshold is disabled,
-     *  the method returns {@code false}.</p>
+     *  the method returns {@false}.</p>
      *
-     *  @return {@code true} if the average execution time is above the
-     *      threshold, {@code false} otherwise.
+     *  @return {@true} if the average execution time is above the
+     *      threshold, {@false} otherwise.
      *
      *  @see PerformanceSection#getThreshold()
      */
@@ -455,8 +455,8 @@ public class PerformanceSectionInfo
      *  Returns the flag that indicates whether reports should be sent only if
      *  the threshold was exceeded.
      *
-     *  @return {@code true} if a report should be sent only when the threshold
-     *     was exceeded, {@code false} if a report should be sent always.
+     *  @return {@true} if a report should be sent only when the threshold
+     *     was exceeded, {@false} if a report should be sent always.
      */
     @SuppressWarnings( "NewMethodNamingConvention" )
     public final boolean isSendingReportOnlyForExceededThreshold() { return m_PerformanceSection.isSendingReportOnlyForExceededThreshold(); }

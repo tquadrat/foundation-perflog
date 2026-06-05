@@ -37,12 +37,12 @@ import org.tquadrat.foundation.perflog.internal.PerformanceTrackerImpl;
  *  thread-safe, but it can be reused multiple times.</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerformanceTracker.java 1248 2026-05-17 11:08:34Z tquadrat $
+ *  @version $Id: PerformanceTracker.java 1258 2026-06-04 18:33:06Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerformanceTracker.java 1248 2026-05-17 11:08:34Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerformanceTracker.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 public sealed interface PerformanceTracker
     permits PerformanceTrackerHolder, PerformanceTrackerImpl
@@ -55,12 +55,12 @@ public sealed interface PerformanceTracker
      *  {@link PerformanceTracker}.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerformanceTracker.java 1248 2026-05-17 11:08:34Z tquadrat $
+     *  @version $Id: PerformanceTracker.java 1258 2026-06-04 18:33:06Z tquadrat $
      *  @since 0.25.0
      *
      *  @UMLGraph.link
      */
-    @ClassVersion( sourceVersion = "$Id: PerformanceTracker.java 1248 2026-05-17 11:08:34Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerformanceTracker.java 1258 2026-06-04 18:33:06Z tquadrat $" )
     @API( status = STABLE, since = "0.25.0" )
     public static enum TrackerStatus
     {
@@ -138,7 +138,7 @@ public sealed interface PerformanceTracker
      *  {@include ${javadoc}/sample3c.txt:SOURCE}
      *
      *  @param  name    The name of the context value.
-     *  @param  value   The context value; {@code null} removes the entry with
+     *  @param  value   The context value; {@null} removes the entry with
      *      the given name.
      *  @return This instance.
      */
@@ -158,7 +158,7 @@ public sealed interface PerformanceTracker
      *
      *  @param  <T> The type of the context value.
      *  @param  name    The name of the context value.
-     *  @param  value   The context value; {@code null} removes the entry with
+     *  @param  value   The context value; {@null} removes the entry with
      *      the given name.
      *  @param  stringConverter The instance of
      *      {@link StringConverter}
@@ -185,8 +185,8 @@ public sealed interface PerformanceTracker
     /**
      *  Checks whether the tracker is active.
      *
-     *  @return {@code true} if the tracker was started, but not yet aborted or
-     *      stopped, {@code false} otherwise.
+     *  @return {@true} if the tracker was started, but not yet aborted or
+     *      stopped, {@false} otherwise.
      */
     public default boolean isActive() { return getStatus() == STATUS_STARTED; }
 
@@ -196,8 +196,8 @@ public sealed interface PerformanceTracker
      *  {@link IllegalStateException}
      *  is thrown.</p>
      *
-     *  @param  resetContext    {@code true} if also the context should be
-     *      reset, {@code false} to keep the current context.
+     *  @param  resetContext    {@true} if also the context should be
+     *      reset, {@false} to keep the current context.
      *  @throws IllegalStateException   The tracker was already started but not
      *      stopped or aborted.
      *  @return This instance.

@@ -59,13 +59,13 @@ import org.tquadrat.foundation.perflog.internal.PerfLogMBeanImpl;
  *  section} was left.</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $
+ *  @version $Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
 @SuppressWarnings( "AbstractClassWithoutAbstractMethods" )
-@ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @API( status = MAINTAINED, since = "0.25.0" )
 public abstract class PerfLogClientBase implements AutoCloseable
 {
@@ -79,7 +79,7 @@ public abstract class PerfLogClientBase implements AutoCloseable
      *  in case that was not properly closed.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $
+     *  @version $Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $
      *  @since 0.25.0
      *
      *  @param  mbean   The MBean the listener is connected with.
@@ -88,7 +88,7 @@ public abstract class PerfLogClientBase implements AutoCloseable
      *  @UMLGraph.link
      */
     @SuppressWarnings( "NewClassNamingConvention" )
-    @ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $" )
     @API( status = INTERNAL, since = "0.25.0" )
     private record Janitor( NotificationEmitter mbean, PerfLogNotificationListener listener ) implements Runnable
     {
@@ -128,7 +128,7 @@ public abstract class PerfLogClientBase implements AutoCloseable
      *
      * @param messageQueue  The reference to the destination for the messages.
      *
-     * @version $Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $
+     * @version $Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $
      * @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
      * @UMLGraph.link
      * @since 0.25.0
@@ -237,10 +237,10 @@ public abstract class PerfLogClientBase implements AutoCloseable
      *  <p>{@summary Establishes the connection to the MBean and starts the
      *  listening.}</p>
      *
-     *  @param  forceFlag   {@code true} if the MBean should be registered in
-     *      case it is not yet registered, {@code false} otherwise.
+     *  @param  forceFlag   {@true} if the MBean should be registered in
+     *      case it is not yet registered, {@false} otherwise.
      *  @throws IllegalStateException   The connection is already established.
-     *  @throws InstanceNotFoundException   {@code forceFlag} is {@code false},
+     *  @throws InstanceNotFoundException   {@code forceFlag} is {@false},
      *      the
      *      {@link PerfLogMBean}
      *      is not registered, and the notification listener cannot connect to
@@ -259,10 +259,10 @@ public abstract class PerfLogClientBase implements AutoCloseable
      *  listening.}</p>
      *
      *  @param  mbeanServer The MBean server that holds the MBean.
-     *  @param  forceFlag   {@code true} if the MBean should be registered in
-     *      case it is not yet registered, {@code false} otherwise.
+     *  @param  forceFlag   {@true} if the MBean should be registered in
+     *      case it is not yet registered, {@false} otherwise.
      *  @throws IllegalStateException   The connection is already established.
-     *  @throws InstanceNotFoundException   {@code forceFlag} is {@code false},
+     *  @throws InstanceNotFoundException   {@code forceFlag} is {@false},
      *      the
      *      {@link PerfLogMBean}
      *      is not registered, and the notification listener cannot connect to
@@ -290,11 +290,11 @@ public abstract class PerfLogClientBase implements AutoCloseable
      *
      *  @param  mbeanServer The MBean server that is used.
      *  @param  objectName  The name for the MBean.
-     *  @param  forceFlag   {@code true} if the MBean should be registered in
-     *      case it is not yet registered, {@code false} otherwise.
+     *  @param  forceFlag   {@true} if the MBean should be registered in
+     *      case it is not yet registered, {@false} otherwise.
      *      {@link PerfLogMBean}.
      *  @return The MBean that we connected to.
-     *  @throws InstanceNotFoundException   {@code forceFlag} is {@code false}
+     *  @throws InstanceNotFoundException   {@code forceFlag} is {@false}
      *      and the MBean is not registered in the given MBean server.
      */
     private static final PerfLogMBean connectToMBean( final MBeanServer mbeanServer, final ObjectName objectName, final boolean forceFlag ) throws InstanceNotFoundException

@@ -48,12 +48,12 @@ import org.tquadrat.foundation.value.TimeValue;
  *  <p>{@summary This class describes a &quot;Performance Section&quot;.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerformanceSection.java 1218 2026-05-02 15:17:24Z tquadrat $
+ *  @version $Id: PerformanceSection.java 1258 2026-06-04 18:33:06Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerformanceSection.java 1218 2026-05-02 15:17:24Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerformanceSection.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 public final class PerformanceSection
 {
@@ -64,12 +64,12 @@ public final class PerformanceSection
      *  <p>{@summary The ignore status for a performance section.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerformanceSection.java 1218 2026-05-02 15:17:24Z tquadrat $
+     *  @version $Id: PerformanceSection.java 1258 2026-06-04 18:33:06Z tquadrat $
      *  @since 0.25.0
      *
      *  @UMLGraph.link
      */
-    @ClassVersion( sourceVersion = "$Id: PerformanceSection.java 1218 2026-05-02 15:17:24Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerformanceSection.java 1258 2026-06-04 18:33:06Z tquadrat $" )
     @API( status = STABLE, since = "0.25.0" )
     public static enum PerformanceSectionFlags
     {
@@ -129,14 +129,14 @@ public final class PerformanceSection
     private final AutoLock m_ReadGuard;
 
     /**
-     *  <p>{@summary The threshold time.} A value of {@code null} means that
+     *  <p>{@summary The threshold time.} A value of {@null} means that
      *  there is no threshold for this performance section.</p>
      */
     @SuppressWarnings( "UnusedAssignment" )
     private TimeValue m_Threshold = null;
 
     /**
-     *  <p>{@summary The timeout time.} A value of {@code null} means that
+     *  <p>{@summary The timeout time.} A value of {@null} means that
      *  there is no timeout for this performance section.</p>
      */
     @SuppressWarnings( "UnusedAssignment" )
@@ -155,14 +155,14 @@ public final class PerformanceSection
      *
      *  @param  name    The unique name of the performance section.
      *  @param  description The description for the performance section; can be
-     *      {@code null}.
+     *      {@null}.
      *  @param  threshold   The threshold time in milliseconds; a value of
-     *      {@code null} means that no threshold was defined for this
+     *      {@null} means that no threshold was defined for this
      *      performance section. A value less than 1 is invalid and causes a
      *      {@link org.tquadrat.foundation.exception.ValidationException}
      *      to be thrown.
      *  @param  timeout The timeout time in milliseconds; a value of
-     *      {@code null} means that no timeout was defined for this performance
+     *      {@null} means that no timeout was defined for this performance
      *      section. A value less than 1 is invalid and causes a
      *      {@link org.tquadrat.foundation.exception.ValidationException}
      *      to be thrown. The timeout value must be greater than the threshold
@@ -186,13 +186,13 @@ public final class PerformanceSection
      *
      *  @param  name    The unique name of the performance section.
      *  @param  description The description for the performance section; can be
-     *      {@code null}.
-     *  @param  threshold   The threshold time; a value of {@code null} means
+     *      {@null}.
+     *  @param  threshold   The threshold time; a value of {@null} means
      *      that no threshold was defined for this performance section. A value
      *      of 0 is invalid and causes a
      *      {@link org.tquadrat.foundation.exception.ValidationException}
      *      to be thrown.
-     *  @param  timeout The timeout time; a value of {@code null} means that
+     *  @param  timeout The timeout time; a value of {@null} means that
      *      no timeout was defined for this performance section. A value of 0
      *      is invalid and causes a
      *      {@link org.tquadrat.foundation.exception.ValidationException}
@@ -295,8 +295,8 @@ public final class PerformanceSection
      *  Returns the flag that controls whether this performance section is
      *  ignored.
      *
-     *  @return {@code true} if the performance section is currently ignored,
-     *      {@code false} if the performance section is currently observed.
+     *  @return {@true} if the performance section is currently ignored,
+     *      {@false} if the performance section is currently observed.
      */
     public final boolean isIgnored() { return m_ReadGuard.evaluate( () -> m_Ignore ); }
 
@@ -305,7 +305,7 @@ public final class PerformanceSection
      *  {@link PerformanceTracker}
      *  is aborted.
      *
-     *  @return {@code true} if a report should be sent, {@code false} if not.
+     *  @return {@true} if a report should be sent, {@false} if not.
      *
      *  @see PerformanceTracker#abort(String)
      *  @see PerformanceTracker#abort(String, Throwable)
@@ -316,8 +316,8 @@ public final class PerformanceSection
      *  Returns the flag that indicates whether reports should be sent only if
      *  the threshold was exceeded.
      *
-     *  @return {@code true} if a report should be sent only when the threshold
-     *      was exceeded, {@code false} if a report should be sent always.
+     *  @return {@true} if a report should be sent only when the threshold
+     *      was exceeded, {@false} if a report should be sent always.
      */
     @SuppressWarnings( "NewMethodNamingConvention" )
     public final boolean isSendingReportOnlyForExceededThreshold() { return m_ReadGuard.evaluate( () -> m_SendReportOnlyForExceededThreshold ); }
@@ -326,8 +326,8 @@ public final class PerformanceSection
      *  Sets the flag that controls whether this performance section is
      *  ignored.
      *
-     *  @param  flag    {@code true} if the performance section should be
-     *      ignored from now on, {@code false} if it has to be observed in
+     *  @param  flag    {@true} if the performance section should be
+     *      ignored from now on, {@false} if it has to be observed in
      *      future.
      */
     public final void setIgnoreFlag( final boolean flag ) { m_WriteGuard.perform( () -> m_Ignore = flag ); }
@@ -336,7 +336,7 @@ public final class PerformanceSection
      *  Sets the flag that controls whether reports are sent also for aborted
      *  {@linkplain PerformanceTracker performance trackers}.
      *
-     *  @param  flag {@code true} if reports should be sent, {@code false} if
+     *  @param  flag {@true} if reports should be sent, {@false} if
      *      not.
      */
     public final void setSendReportForAbortFlag( final boolean flag )
@@ -348,8 +348,8 @@ public final class PerformanceSection
      *  Sets the flag that controls whether reports are sent only when the
      *  threshold was exceeded.
      *
-     *  @param  flag {@code true} if reports should be sent only when the
-     *      threshold was exceeded, {@code false} if reports should be sent
+     *  @param  flag {@true} if reports should be sent only when the
+     *      threshold was exceeded, {@false} if reports should be sent
      *      always.
      */
     @SuppressWarnings( "NewMethodNamingConvention" )
@@ -449,7 +449,7 @@ public final class PerformanceSection
     /**
      *  <p>{@summary Validates the given threshold.}</p>
      *  <p>The value must be greater than 0, and, if the
-     *  timeout is not {@code null}, it must be less than the timeout.</p>
+     *  timeout is not {@null}, it must be less than the timeout.</p>
      *
      *  @note The method is called from inside a guarded area only!
      *
@@ -492,7 +492,7 @@ public final class PerformanceSection
     /**
      *  <p>{@summary Validates the given timeout.}</p>
      *  <p>The value must be greater than 0, and, if the threshold is not
-     *  {@code null}, the timeout must be greater than the threshold.</p>
+     *  {@null}, the timeout must be greater than the threshold.</p>
      *
      *  @note The method is called from inside a guarded area only!
      *

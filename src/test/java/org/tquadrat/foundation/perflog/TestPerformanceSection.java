@@ -57,9 +57,9 @@ import org.tquadrat.foundation.value.TimeValue;
  *  {@link PerformanceSection}.
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: TestPerformanceSection.java 1211 2026-05-01 15:24:10Z tquadrat $
+ *  @version $Id: TestPerformanceSection.java 1258 2026-06-04 18:33:06Z tquadrat $
  */
-@ClassVersion( sourceVersion = "$Id: TestPerformanceSection.java 1211 2026-05-01 15:24:10Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: TestPerformanceSection.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @DisplayName( "org.tquadrat.foundation.perflog.TestPerformanceSection" )
 public class TestPerformanceSection extends TestBaseClass
 {
@@ -255,8 +255,8 @@ public class TestPerformanceSection extends TestBaseClass
 
     /**
      *  <p>{@summary Validates threshold and timeout.}</p>
-     *  <p>Both values must be either {@code null} or greater than 0, and, if
-     *  the threshold is not {@code null}, the timeout must be greater than the
+     *  <p>Both values must be either {@null} or greater than 0, and, if
+     *  the threshold is not {@null}, the timeout must be greater than the
      *  threshold.</p>
      *
      *  @param  value    The return value.

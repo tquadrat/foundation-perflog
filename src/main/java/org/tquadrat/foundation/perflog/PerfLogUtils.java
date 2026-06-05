@@ -48,12 +48,12 @@ import org.tquadrat.foundation.perflog.remote.PerfLogRemote;
  *  Monitoring.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $
+ *  @version $Id: PerfLogUtils.java 1258 2026-06-04 18:33:06Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1258 2026-06-04 18:33:06Z tquadrat $" )
 @API( status = STABLE, since = "0.25.0" )
 @UtilityClass
 public final class PerfLogUtils
@@ -67,12 +67,12 @@ public final class PerfLogUtils
      *  that allows to use it with try-with-resources.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $
+     *  @version $Id: PerfLogUtils.java 1258 2026-06-04 18:33:06Z tquadrat $
      *  @since 0.25.0
      *
      *  @UMLGraph.link
      */
-    @ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1246 2026-05-16 14:07:00Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerfLogUtils.java 1258 2026-06-04 18:33:06Z tquadrat $" )
     @API( status = STABLE, since = "0.25.0" )
     public static final class PerformanceTrackerHolder implements AutoCloseable, PerformanceTracker
     {
@@ -97,7 +97,7 @@ public final class PerfLogUtils
         /**
          *  <p>{@summary The wrapped instance of
          *  {@link PerformanceTracker}.}</p>
-         *  <p>It can be {@code null}.</p>
+         *  <p>It can be {@null}.</p>
          */
         private final PerformanceTracker m_Tracker;
 
@@ -313,7 +313,7 @@ public final class PerfLogUtils
      *  <p>{@summary The name of the system property that controls whether to
      *  use a dedicated
      *  {@link MBeanServer}: {@value}.}</p>
-     *  <p>If not provided or set to {@code false}, the platform MBean server
+     *  <p>If not provided or set to {@false}, the platform MBean server
      *  is used.</p>
      *
      *  @see java.lang.management.ManagementFactory#getPlatformMBeanServer
@@ -675,7 +675,7 @@ public final class PerfLogUtils
      *  {@link PerfLogMBean}.}</p>
      *  <p>If the system property
      *  {@value #SYSTEM_PROPERTY_UsedDedicatedMBeanServer}
-     *  is set to {@code true}, a dedicated MBean server for the domain
+     *  is set to {@true}, a dedicated MBean server for the domain
      *  {@value PerfLogRemote#DOMAIN_NAME}
      *  will be used, otherwise the MBean server that is returned by
      *  {@link java.lang.management.ManagementFactory#getPlatformMBeanServer()}

@@ -61,12 +61,12 @@
 <span class="source-line-no">048</span><span id="line-48"> *  {@link PerformanceTracker}}.&lt;/p&gt;</span>
 <span class="source-line-no">049</span><span id="line-49"> *</span>
 <span class="source-line-no">050</span><span id="line-50"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">051</span><span id="line-51"> *  @version $Id: PerformanceTrackerImpl.java 1248 2026-05-17 11:08:34Z tquadrat $</span>
+<span class="source-line-no">051</span><span id="line-51"> *  @version $Id: PerformanceTrackerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $</span>
 <span class="source-line-no">052</span><span id="line-52"> *  @since 0.25.0</span>
 <span class="source-line-no">053</span><span id="line-53"> *</span>
 <span class="source-line-no">054</span><span id="line-54"> *  @UMLGraph.link</span>
 <span class="source-line-no">055</span><span id="line-55"> */</span>
-<span class="source-line-no">056</span><span id="line-56">@ClassVersion( sourceVersion = "$Id: PerformanceTrackerImpl.java 1248 2026-05-17 11:08:34Z tquadrat $" )</span>
+<span class="source-line-no">056</span><span id="line-56">@ClassVersion( sourceVersion = "$Id: PerformanceTrackerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $" )</span>
 <span class="source-line-no">057</span><span id="line-57">@API( status = STABLE, since = "0.25.0" )</span>
 <span class="source-line-no">058</span><span id="line-58">@SuppressWarnings( "ClassWithTooManyFields" )</span>
 <span class="source-line-no">059</span><span id="line-59">public final class PerformanceTrackerImpl implements PerformanceTracker</span>
@@ -128,7 +128,7 @@
 <span class="source-line-no">115</span><span id="line-115"></span>
 <span class="source-line-no">116</span><span id="line-116">    /**</span>
 <span class="source-line-no">117</span><span id="line-117">     *  &lt;p&gt;{@summary The future that is used for the timeout handling.}&lt;/p&gt;</span>
-<span class="source-line-no">118</span><span id="line-118">     *  &lt;p&gt;Will be {@code null} when the timeout is disabled.&lt;/p&gt;</span>
+<span class="source-line-no">118</span><span id="line-118">     *  &lt;p&gt;Will be {@null} when the timeout is disabled.&lt;/p&gt;</span>
 <span class="source-line-no">119</span><span id="line-119">     */</span>
 <span class="source-line-no">120</span><span id="line-120">    private ScheduledFuture&lt;?&gt; m_TimeOutFuture = null;</span>
 <span class="source-line-no">121</span><span id="line-121"></span>
@@ -182,7 +182,7 @@
 <span class="source-line-no">169</span><span id="line-169">     *  &lt;p&gt;If the tracker has been aborted or stopped already, nothing happens.</span>
 <span class="source-line-no">170</span><span id="line-170">     *  Same if it was never started.&lt;/p&gt;</span>
 <span class="source-line-no">171</span><span id="line-171">     *</span>
-<span class="source-line-no">172</span><span id="line-172">     *  @param  flag    {@code true} if the tracker timed out, {@code false}</span>
+<span class="source-line-no">172</span><span id="line-172">     *  @param  flag    {@true} if the tracker timed out, {@false}</span>
 <span class="source-line-no">173</span><span id="line-173">     *      if this is a &amp;quot;regular&amp;quot; abort.</span>
 <span class="source-line-no">174</span><span id="line-174">     */</span>
 <span class="source-line-no">175</span><span id="line-175">    @SuppressWarnings( "PublicMethodNotExposedInInterface" )</span>
@@ -197,7 +197,7 @@
 <span class="source-line-no">184</span><span id="line-184">     *</span>
 <span class="source-line-no">185</span><span id="line-185">     *  @param  message The message describing the reason for the abort.</span>
 <span class="source-line-no">186</span><span id="line-186">     *  @param  cause   The exception that caused the abort.</span>
-<span class="source-line-no">187</span><span id="line-187">     *  @param  flag    {@code true} if the tracker timed out, {@code false}</span>
+<span class="source-line-no">187</span><span id="line-187">     *  @param  flag    {@true} if the tracker timed out, {@false}</span>
 <span class="source-line-no">188</span><span id="line-188">     *      if this is a &amp;quot;regular&amp;quot; abort.</span>
 <span class="source-line-no">189</span><span id="line-189">     */</span>
 <span class="source-line-no">190</span><span id="line-190">    private final void abort( final String message, final Throwable cause, final boolean flag )</span>
@@ -303,8 +303,8 @@
 <span class="source-line-no">290</span><span id="line-290">     *  operation covered by the performance section for this tracker took</span>
 <span class="source-line-no">291</span><span id="line-291">     *  longer than the estimated time.</span>
 <span class="source-line-no">292</span><span id="line-292">     *</span>
-<span class="source-line-no">293</span><span id="line-293">     *  @return {@code true} if the operation took longer than the provided</span>
-<span class="source-line-no">294</span><span id="line-294">     *      threshold, {@code false} otherwise, or no threshold was provided.</span>
+<span class="source-line-no">293</span><span id="line-293">     *  @return {@true} if the operation took longer than the provided</span>
+<span class="source-line-no">294</span><span id="line-294">     *      threshold, {@false} otherwise, or no threshold was provided.</span>
 <span class="source-line-no">295</span><span id="line-295">     */</span>
 <span class="source-line-no">296</span><span id="line-296">    @SuppressWarnings( "PublicMethodNotExposedInInterface" )</span>
 <span class="source-line-no">297</span><span id="line-297">    public boolean isThresholdExceeded()</span>
@@ -322,8 +322,8 @@
 <span class="source-line-no">309</span><span id="line-309">     *  &lt;p&gt;{@summary Checks whether the tracker was aborted due to a</span>
 <span class="source-line-no">310</span><span id="line-310">     *  timeout.}&lt;/p&gt;</span>
 <span class="source-line-no">311</span><span id="line-311">     *</span>
-<span class="source-line-no">312</span><span id="line-312">     *  @return {@code true} if the tracker was aborted due to a timeout,</span>
-<span class="source-line-no">313</span><span id="line-313">     *      {@code false} if it is still running, if it was regularly stopped,</span>
+<span class="source-line-no">312</span><span id="line-312">     *  @return {@true} if the tracker was aborted due to a timeout,</span>
+<span class="source-line-no">313</span><span id="line-313">     *      {@false} if it is still running, if it was regularly stopped,</span>
 <span class="source-line-no">314</span><span id="line-314">     *      if aborted due to other reasons, or if the timeout was disabled for</span>
 <span class="source-line-no">315</span><span id="line-315">     *      the respective performance section.</span>
 <span class="source-line-no">316</span><span id="line-316">     */</span>

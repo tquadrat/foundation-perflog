@@ -72,13 +72,13 @@
 <span class="source-line-no">059</span><span id="line-59"> *  section} was left.&lt;/p&gt;</span>
 <span class="source-line-no">060</span><span id="line-60"> *</span>
 <span class="source-line-no">061</span><span id="line-61"> *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">062</span><span id="line-62"> *  @version $Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $</span>
+<span class="source-line-no">062</span><span id="line-62"> *  @version $Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $</span>
 <span class="source-line-no">063</span><span id="line-63"> *  @since 0.25.0</span>
 <span class="source-line-no">064</span><span id="line-64"> *</span>
 <span class="source-line-no">065</span><span id="line-65"> *  @UMLGraph.link</span>
 <span class="source-line-no">066</span><span id="line-66"> */</span>
 <span class="source-line-no">067</span><span id="line-67">@SuppressWarnings( "AbstractClassWithoutAbstractMethods" )</span>
-<span class="source-line-no">068</span><span id="line-68">@ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $" )</span>
+<span class="source-line-no">068</span><span id="line-68">@ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $" )</span>
 <span class="source-line-no">069</span><span id="line-69">@API( status = MAINTAINED, since = "0.25.0" )</span>
 <span class="source-line-no">070</span><span id="line-70">public abstract class PerfLogClientBase implements AutoCloseable</span>
 <span class="source-line-no">071</span><span id="line-71">{</span>
@@ -92,7 +92,7 @@
 <span class="source-line-no">079</span><span id="line-79">     *  in case that was not properly closed.}&lt;/p&gt;</span>
 <span class="source-line-no">080</span><span id="line-80">     *</span>
 <span class="source-line-no">081</span><span id="line-81">     *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
-<span class="source-line-no">082</span><span id="line-82">     *  @version $Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $</span>
+<span class="source-line-no">082</span><span id="line-82">     *  @version $Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $</span>
 <span class="source-line-no">083</span><span id="line-83">     *  @since 0.25.0</span>
 <span class="source-line-no">084</span><span id="line-84">     *</span>
 <span class="source-line-no">085</span><span id="line-85">     *  @param  mbean   The MBean the listener is connected with.</span>
@@ -101,7 +101,7 @@
 <span class="source-line-no">088</span><span id="line-88">     *  @UMLGraph.link</span>
 <span class="source-line-no">089</span><span id="line-89">     */</span>
 <span class="source-line-no">090</span><span id="line-90">    @SuppressWarnings( "NewClassNamingConvention" )</span>
-<span class="source-line-no">091</span><span id="line-91">    @ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $" )</span>
+<span class="source-line-no">091</span><span id="line-91">    @ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $" )</span>
 <span class="source-line-no">092</span><span id="line-92">    @API( status = INTERNAL, since = "0.25.0" )</span>
 <span class="source-line-no">093</span><span id="line-93">    private record Janitor( NotificationEmitter mbean, PerfLogNotificationListener listener ) implements Runnable</span>
 <span class="source-line-no">094</span><span id="line-94">    {</span>
@@ -141,7 +141,7 @@
 <span class="source-line-no">128</span><span id="line-128">     *</span>
 <span class="source-line-no">129</span><span id="line-129">     * @param messageQueue  The reference to the destination for the messages.</span>
 <span class="source-line-no">130</span><span id="line-130">     *</span>
-<span class="source-line-no">131</span><span id="line-131">     * @version $Id: PerfLogClientBase.java 1216 2026-05-02 11:16:24Z tquadrat $</span>
+<span class="source-line-no">131</span><span id="line-131">     * @version $Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $</span>
 <span class="source-line-no">132</span><span id="line-132">     * @extauthor Thomas Thrien - thomas.thrien@tquadrat.org</span>
 <span class="source-line-no">133</span><span id="line-133">     * @UMLGraph.link</span>
 <span class="source-line-no">134</span><span id="line-134">     * @since 0.25.0</span>
@@ -250,10 +250,10 @@
 <span class="source-line-no">237</span><span id="line-237">     *  &lt;p&gt;{@summary Establishes the connection to the MBean and starts the</span>
 <span class="source-line-no">238</span><span id="line-238">     *  listening.}&lt;/p&gt;</span>
 <span class="source-line-no">239</span><span id="line-239">     *</span>
-<span class="source-line-no">240</span><span id="line-240">     *  @param  forceFlag   {@code true} if the MBean should be registered in</span>
-<span class="source-line-no">241</span><span id="line-241">     *      case it is not yet registered, {@code false} otherwise.</span>
+<span class="source-line-no">240</span><span id="line-240">     *  @param  forceFlag   {@true} if the MBean should be registered in</span>
+<span class="source-line-no">241</span><span id="line-241">     *      case it is not yet registered, {@false} otherwise.</span>
 <span class="source-line-no">242</span><span id="line-242">     *  @throws IllegalStateException   The connection is already established.</span>
-<span class="source-line-no">243</span><span id="line-243">     *  @throws InstanceNotFoundException   {@code forceFlag} is {@code false},</span>
+<span class="source-line-no">243</span><span id="line-243">     *  @throws InstanceNotFoundException   {@code forceFlag} is {@false},</span>
 <span class="source-line-no">244</span><span id="line-244">     *      the</span>
 <span class="source-line-no">245</span><span id="line-245">     *      {@link PerfLogMBean}</span>
 <span class="source-line-no">246</span><span id="line-246">     *      is not registered, and the notification listener cannot connect to</span>
@@ -272,10 +272,10 @@
 <span class="source-line-no">259</span><span id="line-259">     *  listening.}&lt;/p&gt;</span>
 <span class="source-line-no">260</span><span id="line-260">     *</span>
 <span class="source-line-no">261</span><span id="line-261">     *  @param  mbeanServer The MBean server that holds the MBean.</span>
-<span class="source-line-no">262</span><span id="line-262">     *  @param  forceFlag   {@code true} if the MBean should be registered in</span>
-<span class="source-line-no">263</span><span id="line-263">     *      case it is not yet registered, {@code false} otherwise.</span>
+<span class="source-line-no">262</span><span id="line-262">     *  @param  forceFlag   {@true} if the MBean should be registered in</span>
+<span class="source-line-no">263</span><span id="line-263">     *      case it is not yet registered, {@false} otherwise.</span>
 <span class="source-line-no">264</span><span id="line-264">     *  @throws IllegalStateException   The connection is already established.</span>
-<span class="source-line-no">265</span><span id="line-265">     *  @throws InstanceNotFoundException   {@code forceFlag} is {@code false},</span>
+<span class="source-line-no">265</span><span id="line-265">     *  @throws InstanceNotFoundException   {@code forceFlag} is {@false},</span>
 <span class="source-line-no">266</span><span id="line-266">     *      the</span>
 <span class="source-line-no">267</span><span id="line-267">     *      {@link PerfLogMBean}</span>
 <span class="source-line-no">268</span><span id="line-268">     *      is not registered, and the notification listener cannot connect to</span>
@@ -303,11 +303,11 @@
 <span class="source-line-no">290</span><span id="line-290">     *</span>
 <span class="source-line-no">291</span><span id="line-291">     *  @param  mbeanServer The MBean server that is used.</span>
 <span class="source-line-no">292</span><span id="line-292">     *  @param  objectName  The name for the MBean.</span>
-<span class="source-line-no">293</span><span id="line-293">     *  @param  forceFlag   {@code true} if the MBean should be registered in</span>
-<span class="source-line-no">294</span><span id="line-294">     *      case it is not yet registered, {@code false} otherwise.</span>
+<span class="source-line-no">293</span><span id="line-293">     *  @param  forceFlag   {@true} if the MBean should be registered in</span>
+<span class="source-line-no">294</span><span id="line-294">     *      case it is not yet registered, {@false} otherwise.</span>
 <span class="source-line-no">295</span><span id="line-295">     *      {@link PerfLogMBean}.</span>
 <span class="source-line-no">296</span><span id="line-296">     *  @return The MBean that we connected to.</span>
-<span class="source-line-no">297</span><span id="line-297">     *  @throws InstanceNotFoundException   {@code forceFlag} is {@code false}</span>
+<span class="source-line-no">297</span><span id="line-297">     *  @throws InstanceNotFoundException   {@code forceFlag} is {@false}</span>
 <span class="source-line-no">298</span><span id="line-298">     *      and the MBean is not registered in the given MBean server.</span>
 <span class="source-line-no">299</span><span id="line-299">     */</span>
 <span class="source-line-no">300</span><span id="line-300">    private static final PerfLogMBean connectToMBean( final MBeanServer mbeanServer, final ObjectName objectName, final boolean forceFlag ) throws InstanceNotFoundException</span>
