@@ -46,7 +46,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.exception.ImpossibleExceptionError;
-import org.tquadrat.foundation.exception.UnexpectedExceptionError;
+import org.tquadrat.foundation.exception.UnlikelyExceptionError;
 import org.tquadrat.foundation.perflog.PerfLogMBean;
 import org.tquadrat.foundation.perflog.internal.PerfLogMBeanImpl;
 
@@ -139,7 +139,7 @@ public abstract class PerfLogClientBase implements AutoCloseable
         ====** Constructors **=================================================
             \*--------------*/
         /**
-         *  Creates a new instance of {@code PerfLogNotificationListener}.
+         *  <p>{@summary {@constructor}}</p>
          *
          *  @param  messageQueue    The reference to the destination for the
          *     messages.
@@ -209,7 +209,7 @@ public abstract class PerfLogClientBase implements AutoCloseable
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new instance of {@code PerfLogClientBase}.
+     *  <p>{@summary {@constructor}}</p>
      */
     protected PerfLogClientBase()
     {
@@ -317,7 +317,9 @@ public abstract class PerfLogClientBase implements AutoCloseable
             }
             catch( final MBeanRegistrationException e )
             {
-                throw new UnexpectedExceptionError( e );
+                throw new UnlikelyExceptionError( """
+                    The MBean does not declare preRegister() or preDeregister() methods that could throw an exception.
+                    """, e );
             }
             catch( final NotCompliantMBeanException e )
             {

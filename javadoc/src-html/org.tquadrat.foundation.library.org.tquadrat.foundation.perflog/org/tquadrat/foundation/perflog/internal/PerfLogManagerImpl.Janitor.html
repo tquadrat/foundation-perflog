@@ -56,7 +56,7 @@
 <span class="source-line-no">043</span><span id="line-43">import org.apiguardian.api.API;</span>
 <span class="source-line-no">044</span><span id="line-44">import org.tquadrat.foundation.annotation.ClassVersion;</span>
 <span class="source-line-no">045</span><span id="line-45">import org.tquadrat.foundation.exception.ImpossibleExceptionError;</span>
-<span class="source-line-no">046</span><span id="line-46">import org.tquadrat.foundation.exception.UnexpectedExceptionError;</span>
+<span class="source-line-no">046</span><span id="line-46">import org.tquadrat.foundation.exception.UnlikelyExceptionError;</span>
 <span class="source-line-no">047</span><span id="line-47">import org.tquadrat.foundation.perflog.PerfLogMBean;</span>
 <span class="source-line-no">048</span><span id="line-48">import org.tquadrat.foundation.perflog.PerfLogManager;</span>
 <span class="source-line-no">049</span><span id="line-49">import org.tquadrat.foundation.perflog.PerformanceSection;</span>
@@ -179,7 +179,7 @@
 <span class="source-line-no">166</span><span id="line-166">    ====** Constructors **=====================================================</span>
 <span class="source-line-no">167</span><span id="line-167">        \*--------------*/</span>
 <span class="source-line-no">168</span><span id="line-168">    /**</span>
-<span class="source-line-no">169</span><span id="line-169">     *  Creates a new instance of {@code PerfLogManagerImpl}.</span>
+<span class="source-line-no">169</span><span id="line-169">     *  &lt;p&gt;{@summary {@constructor}}&lt;/p&gt;</span>
 <span class="source-line-no">170</span><span id="line-170">     *</span>
 <span class="source-line-no">171</span><span id="line-171">     *  @param  mbeanServer The MBean server that is used.</span>
 <span class="source-line-no">172</span><span id="line-172">     *  @param  objectName  The name of the</span>
@@ -191,7 +191,7 @@
 <span class="source-line-no">178</span><span id="line-178">    }   //  PerfLogManagerImpl()</span>
 <span class="source-line-no">179</span><span id="line-179"></span>
 <span class="source-line-no">180</span><span id="line-180">    /**</span>
-<span class="source-line-no">181</span><span id="line-181">     *  Creates a new instance of {@code PerfLogManagerImpl}.</span>
+<span class="source-line-no">181</span><span id="line-181">     *  &lt;p&gt;{@summary {@constructor}}&lt;/p&gt;</span>
 <span class="source-line-no">182</span><span id="line-182">     *</span>
 <span class="source-line-no">183</span><span id="line-183">     *  @param  mbeanServer The MBean server that is used.</span>
 <span class="source-line-no">184</span><span id="line-184">     *  @param  objectName  The name of the</span>
@@ -207,7 +207,7 @@
 <span class="source-line-no">194</span><span id="line-194">    }   //  PerfLogManagerImpl()</span>
 <span class="source-line-no">195</span><span id="line-195"></span>
 <span class="source-line-no">196</span><span id="line-196">    /**</span>
-<span class="source-line-no">197</span><span id="line-197">     *  Creates a new instance of {@code PerfLogManagerImpl}.</span>
+<span class="source-line-no">197</span><span id="line-197">     *  &lt;p&gt;{@summary {@constructor}}&lt;/p&gt;</span>
 <span class="source-line-no">198</span><span id="line-198">     *</span>
 <span class="source-line-no">199</span><span id="line-199">     *  @param  ignored Discriminator</span>
 <span class="source-line-no">200</span><span id="line-200">     *  @param  mbeanServer The MBean server that is used.</span>
@@ -304,7 +304,7 @@
 <span class="source-line-no">291</span><span id="line-291">            }</span>
 <span class="source-line-no">292</span><span id="line-292">            catch( final MBeanRegistrationException e )</span>
 <span class="source-line-no">293</span><span id="line-293">            {</span>
-<span class="source-line-no">294</span><span id="line-294">                throw new UnexpectedExceptionError( e );</span>
+<span class="source-line-no">294</span><span id="line-294">                throw new UnlikelyExceptionError( e );</span>
 <span class="source-line-no">295</span><span id="line-295">            }</span>
 <span class="source-line-no">296</span><span id="line-296">            catch( final NotCompliantMBeanException e )</span>
 <span class="source-line-no">297</span><span id="line-297">            {</span>

@@ -43,7 +43,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.exception.ImpossibleExceptionError;
-import org.tquadrat.foundation.exception.UnexpectedExceptionError;
+import org.tquadrat.foundation.exception.UnlikelyExceptionError;
 import org.tquadrat.foundation.perflog.PerfLogMBean;
 import org.tquadrat.foundation.perflog.PerfLogManager;
 import org.tquadrat.foundation.perflog.PerformanceSection;
@@ -166,7 +166,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new instance of {@code PerfLogManagerImpl}.
+     *  <p>{@summary {@constructor}}</p>
      *
      *  @param  mbeanServer The MBean server that is used.
      *  @param  objectName  The name of the
@@ -178,7 +178,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
     }   //  PerfLogManagerImpl()
 
     /**
-     *  Creates a new instance of {@code PerfLogManagerImpl}.
+     *  <p>{@summary {@constructor}}</p>
      *
      *  @param  mbeanServer The MBean server that is used.
      *  @param  objectName  The name of the
@@ -194,7 +194,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
     }   //  PerfLogManagerImpl()
 
     /**
-     *  Creates a new instance of {@code PerfLogManagerImpl}.
+     *  <p>{@summary {@constructor}}</p>
      *
      *  @param  ignored Discriminator
      *  @param  mbeanServer The MBean server that is used.
@@ -291,7 +291,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
             }
             catch( final MBeanRegistrationException e )
             {
-                throw new UnexpectedExceptionError( e );
+                throw new UnlikelyExceptionError( e );
             }
             catch( final NotCompliantMBeanException e )
             {

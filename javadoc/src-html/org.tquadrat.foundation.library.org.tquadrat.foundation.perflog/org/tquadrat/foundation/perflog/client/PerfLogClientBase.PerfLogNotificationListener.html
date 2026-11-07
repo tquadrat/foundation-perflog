@@ -59,7 +59,7 @@
 <span class="source-line-no">046</span><span id="line-46">import org.apiguardian.api.API;</span>
 <span class="source-line-no">047</span><span id="line-47">import org.tquadrat.foundation.annotation.ClassVersion;</span>
 <span class="source-line-no">048</span><span id="line-48">import org.tquadrat.foundation.exception.ImpossibleExceptionError;</span>
-<span class="source-line-no">049</span><span id="line-49">import org.tquadrat.foundation.exception.UnexpectedExceptionError;</span>
+<span class="source-line-no">049</span><span id="line-49">import org.tquadrat.foundation.exception.UnlikelyExceptionError;</span>
 <span class="source-line-no">050</span><span id="line-50">import org.tquadrat.foundation.perflog.PerfLogMBean;</span>
 <span class="source-line-no">051</span><span id="line-51">import org.tquadrat.foundation.perflog.internal.PerfLogMBeanImpl;</span>
 <span class="source-line-no">052</span><span id="line-52"></span>
@@ -152,7 +152,7 @@
 <span class="source-line-no">139</span><span id="line-139">        ====** Constructors **=================================================</span>
 <span class="source-line-no">140</span><span id="line-140">            \*--------------*/</span>
 <span class="source-line-no">141</span><span id="line-141">        /**</span>
-<span class="source-line-no">142</span><span id="line-142">         *  Creates a new instance of {@code PerfLogNotificationListener}.</span>
+<span class="source-line-no">142</span><span id="line-142">         *  &lt;p&gt;{@summary {@constructor}}&lt;/p&gt;</span>
 <span class="source-line-no">143</span><span id="line-143">         *</span>
 <span class="source-line-no">144</span><span id="line-144">         *  @param  messageQueue    The reference to the destination for the</span>
 <span class="source-line-no">145</span><span id="line-145">         *     messages.</span>
@@ -222,7 +222,7 @@
 <span class="source-line-no">209</span><span id="line-209">    ====** Constructors **=====================================================</span>
 <span class="source-line-no">210</span><span id="line-210">        \*--------------*/</span>
 <span class="source-line-no">211</span><span id="line-211">    /**</span>
-<span class="source-line-no">212</span><span id="line-212">     *  Creates a new instance of {@code PerfLogClientBase}.</span>
+<span class="source-line-no">212</span><span id="line-212">     *  &lt;p&gt;{@summary {@constructor}}&lt;/p&gt;</span>
 <span class="source-line-no">213</span><span id="line-213">     */</span>
 <span class="source-line-no">214</span><span id="line-214">    protected PerfLogClientBase()</span>
 <span class="source-line-no">215</span><span id="line-215">    {</span>
@@ -330,32 +330,34 @@
 <span class="source-line-no">317</span><span id="line-317">            }</span>
 <span class="source-line-no">318</span><span id="line-318">            catch( final MBeanRegistrationException e )</span>
 <span class="source-line-no">319</span><span id="line-319">            {</span>
-<span class="source-line-no">320</span><span id="line-320">                throw new UnexpectedExceptionError( e );</span>
-<span class="source-line-no">321</span><span id="line-321">            }</span>
-<span class="source-line-no">322</span><span id="line-322">            catch( final NotCompliantMBeanException e )</span>
-<span class="source-line-no">323</span><span id="line-323">            {</span>
-<span class="source-line-no">324</span><span id="line-324">                throw new ImpossibleExceptionError( e );</span>
-<span class="source-line-no">325</span><span id="line-325">            }</span>
-<span class="source-line-no">326</span><span id="line-326">        }</span>
-<span class="source-line-no">327</span><span id="line-327">        retValue = newMBeanProxy( mbeanServer, objectName, PerfLogMBean.class );</span>
-<span class="source-line-no">328</span><span id="line-328"></span>
-<span class="source-line-no">329</span><span id="line-329">        //---* Done *----------------------------------------------------------</span>
-<span class="source-line-no">330</span><span id="line-330">        return retValue;</span>
-<span class="source-line-no">331</span><span id="line-331">    }   //  connectToMBean</span>
-<span class="source-line-no">332</span><span id="line-332"></span>
-<span class="source-line-no">333</span><span id="line-333">    /**</span>
-<span class="source-line-no">334</span><span id="line-334">     *  Returns a reference to the internal message queue.</span>
-<span class="source-line-no">335</span><span id="line-335">     *</span>
-<span class="source-line-no">336</span><span id="line-336">     *  @return The message queue.</span>
-<span class="source-line-no">337</span><span id="line-337">     */</span>
-<span class="source-line-no">338</span><span id="line-338">    @SuppressWarnings( "AssignmentOrReturnOfFieldWithMutableType" )</span>
-<span class="source-line-no">339</span><span id="line-339">    protected final BlockingQueue&lt;String&gt; getQueue() { return m_Messages; }</span>
-<span class="source-line-no">340</span><span id="line-340">}</span>
-<span class="source-line-no">341</span><span id="line-341">//  class PerfLogClientBase</span>
-<span class="source-line-no">342</span><span id="line-342"></span>
-<span class="source-line-no">343</span><span id="line-343">/*</span>
-<span class="source-line-no">344</span><span id="line-344"> *  End of File</span>
-<span class="source-line-no">345</span><span id="line-345"> */</span>
+<span class="source-line-no">320</span><span id="line-320">                throw new UnlikelyExceptionError( """</span>
+<span class="source-line-no">321</span><span id="line-321">                    The MBean does not declare preRegister() or preDeregister() methods that could throw an exception.</span>
+<span class="source-line-no">322</span><span id="line-322">                    """, e );</span>
+<span class="source-line-no">323</span><span id="line-323">            }</span>
+<span class="source-line-no">324</span><span id="line-324">            catch( final NotCompliantMBeanException e )</span>
+<span class="source-line-no">325</span><span id="line-325">            {</span>
+<span class="source-line-no">326</span><span id="line-326">                throw new ImpossibleExceptionError( e );</span>
+<span class="source-line-no">327</span><span id="line-327">            }</span>
+<span class="source-line-no">328</span><span id="line-328">        }</span>
+<span class="source-line-no">329</span><span id="line-329">        retValue = newMBeanProxy( mbeanServer, objectName, PerfLogMBean.class );</span>
+<span class="source-line-no">330</span><span id="line-330"></span>
+<span class="source-line-no">331</span><span id="line-331">        //---* Done *----------------------------------------------------------</span>
+<span class="source-line-no">332</span><span id="line-332">        return retValue;</span>
+<span class="source-line-no">333</span><span id="line-333">    }   //  connectToMBean</span>
+<span class="source-line-no">334</span><span id="line-334"></span>
+<span class="source-line-no">335</span><span id="line-335">    /**</span>
+<span class="source-line-no">336</span><span id="line-336">     *  Returns a reference to the internal message queue.</span>
+<span class="source-line-no">337</span><span id="line-337">     *</span>
+<span class="source-line-no">338</span><span id="line-338">     *  @return The message queue.</span>
+<span class="source-line-no">339</span><span id="line-339">     */</span>
+<span class="source-line-no">340</span><span id="line-340">    @SuppressWarnings( "AssignmentOrReturnOfFieldWithMutableType" )</span>
+<span class="source-line-no">341</span><span id="line-341">    protected final BlockingQueue&lt;String&gt; getQueue() { return m_Messages; }</span>
+<span class="source-line-no">342</span><span id="line-342">}</span>
+<span class="source-line-no">343</span><span id="line-343">//  class PerfLogClientBase</span>
+<span class="source-line-no">344</span><span id="line-344"></span>
+<span class="source-line-no">345</span><span id="line-345">/*</span>
+<span class="source-line-no">346</span><span id="line-346"> *  End of File</span>
+<span class="source-line-no">347</span><span id="line-347"> */</span>
 
 
 

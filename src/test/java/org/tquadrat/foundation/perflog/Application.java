@@ -42,7 +42,7 @@ import java.util.Map;
 
 import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.annotation.PlaygroundClass;
-import org.tquadrat.foundation.exception.UnexpectedExceptionError;
+import org.tquadrat.foundation.exception.UnlikelyExceptionError;
 import org.tquadrat.foundation.perflog.client.PerfLogClientSupport;
 import org.tquadrat.foundation.util.stringconverter.IntegerStringConverter;
 import org.tquadrat.foundation.value.Time;
@@ -168,7 +168,7 @@ public final class Application
         }
         catch( final InstanceNotFoundException e )
         {
-            throw new UnexpectedExceptionError( "Should not happen as we set force = 'true' when connecting", e );
+            throw new UnlikelyExceptionError( "Should not happen as we set force = 'true' when connecting", e );
         }
     }   //  run()
 

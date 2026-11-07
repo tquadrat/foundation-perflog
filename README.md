@@ -8,8 +8,8 @@ The Foundation Performance Logging and Monitoring Extension
     <dependency>
       <groupId>org.tquadrat.library</groupId>
       <artifactId>org.tquadrat.foundation.perflog</artifactId>
-      <version>0.25.14</version>
+      <version>0.25.15</version>
     </dependency>
     ```
 ---  
-Last updated: 2026-10-18T12:58:57.929324734+02:00[Europe/Berlin]
+Last updated: 2026-11-07T17:55:54.948546266+01:00[Europe/Berlin]

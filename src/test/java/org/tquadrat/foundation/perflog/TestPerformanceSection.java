@@ -46,7 +46,7 @@ import org.tquadrat.foundation.annotation.ClassVersion;
 import org.tquadrat.foundation.exception.BlankArgumentException;
 import org.tquadrat.foundation.exception.EmptyArgumentException;
 import org.tquadrat.foundation.exception.NullArgumentException;
-import org.tquadrat.foundation.exception.UnexpectedExceptionError;
+import org.tquadrat.foundation.exception.UnlikelyExceptionError;
 import org.tquadrat.foundation.exception.ValidationException;
 import org.tquadrat.foundation.perflog.PerformanceSection.PerformanceSectionFlags;
 import org.tquadrat.foundation.testutil.TestBaseClass;
@@ -276,11 +276,11 @@ public class TestPerformanceSection extends TestBaseClass
         {
             final var cause = e.getCause();
             if( cause instanceof final IllegalArgumentException iae ) throw iae;
-            throw new UnexpectedExceptionError( e );
+            throw new UnlikelyExceptionError( e );
         }
         catch( final IllegalAccessException e )
         {
-            throw new UnexpectedExceptionError( e );
+            throw new UnlikelyExceptionError( e );
         }
 
         //---* Done *----------------------------------------------------------
