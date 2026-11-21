@@ -59,13 +59,13 @@ import org.tquadrat.foundation.perflog.internal.PerfLogMBeanImpl;
  *  section} was left.</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $
+ *  @version $Id: PerfLogClientBase.java 1297 2026-11-07 17:15:43Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
 @SuppressWarnings( "AbstractClassWithoutAbstractMethods" )
-@ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1297 2026-11-07 17:15:43Z tquadrat $" )
 @API( status = MAINTAINED, since = "0.25.0" )
 public abstract class PerfLogClientBase implements AutoCloseable
 {
@@ -79,7 +79,7 @@ public abstract class PerfLogClientBase implements AutoCloseable
      *  in case that was not properly closed.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $
+     *  @version $Id: PerfLogClientBase.java 1297 2026-11-07 17:15:43Z tquadrat $
      *  @since 0.25.0
      *
      *  @param  mbean   The MBean the listener is connected with.
@@ -88,7 +88,7 @@ public abstract class PerfLogClientBase implements AutoCloseable
      *  @UMLGraph.link
      */
     @SuppressWarnings( "NewClassNamingConvention" )
-    @ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerfLogClientBase.java 1297 2026-11-07 17:15:43Z tquadrat $" )
     @API( status = INTERNAL, since = "0.25.0" )
     private record Janitor( NotificationEmitter mbean, PerfLogNotificationListener listener ) implements Runnable
     {
@@ -128,7 +128,7 @@ public abstract class PerfLogClientBase implements AutoCloseable
      *
      * @param messageQueue  The reference to the destination for the messages.
      *
-     * @version $Id: PerfLogClientBase.java 1258 2026-06-04 18:33:06Z tquadrat $
+     * @version $Id: PerfLogClientBase.java 1297 2026-11-07 17:15:43Z tquadrat $
      * @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
      * @UMLGraph.link
      * @since 0.25.0

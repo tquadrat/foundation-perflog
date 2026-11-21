@@ -55,12 +55,12 @@ import org.tquadrat.foundation.perflog.PerformanceTracker;
  *  {@link org.tquadrat.foundation.perflog.PerfLogManager}.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: PerfLogManagerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $
+ *  @version $Id: PerfLogManagerImpl.java 1297 2026-11-07 17:15:43Z tquadrat $
  *  @since 0.25.0
  *
  *  @UMLGraph.link
  */
-@ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1297 2026-11-07 17:15:43Z tquadrat $" )
 @API( status = INTERNAL, since = "0.25.0" )
 public final class PerfLogManagerImpl implements PerfLogManager
 {
@@ -74,7 +74,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *  in case that was not properly closed.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
-     *  @version $Id: PerfLogManagerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $
+     *  @version $Id: PerfLogManagerImpl.java 1297 2026-11-07 17:15:43Z tquadrat $
      *  @since 0.25.0
      *
      *  @param  scheduledExecutorService    The reference to the
@@ -84,7 +84,7 @@ public final class PerfLogManagerImpl implements PerfLogManager
      *  @UMLGraph.link
      */
     @SuppressWarnings( "NewClassNamingConvention" )
-    @ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1258 2026-06-04 18:33:06Z tquadrat $" )
+    @ClassVersion( sourceVersion = "$Id: PerfLogManagerImpl.java 1297 2026-11-07 17:15:43Z tquadrat $" )
     @API( status = INTERNAL, since = "0.25.0" )
     private record Janitor( ScheduledExecutorService scheduledExecutorService ) implements Runnable
     {

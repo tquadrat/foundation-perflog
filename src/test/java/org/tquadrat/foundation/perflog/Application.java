@@ -53,9 +53,9 @@ import org.tquadrat.foundation.value.TimeValue;
  *  Monitoring.}</p>
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: Application.java 1248 2026-05-17 11:08:34Z tquadrat $
+ *  @version $Id: Application.java 1297 2026-11-07 17:15:43Z tquadrat $
  */
-@ClassVersion( sourceVersion = "$Id: Application.java 1248 2026-05-17 11:08:34Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: Application.java 1297 2026-11-07 17:15:43Z tquadrat $" )
 @PlaygroundClass
 public final class Application
 {

@@ -57,9 +57,9 @@ import org.tquadrat.foundation.value.TimeValue;
  *  {@link PerformanceSection}.
  *
  *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
- *  @version $Id: TestPerformanceSection.java 1258 2026-06-04 18:33:06Z tquadrat $
+ *  @version $Id: TestPerformanceSection.java 1297 2026-11-07 17:15:43Z tquadrat $
  */
-@ClassVersion( sourceVersion = "$Id: TestPerformanceSection.java 1258 2026-06-04 18:33:06Z tquadrat $" )
+@ClassVersion( sourceVersion = "$Id: TestPerformanceSection.java 1297 2026-11-07 17:15:43Z tquadrat $" )
 @DisplayName( "org.tquadrat.foundation.perflog.TestPerformanceSection" )
 public class TestPerformanceSection extends TestBaseClass
 {
