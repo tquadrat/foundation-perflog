@@ -12,4 +12,4 @@ The Foundation Performance Logging and Monitoring Extension
     </dependency>
     ```
 ---  
-Last updated: 2026-11-24T02:01:26.688710364+01:00[Europe/Berlin]
+Last updated: 2026-11-24T02:14:39.169510769+01:00[Europe/Berlin]
