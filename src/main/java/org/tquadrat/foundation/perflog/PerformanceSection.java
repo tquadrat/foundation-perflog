@@ -39,7 +39,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.apiguardian.api.API;
 import org.tquadrat.foundation.annotation.ClassVersion;
-import org.tquadrat.foundation.exception.ValidationException;
 import org.tquadrat.foundation.lang.AutoLock;
 import org.tquadrat.foundation.lang.AutoLock.ExecutionFailedException;
 import org.tquadrat.foundation.value.TimeValue;
@@ -61,7 +60,8 @@ public final class PerformanceSection
     ====** Inner Classes **====================================================
         \*---------------*/
     /**
-     *  <p>{@summary The ignore status for a performance section.}</p>
+     *  <p>{@summary The flags that control the behaviour of a performance
+     *  section.}</p>
      *
      *  @extauthor Thomas Thrien - thomas.thrien@tquadrat.org
      *  @version $Id: PerformanceSection.java 1258 2026-06-04 18:33:06Z tquadrat $
@@ -74,21 +74,21 @@ public final class PerformanceSection
     public static enum PerformanceSectionFlags
     {
         /**
-         *  The performance section will be ignored.
+         *  <p>{@summary The performance section will be ignored.}</p>
          */
         IGNORED,
 
         /**
-         *  Indicates that a report should be sent also for aborted performance
-         *  trackers.
+         *  <p>{@summary Indicates that a report should be sent also for
+         *  aborted performance trackers.}</p>
          */
         SEND_REPORT_FOR_ABORT,
 
         /**
-         *  Indicates that reports should be sent only when the threshold was
-         *  exceeded.
+         *  <p>{@summary Indicates that reports should be sent only when the
+         *  threshold was exceeded.}</p>
          */
-        @SuppressWarnings( "FieldNamingConvention" ) SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD
+        SEND_REPORT_ONLY_FOR_EXCEEDED_THRESHOLD
     }
     //  enum PerformanceSectionFlags
 
@@ -115,7 +115,6 @@ public final class PerformanceSection
      *  The flag that controls whether reports for this performance section are
      *  sent only when the threshold was exceeded.
      */
-    @SuppressWarnings( "FieldNamingConvention" )
     private boolean m_SendReportOnlyForExceededThreshold;
 
     /**
@@ -132,14 +131,12 @@ public final class PerformanceSection
      *  <p>{@summary The threshold time.} A value of {@null} means that
      *  there is no threshold for this performance section.</p>
      */
-    @SuppressWarnings( "UnusedAssignment" )
     private TimeValue m_Threshold = null;
 
     /**
      *  <p>{@summary The timeout time.} A value of {@null} means that
      *  there is no timeout for this performance section.</p>
      */
-    @SuppressWarnings( "UnusedAssignment" )
     private TimeValue m_Timeout = null;
 
     /**
@@ -151,7 +148,7 @@ public final class PerformanceSection
     ====** Constructors **=====================================================
         \*--------------*/
     /**
-     *  Creates a new instance of {@code PerformanceSection}.
+     *  <p>{@summary {@constructor}}</p>
      *
      *  @param  name    The unique name of the performance section.
      *  @param  description The description for the performance section; can be
@@ -159,12 +156,12 @@ public final class PerformanceSection
      *  @param  threshold   The threshold time in milliseconds; a value of
      *      {@null} means that no threshold was defined for this
      *      performance section. A value less than 1 is invalid and causes a
-     *      {@link org.tquadrat.foundation.exception.ValidationException}
+     *      {@link IllegalArgumentException}
      *      to be thrown.
      *  @param  timeout The timeout time in milliseconds; a value of
      *      {@null} means that no timeout was defined for this performance
      *      section. A value less than 1 is invalid and causes a
-     *      {@link org.tquadrat.foundation.exception.ValidationException}
+     *      {@link IllegalArgumentException}
      *      to be thrown. The timeout value must be greater than the threshold
      *      value, if provided.
      *  @param  flags   Provides the configuration for this performance
@@ -182,7 +179,7 @@ public final class PerformanceSection
     }   //  PerformanceSection()
 
     /**
-     *  Creates a new instance of {@code PerformanceSection}.
+     *  <p>{@summary {@constructor}}</p>
      *
      *  @param  name    The unique name of the performance section.
      *  @param  description The description for the performance section; can be
@@ -190,12 +187,12 @@ public final class PerformanceSection
      *  @param  threshold   The threshold time; a value of {@null} means
      *      that no threshold was defined for this performance section. A value
      *      of 0 is invalid and causes a
-     *      {@link org.tquadrat.foundation.exception.ValidationException}
+     *      {@link IllegalArgumentException}
      *      to be thrown.
      *  @param  timeout The timeout time; a value of {@null} means that
      *      no timeout was defined for this performance section. A value of 0
      *      is invalid and causes a
-     *      {@link org.tquadrat.foundation.exception.ValidationException}
+     *      {@link IllegalArgumentException}
      *      to be thrown. The timeout value must be greater than the threshold
      *      value, if provided.
      *  @param  flags   Provides the configuration for this performance
@@ -313,13 +310,12 @@ public final class PerformanceSection
     public final boolean isSendingReportForAbort() { return m_ReadGuard.evaluate( () -> m_SendReportForAbort ); }
 
     /**
-     *  Returns the flag that indicates whether reports should be sent only if
-     *  the threshold was exceeded.
+     *  <p>{@summary Returns the flag that indicates whether reports should be
+     *  sent only if the threshold was exceeded.}</p>
      *
      *  @return {@true} if a report should be sent only when the threshold
      *      was exceeded, {@false} if a report should be sent always.
      */
-    @SuppressWarnings( "NewMethodNamingConvention" )
     public final boolean isSendingReportOnlyForExceededThreshold() { return m_ReadGuard.evaluate( () -> m_SendReportOnlyForExceededThreshold ); }
 
     /**
@@ -345,14 +341,13 @@ public final class PerformanceSection
     }   //  setSendReportForAbortFlag()
 
     /**
-     *  Sets the flag that controls whether reports are sent only when the
-     *  threshold was exceeded.
+     *  <p>{@summary Sets the flag that controls whether reports are sent only
+     *  when the threshold was exceeded.}</p>
      *
      *  @param  flag {@true} if reports should be sent only when the
      *      threshold was exceeded, {@false} if reports should be sent
      *      always.
      */
-    @SuppressWarnings( "NewMethodNamingConvention" )
     public final void setSendReportOnlyForExceededThresholdFlag( final boolean flag )
     {
         m_WriteGuard.perform( () -> m_SendReportOnlyForExceededThreshold = flag );
@@ -481,9 +476,9 @@ public final class PerformanceSection
     private static final TimeValue validateThresholdAndTimeout( final TimeValue retValue, final TimeValue threshold, final TimeValue timeout ) throws IllegalArgumentException
     {
         if( nonNull( retValue ) && !retValue.equals( threshold ) && !retValue.equals( timeout ) ) throw new IllegalArgumentException( "return value is neither threshold nor timeout" );
-        if( nonNull( threshold ) && threshold.value().longValue() < 1L ) throw new ValidationException( "threshold value '%s' is invalid".formatted( threshold ) );
-        if( nonNull( timeout ) && timeout.value().longValue() < 1L ) throw new ValidationException( "timeout value '%s' is invalid".formatted( timeout ) );
-        if( nonNull( timeout ) && nonNull( threshold ) && timeout.baseValue().compareTo( threshold.baseValue() ) <= 0 ) throw new ValidationException( "timeout value '%s' is not greater than threshold value '%s'".formatted( timeout, threshold ) );
+        if( nonNull( threshold ) && threshold.value().longValue() < 1L ) throw new IllegalArgumentException( "threshold value '%s' is invalid".formatted( threshold ) );
+        if( nonNull( timeout ) && timeout.value().longValue() < 1L ) throw new IllegalArgumentException( "timeout value '%s' is invalid".formatted( timeout ) );
+        if( nonNull( timeout ) && nonNull( threshold ) && timeout.baseValue().compareTo( threshold.baseValue() ) <= 0 ) throw new IllegalArgumentException( "timeout value '%s' is not greater than threshold value '%s'".formatted( timeout, threshold ) );
 
         //---* Done *----------------------------------------------------------
         return retValue;

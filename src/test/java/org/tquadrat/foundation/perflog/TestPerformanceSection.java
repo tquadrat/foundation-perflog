@@ -47,7 +47,6 @@ import org.tquadrat.foundation.exception.BlankArgumentException;
 import org.tquadrat.foundation.exception.EmptyArgumentException;
 import org.tquadrat.foundation.exception.NullArgumentException;
 import org.tquadrat.foundation.exception.UnlikelyExceptionError;
-import org.tquadrat.foundation.exception.ValidationException;
 import org.tquadrat.foundation.perflog.PerformanceSection.PerformanceSectionFlags;
 import org.tquadrat.foundation.testutil.TestBaseClass;
 import org.tquadrat.foundation.value.TimeValue;
@@ -117,24 +116,24 @@ public class TestPerformanceSection extends TestBaseClass
 
         assertThrows( NullArgumentException.class, () -> new PerformanceSection( null, description, threshold, timeout, flags ) );
 
-        assertThrows( ValidationException.class, () -> new PerformanceSection( nameString, description, 0L, timeoutValue, flags ) );
-        assertThrows( ValidationException.class, () -> new PerformanceSection( nameString, description, 200L, timeoutValue, flags ) );
-        assertThrows( ValidationException.class, () -> new PerformanceSection( nameString, description, -200L, timeoutValue, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( nameString, description, 0L, timeoutValue, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( nameString, description, 200L, timeoutValue, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( nameString, description, -200L, timeoutValue, flags ) );
 
-        assertThrows( ValidationException.class, () -> new PerformanceSection( name, description, new TimeValue( MILLISECOND, ZERO ), timeout, flags ) );
-        assertThrows( ValidationException.class, () -> new PerformanceSection( name, description, new TimeValue( MILLISECOND, 200 ), timeout, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( name, description, new TimeValue( MILLISECOND, ZERO ), timeout, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( name, description, new TimeValue( MILLISECOND, 200 ), timeout, flags ) );
 
-        assertThrows( ValidationException.class, () -> new PerformanceSection( nameString, description, null, 0L, flags ) );
-        assertThrows( ValidationException.class, () -> new PerformanceSection( nameString, description, null, -200L, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( nameString, description, null, 0L, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( nameString, description, null, -200L, flags ) );
 
-        assertThrows( ValidationException.class, () -> new PerformanceSection( name, description, null, new TimeValue( MILLISECOND, ZERO ), flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( name, description, null, new TimeValue( MILLISECOND, ZERO ), flags ) );
 
-        assertThrows( ValidationException.class, () -> new PerformanceSection( nameString, description, thresholdValue, 0L, flags ) );
-        assertThrows( ValidationException.class, () -> new PerformanceSection( nameString, description, thresholdValue, -200L, flags ) );
-        assertThrows( ValidationException.class, () -> new PerformanceSection( nameString, description, thresholdValue, thresholdValue, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( nameString, description, thresholdValue, 0L, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( nameString, description, thresholdValue, -200L, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( nameString, description, thresholdValue, thresholdValue, flags ) );
 
-        assertThrows( ValidationException.class, () -> new PerformanceSection( name, description, threshold, new TimeValue( MILLISECOND, ZERO ), flags ) );
-        assertThrows( ValidationException.class, () -> new PerformanceSection( name, description, threshold, threshold, flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( name, description, threshold, new TimeValue( MILLISECOND, ZERO ), flags ) );
+        assertThrows( IllegalArgumentException.class, () -> new PerformanceSection( name, description, threshold, threshold, flags ) );
 
         assertThrows( NullArgumentException.class, () -> new PerformanceSection( nameString, description, thresholdValue, timeoutValue, (PerformanceSectionFlags[]) null ) );
 
@@ -200,10 +199,10 @@ public class TestPerformanceSection extends TestBaseClass
         assertTrue( candidate.getTimeout().isEmpty() );
 
         assertThrows( NullArgumentException.class, () -> candidate.setThreshold( null ) );
-        assertThrowsExactly( ValidationException.class, () -> candidate.setThreshold( new TimeValue( MILLISECOND, ZERO ) ) );
+        assertThrowsExactly( IllegalArgumentException.class, () -> candidate.setThreshold( new TimeValue( MILLISECOND, ZERO ) ) );
 
         assertThrows( NullArgumentException.class, () -> candidate.setTimeout( null ) );
-        assertThrowsExactly( ValidationException.class, () -> candidate.setTimeout( new TimeValue( MILLISECOND, ZERO ) ) );
+        assertThrowsExactly( IllegalArgumentException.class, () -> candidate.setTimeout( new TimeValue( MILLISECOND, ZERO ) ) );
 
         final var threshold = new TimeValue( MILLISECOND, 10 );
         candidate.setThreshold( threshold );
@@ -212,15 +211,15 @@ public class TestPerformanceSection extends TestBaseClass
         assertEquals( threshold, candidate.getThreshold().get() );
 
         final var timeout = (TimeValue) threshold.multiply( 2 );
-        assertThrows( ValidationException.class, () -> candidate.setTimeout( threshold ) );
-        assertThrows( ValidationException.class, () -> candidate.setTimeout( (TimeValue) threshold.divide( 2 ) ) );
+        assertThrows( IllegalArgumentException.class, () -> candidate.setTimeout( threshold ) );
+        assertThrows( IllegalArgumentException.class, () -> candidate.setTimeout( (TimeValue) threshold.divide( 2 ) ) );
         candidate.setTimeout( timeout );
         assertTrue( candidate.getTimeout().isPresent() );
         assertTrue( candidate.getThreshold().isPresent() );
         assertEquals( timeout, candidate.getTimeout().get() );
 
-        assertThrows( ValidationException.class, () -> candidate.setThreshold( timeout ) );
-        assertThrows( ValidationException.class, () -> candidate.setThreshold( (TimeValue) timeout.multiply( 2 ) ) );
+        assertThrows( IllegalArgumentException.class, () -> candidate.setThreshold( timeout ) );
+        assertThrows( IllegalArgumentException.class, () -> candidate.setThreshold( (TimeValue) timeout.multiply( 2 ) ) );
 
         candidate.switchOffThreshold();
         assertTrue( candidate.getThreshold().isEmpty() );
@@ -242,9 +241,9 @@ public class TestPerformanceSection extends TestBaseClass
         skipThreadTest();
 
         assertThrows( IllegalArgumentException.class, () -> validateThresholdAndTimeout( new TimeValue( MILLISECOND, ONE ), new TimeValue( MILLISECOND, TWO ), new TimeValue( MILLISECOND, 3 ) ) );
-        assertThrows( ValidationException.class, () -> validateThresholdAndTimeout( new TimeValue( MILLISECOND, ZERO ), new TimeValue( MILLISECOND, ZERO ), null ) );
-        assertThrows( ValidationException.class, () -> validateThresholdAndTimeout( new TimeValue( MILLISECOND, ZERO ), null, new TimeValue( MILLISECOND, ZERO ) ) );
-        assertThrows( ValidationException.class, () -> validateThresholdAndTimeout( new TimeValue( MILLISECOND, 5 ), new TimeValue( MILLISECOND, 7 ), new TimeValue( MILLISECOND, 5 ) ) );
+        assertThrows( IllegalArgumentException.class, () -> validateThresholdAndTimeout( new TimeValue( MILLISECOND, ZERO ), new TimeValue( MILLISECOND, ZERO ), null ) );
+        assertThrows( IllegalArgumentException.class, () -> validateThresholdAndTimeout( new TimeValue( MILLISECOND, ZERO ), null, new TimeValue( MILLISECOND, ZERO ) ) );
+        assertThrows( IllegalArgumentException.class, () -> validateThresholdAndTimeout( new TimeValue( MILLISECOND, 5 ), new TimeValue( MILLISECOND, 7 ), new TimeValue( MILLISECOND, 5 ) ) );
 
         assertNull( validateThresholdAndTimeout( null, null, null ) );
         assertNull( validateThresholdAndTimeout( null, new TimeValue( MILLISECOND, 7 ), null ) );
@@ -263,9 +262,9 @@ public class TestPerformanceSection extends TestBaseClass
      *  @param  threshold   The value for the threshold.
      *  @param  timeout The value for the timeout.
      *  @return The return value.
-     *  @throws ValidationException A value is invalid.
+     *  @throws IllegalArgumentException A value is invalid.
      */
-    private static final TimeValue validateThresholdAndTimeout( final TimeValue value, final TimeValue threshold, final TimeValue timeout ) throws ValidationException
+    private static final TimeValue validateThresholdAndTimeout( final TimeValue value, final TimeValue threshold, final TimeValue timeout ) throws IllegalArgumentException
     {
         final TimeValue retValue;
         try
